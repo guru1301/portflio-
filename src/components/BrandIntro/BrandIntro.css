@@ -1,0 +1,162 @@
+/* ==========================================================================
+   BRAND INTRO — CINEMATIC LUXURY IDENTITY REVEAL
+   Precision Architectural Styling, Volumetric Atmosphere, and Optical Typography
+   ========================================================================== */
+
+/* Fullscreen High-Performance Atmosphere Container */
+.brand-intro-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  background-color: #08080c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Atmospheric Ambient Vignette & Volumetric Core Luminescence */
+.brand-intro-atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 48%,
+    rgba(230, 57, 70, 0.16) 0%,
+    rgba(20, 20, 28, 0.85) 35%,
+    rgba(10, 10, 14, 0.98) 70%,
+    #08080c 100%
+  );
+}
+
+/* Subtle Architectural Matrix Backdrop Grid */
+.brand-intro-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center center;
+}
+
+/* Precision Corner Viewfinder Brackets */
+.brand-intro-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+
+.brand-intro-corner-tl {
+  top: 32px;
+  left: 32px;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.brand-intro-corner-tr {
+  top: 32px;
+  right: 32px;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+.brand-intro-corner-bl {
+  bottom: 32px;
+  left: 32px;
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.brand-intro-corner-br {
+  bottom: 32px;
+  right: 32px;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+/* Optical Typographic Signature */
+.brand-intro-typography {
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
+}
+
+.brand-intro-subtitle {
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+}
+
+/* Refined Status Pill Badge */
+.brand-intro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+/* Luxury Non-Intrusive Skip Affordance */
+.brand-intro-skip {
+  position: absolute;
+  bottom: 30px;
+  right: 32px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
+  z-index: 20;
+}
+
+.brand-intro-skip:hover {
+  color: #ffffff;
+  border-color: #e63946;
+  background: rgba(230, 57, 70, 0.12);
+  box-shadow: 0 0 16px rgba(230, 57, 70, 0.25);
+}
+
+/* Telemetry Micro Status Pill (Top Center) */
+.brand-intro-telemetry {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-intro-telemetry-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #e63946;
+  box-shadow: 0 0 8px #e63946;
+}
