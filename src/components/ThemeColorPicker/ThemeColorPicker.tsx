@@ -97,7 +97,7 @@ export const ThemeColorPicker: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute right-0 top-12 w-[310px] sm:w-[340px] p-5 rounded-3xl bg-[#0f0f14]/95 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[1000] text-white"
+            className="fixed inset-x-3 top-16 sm:absolute sm:inset-x-auto sm:right-0 sm:top-12 w-auto sm:w-[340px] max-w-[calc(100vw-24px)] p-4 sm:p-5 rounded-3xl bg-[#0f0f14]/95 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[1000] text-white"
           >
             {/* Header bar */}
             <div className="flex justify-between items-center pb-3 border-b border-white/10">

@@ -55,7 +55,7 @@ export const HeroToWorkTransition: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full py-16 md:py-24 px-6 md:px-12 overflow-hidden flex flex-col items-center justify-center bg-[#0c0c10] text-[#f5f5f7] border-b border-white/10"
+      className="relative w-full py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 overflow-hidden flex flex-col items-center justify-center bg-[#0c0c10] text-[#f5f5f7] border-b border-white/10"
     >
       <div className="w-full max-w-6xl flex flex-col items-start">
         <LoopingLabel
@@ -65,7 +65,7 @@ export const HeroToWorkTransition: React.FC = () => {
 
         <h2
           ref={textRef}
-          className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none uppercase select-none text-white"
+          className="font-display text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none uppercase select-none text-white"
         >
           SELECTED WORK
         </h2>

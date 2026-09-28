@@ -202,7 +202,7 @@ export const TechStackCanvas: React.FC = () => {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="relative w-full aspect-[4/3] md:aspect-[16/9] min-h-[560px] md:min-h-[620px] bg-[#111115] border border-white/10 rounded-3xl p-6 md:p-12 overflow-hidden shadow-2xl touch-none"
+        className="relative w-full aspect-[4/3] md:aspect-[16/9] min-h-[480px] sm:min-h-[540px] md:min-h-[620px] bg-[#111115] border border-white/10 rounded-3xl p-4 sm:p-6 md:p-12 overflow-hidden shadow-2xl touch-pan-y"
       >
         {/* Subtle Grid Background */}
         <div
@@ -340,7 +340,7 @@ export const TechStackCanvas: React.FC = () => {
             zIndex: draggingId === 'guru' ? 50 : 25,
             width: guruW,
           }}
-          className={`absolute top-0 left-0 cursor-grab active:cursor-grabbing transition-shadow duration-200 ${
+          className={`absolute top-0 left-0 cursor-grab active:cursor-grabbing transition-shadow duration-200 touch-none ${
             draggingId === 'guru' ? 'scale-[1.02] shadow-[0_20px_50px_rgba(0,0,0,0.9)]' : ''
           }`}
         >
@@ -386,7 +386,7 @@ export const TechStackCanvas: React.FC = () => {
                 transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,
                 zIndex: isDragging ? 50 : isSelected ? 35 : 20,
               }}
-              className={`absolute top-0 left-0 cursor-grab active:cursor-grabbing transition-all duration-200 ${
+              className={`absolute top-0 left-0 cursor-grab active:cursor-grabbing transition-all duration-200 touch-none ${
                 isDragging ? 'scale-[1.05] shadow-[0_20px_45px_rgba(0,0,0,0.9)]' : ''
               }`}
             >

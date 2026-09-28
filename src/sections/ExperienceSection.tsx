@@ -4,8 +4,8 @@ import { LoopingLabel } from '../components/LoopingLabel';
 
 export const ExperienceSection: React.FC = () => {
   return (
-    <section id="experience" className="relative w-full py-28 md:py-40 px-6 md:px-12 lg:px-20 bg-[#f8f7f3]">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <section id="experience" className="relative w-full py-16 sm:py-24 md:py-40 px-4 sm:px-6 md:px-12 lg:px-20 bg-[#f8f7f3]">
+      <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
         {/* Header */}
         <div className="flex justify-between items-center text-xs font-mono-custom text-[#555560] tracking-widest uppercase border-b border-black/10 pb-4">
           <LoopingLabel
@@ -16,14 +16,14 @@ export const ExperienceSection: React.FC = () => {
         </div>
 
         <div>
-          <h2 className="font-display text-4xl md:text-7xl lg:text-8xl font-black text-[#111115] tracking-tighter uppercase">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-[#111115] tracking-tighter uppercase">
             EXPERIENCE & <br />
             <span className="text-[#e63946]">PROFESSIONAL TRAININGS</span>
           </h2>
         </div>
 
         {/* Editorial Timeline */}
-        <div className="space-y-12 relative before:absolute before:left-4 md:before:left-12 before:top-4 before:bottom-4 before:w-[1px] before:bg-black/5">
+        <div className="space-y-10 relative before:absolute before:left-3 md:before:left-12 before:top-4 before:bottom-4 before:w-[1px] before:bg-black/10">
           {EXPERIENCE_DATA.map((exp, idx) => (
             <motion.div
               key={idx}
@@ -31,12 +31,12 @@ export const ExperienceSection: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className="relative pl-12 md:pl-24 group"
+              className="relative pl-8 sm:pl-10 md:pl-24 group"
             >
               {/* Timeline marker node */}
-              <div className="absolute left-2 md:left-10 top-2 -translate-x-1/2 w-5 h-5 rounded-full border-2 border-white/40 bg-[#f8f7f3] group-hover:border-[#e63946] group-hover:bg-[#e63946] transition-colors" />
+              <div className="absolute left-3 md:left-12 top-3 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-white/40 bg-[#f8f7f3] group-hover:border-[#e63946] group-hover:bg-[#e63946] transition-colors" />
 
-              <div className="p-8 rounded-3xl domain-card-bg border border-white/15 group-hover:border-[#e63946]/50 shadow-2xl transition-all space-y-4">
+              <div className="p-5 sm:p-7 md:p-8 rounded-3xl domain-card-bg border border-white/15 group-hover:border-[#e63946]/50 shadow-2xl transition-all space-y-4">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
                   <div>
                     <span className="font-mono-custom text-xs font-bold text-[#e63946] uppercase tracking-widest">

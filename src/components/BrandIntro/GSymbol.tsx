@@ -137,7 +137,7 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
     return (
       <div
         ref={containerRef}
-        className={`relative w-72 h-72 sm:w-88 sm:h-88 md:w-[420px] md:h-[420px] flex items-center justify-center select-none ${className}`}
+        className={`relative w-64 h-64 sm:w-80 sm:h-80 md:w-[420px] md:h-[420px] flex items-center justify-center select-none ${className}`}
         style={{ perspective: 1400, transformStyle: 'preserve-3d' }}
       >
         <svg

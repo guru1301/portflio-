@@ -5,8 +5,8 @@ import { LoopingLabel } from '../components/LoopingLabel';
 
 export const ContactSection: React.FC = () => {
   return (
-    <section id="contact" className="relative w-full py-24 md:py-40 px-6 md:px-12 lg:px-20 bg-[#0c0c10] text-[#f5f5f7] border-t border-white/10">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <section id="contact" className="relative w-full py-16 sm:py-24 md:py-40 px-4 sm:px-6 md:px-12 lg:px-20 bg-[#0c0c10] text-[#f5f5f7] border-t border-white/10">
+      <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
         {/* Header */}
         <div className="flex justify-between items-center text-xs font-mono-custom text-white/50 tracking-widest uppercase border-b border-white/10 pb-4">
           <LoopingLabel
@@ -18,7 +18,7 @@ export const ContactSection: React.FC = () => {
 
         {/* Large Statement */}
         <div>
-          <h2 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85] uppercase text-white">
+          <h2 className="font-display text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.88] uppercase text-white">
             LET'S <br />
             <span className="text-[#e63946]">BUILD</span> <br />
             SOMETHING.
@@ -26,7 +26,7 @@ export const ContactSection: React.FC = () => {
         </div>
 
         {/* Contact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-8 border-t border-white/10">
           {/* Email Direct */}
           <div className="space-y-2">
             <span className="font-mono-custom text-xs text-white/50 uppercase tracking-wider">
@@ -35,11 +35,11 @@ export const ContactSection: React.FC = () => {
             <div>
               <a
                 href={`mailto:${DEVELOPER_INFO.email}`}
-                className="font-display text-lg md:text-xl font-bold text-white hover:text-[#e63946] transition-colors flex items-center gap-2"
+                className="font-display text-base sm:text-lg md:text-xl font-bold text-white hover:text-[#e63946] transition-colors flex items-center gap-2 break-all sm:break-normal"
                 data-cursor-label="MAIL"
               >
                 {DEVELOPER_INFO.email}
-                <ArrowUpRight className="w-4 h-4 text-[#e63946]" />
+                <ArrowUpRight className="w-4 h-4 text-[#e63946] shrink-0" />
               </a>
             </div>
           </div>

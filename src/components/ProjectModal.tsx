@@ -43,10 +43,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.98 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-5xl domain-card-bg border border-white/15 rounded-3xl overflow-hidden pointer-events-auto shadow-2xl my-auto max-h-[90vh] flex flex-col"
+          className="relative w-full max-w-5xl domain-card-bg border border-white/15 rounded-t-3xl sm:rounded-3xl overflow-hidden pointer-events-auto shadow-2xl mt-auto sm:my-auto max-h-[92vh] sm:max-h-[90vh] flex flex-col"
         >
           {/* Header Bar */}
-          <div className="sticky top-0 z-30 flex items-center justify-between px-6 py-5 bg-[#18181e]/95 backdrop-blur-md border-b border-white/10">
+          <div className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-5 bg-[#18181e]/95 backdrop-blur-md border-b border-white/10">
             <div className="flex items-center gap-3">
               <span className="font-mono-custom text-xs font-bold text-[#e63946]">
                 [ {project.number} ]
@@ -58,7 +58,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
             <button
               onClick={onClose}
-              className="p-2 rounded-full border border-white/20 bg-white/5 hover:bg-[#e63946] hover:border-[#e63946] text-white transition-all cursor-pointer focus:outline-none"
+              className="p-2 sm:p-2.5 min-w-[40px] min-h-[40px] rounded-full border border-white/20 bg-white/5 hover:bg-[#e63946] hover:border-[#e63946] text-white flex items-center justify-center transition-all cursor-pointer focus:outline-none"
               data-cursor-label="CLOSE"
               aria-label="Close case study modal"
             >
@@ -67,10 +67,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
 
           {/* Scrollable Body */}
-          <div className="overflow-y-auto p-6 md:p-10 space-y-12">
+          <div className="overflow-y-auto p-4 sm:p-6 md:p-10 space-y-8 md:space-y-12">
             {/* Title Section */}
             <div>
-              <h2 className="font-display text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">
+              <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">
                 {project.title}
               </h2>
               <p className="font-display text-lg md:text-xl text-[#e63946] mt-2 font-semibold">

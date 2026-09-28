@@ -43,7 +43,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   return (
     <>
       {/* Top Header Fixed Bar */}
-      <header className="fixed top-0 left-0 w-full z-[999] px-6 py-5 md:px-12 md:py-6 flex justify-between items-center pointer-events-none">
+      <header className="fixed top-0 left-0 w-full z-[999] px-4 py-3.5 sm:px-6 sm:py-4 md:px-12 md:py-6 flex justify-between items-center pointer-events-none">
         {/* Brand Top Left - Minimal GURU Logo */}
         <button
           onClick={() => handleLinkClick('home')}
@@ -83,7 +83,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             animate={{ opacity: 1, clipPath: 'circle(150% at 95% 5%)' }}
             exit={{ opacity: 0, clipPath: 'circle(0.5% at 95% 5%)' }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[998] flex flex-col justify-between p-8 md:p-16 lg:p-20 overflow-y-auto bg-[#111115] text-[#f5f5f7]"
+            className="fixed inset-0 z-[998] flex flex-col justify-between p-6 sm:p-8 md:p-16 lg:p-20 overflow-y-auto bg-[#111115] text-[#f5f5f7]"
           >
             {/* Top info */}
             <div className="flex justify-between items-center text-xs font-mono-custom text-[#555560] tracking-widest pt-12 md:pt-4">

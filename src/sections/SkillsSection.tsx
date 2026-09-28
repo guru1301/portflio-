@@ -8,8 +8,8 @@ export const SkillsSection: React.FC = () => {
   const [activeSkill, setActiveSkill] = useState<SkillItem | null>(null);
 
   return (
-    <section id="skills" className="relative w-full py-20 md:py-36 px-6 md:px-12 lg:px-20 overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto space-y-12">
+    <section id="skills" className="relative w-full py-16 sm:py-24 md:py-36 px-4 sm:px-6 md:px-12 lg:px-20 overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto space-y-10 sm:space-y-12">
 
         {/* Header */}
         <div className="flex justify-between items-center text-xs font-mono-custom opacity-60 tracking-widest uppercase border-b border-current/10 pb-4">
@@ -21,26 +21,26 @@ export const SkillsSection: React.FC = () => {
         </div>
 
         <div>
-          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter uppercase">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase">
             SKILLS & <br />
             <span className="text-[#e63946]">TECHNICAL SPECTRUM</span>
           </h2>
-          <p className="font-mono-custom text-xs md:text-sm opacity-70 mt-3">
-            Hover over any technology keyword to inspect application context.
+          <p className="font-mono-custom text-xs md:text-sm opacity-70 mt-2 sm:mt-3">
+            Tap or hover over any technology keyword to inspect application context.
           </p>
         </div>
 
         {/* Dynamic Typography Skill Field */}
-        <div className="relative py-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 md:gap-x-8 md:gap-y-6 max-w-5xl mx-auto">
+        <div className="relative py-4 sm:py-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-6 sm:gap-y-4 md:gap-x-8 md:gap-y-6 max-w-5xl mx-auto">
           {SKILLS_DATA.map((skill) => {
             const isSelected = activeSkill?.name === skill.name;
 
             const sizeClasses =
               skill.size === 'lg'
-                ? 'text-2xl sm:text-4xl md:text-5xl font-extrabold'
+                ? 'text-xl sm:text-3xl md:text-5xl font-extrabold'
                 : skill.size === 'md'
-                ? 'text-xl sm:text-3xl md:text-4xl font-bold'
-                : 'text-lg sm:text-xl md:text-2xl font-semibold';
+                ? 'text-lg sm:text-2xl md:text-4xl font-bold'
+                : 'text-base sm:text-xl md:text-2xl font-semibold';
 
             return (
               <motion.div
@@ -64,7 +64,7 @@ export const SkillsSection: React.FC = () => {
                 </span>
 
                 {/* Subtle bullet separator */}
-                <span className="ml-4 md:ml-6 opacity-20 text-lg font-mono-custom">•</span>
+                <span className="ml-2 sm:ml-4 md:ml-6 opacity-20 text-sm sm:text-lg font-mono-custom">•</span>
               </motion.div>
             );
           })}
@@ -80,7 +80,7 @@ export const SkillsSection: React.FC = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -15, scale: 0.98 }}
                 transition={{ duration: 0.2 }}
-                className="p-6 md:p-8 rounded-2xl domain-card-bg border border-white/15 border-t-[#e63946]/50 max-w-xl w-full text-center space-y-3 shadow-2xl shadow-black/40"
+                className="p-4 sm:p-6 md:p-8 rounded-2xl domain-card-bg border border-white/15 border-t-[#e63946]/50 max-w-xl w-full text-center space-y-2.5 sm:space-y-3 shadow-2xl shadow-black/40"
               >
                 <div className="flex items-center justify-center gap-3">
                   <span className="font-mono-custom text-xs font-bold text-[#e63946] uppercase tracking-widest bg-[#e63946]/10 px-2.5 py-1 rounded-md border border-[#e63946]/30">

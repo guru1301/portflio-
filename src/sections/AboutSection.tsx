@@ -125,7 +125,7 @@ export const AboutSection: React.FC = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="relative w-full py-20 md:py-32 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative w-full py-16 sm:py-20 md:py-32 px-4 sm:px-6 md:px-12 lg:px-20 overflow-hidden"
     >
       {/* Subtle radial glow behind headline */}
       <div
@@ -242,12 +242,12 @@ export const AboutSection: React.FC = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, margin: '-60px' }}
                 transition={{ duration: 0.55, delay: idx * 0.13, ease: [0.22, 1, 0.36, 1] }}
-                className="relative pl-10 md:pl-20 group"
+                className="relative pl-8 sm:pl-10 md:pl-20 group"
               >
                 {/* Timeline node */}
-                <div className="absolute left-1.5 md:left-6 top-3 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-[#e63946] bg-[#f8f7f3] group-hover:scale-125 group-hover:bg-[#e63946] transition-all duration-300" />
+                <div className="absolute left-3 md:left-8 top-3.5 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-[#e63946] bg-[#f8f7f3] group-hover:scale-125 group-hover:bg-[#e63946] transition-all duration-300" />
 
-                <div className="p-6 md:p-8 rounded-2xl domain-card-bg border border-white/15 group-hover:border-[#e63946]/50 shadow-2xl transition-all duration-300 space-y-3">
+                <div className="p-4 sm:p-6 md:p-8 rounded-2xl domain-card-bg border border-white/15 group-hover:border-[#e63946]/50 shadow-2xl transition-all duration-300 space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
                     <span className="font-mono-custom text-xs font-bold text-[#e63946] uppercase tracking-widest">
                       {edu.period}

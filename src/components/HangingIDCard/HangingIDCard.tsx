@@ -39,20 +39,20 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Compute responsive anchor X position (placed cleanly on the right side)
+  // Compute responsive anchor X position (placed cleanly without text collision on mobile)
   const anchorX = useMemo(() => {
-    if (windowWidth < 640) return 0.5; // Slightly right of center on mobile
-    if (windowWidth < 1024) return 1.8; // Right of center on tablet
-    if (windowWidth < 1440) return 2.8; // Right on standard desktop
-    return 3.2; // Right on wide desktop
+    if (windowWidth < 640) return 0.85; // Upper right on mobile, clear of headline text
+    if (windowWidth < 1024) return 1.8;  // Right of center on tablet
+    if (windowWidth < 1440) return 2.8;  // Right on standard desktop
+    return 3.2;                          // Right on wide desktop
   }, [windowWidth]);
 
-  // Compute responsive scale for clear text visibility
+  // Compute responsive scale for clear text visibility and non-intrusive mobile size
   const responsiveScale = useMemo(() => {
-    if (windowWidth < 640) return 0.65; // Mobile
-    if (windowWidth < 1024) return 0.76; // Tablet
+    if (windowWidth < 640) return 0.52; // Compact, lightweight on mobile
+    if (windowWidth < 1024) return 0.74; // Tablet
     if (windowWidth < 1440) return 0.86; // Desktop
-    return 0.94; // Large desktop
+    return 0.94;                         // Large desktop
   }, [windowWidth]);
 
   // Merge default config with user overrides and responsive positioning
@@ -71,12 +71,13 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
   }, [userConfig, responsiveScale, anchorX, accentColor]);
 
   const defaultClasses =
-    'absolute inset-0 w-full h-full pointer-events-none z-20 overflow-hidden';
+    'absolute inset-0 w-full h-full z-20 overflow-hidden';
 
   return (
     <div
-      className={`select-none touch-none ${className || defaultClasses}`}
-      aria-label="Interactive 3D Hanging ID Badge - Drag freely left and right across hero"
+      className={`select-none touch-pan-y pointer-events-none ${className || defaultClasses}`}
+      style={{ touchAction: 'pan-y' }}
+      aria-label="Interactive 3D Hanging ID Badge"
     >
       <Canvas
         camera={{ position: [0, 0.2, 7.8], fov: 38 }}
@@ -91,6 +92,7 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
           width: '100%',
           height: '100%',
           pointerEvents: 'auto',
+          touchAction: 'pan-y',
         }}
       >
         <IDCardScene

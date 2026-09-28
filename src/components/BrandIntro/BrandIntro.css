@@ -160,3 +160,34 @@
   background-color: #e63946;
   box-shadow: 0 0 8px #e63946;
 }
+
+/* Mobile Viewport Optimizations */
+@media (max-width: 640px) {
+  .brand-intro-corner-tl { top: 16px; left: 16px; }
+  .brand-intro-corner-tr { top: 16px; right: 16px; }
+  .brand-intro-corner-bl { bottom: 16px; left: 16px; }
+  .brand-intro-corner-br { bottom: 16px; right: 16px; }
+
+  .brand-intro-skip {
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    right: 20px;
+    font-size: 9px;
+    padding: 5px 12px;
+  }
+
+  .brand-intro-telemetry {
+    top: 16px;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+  }
+
+  .brand-intro-typography {
+    letter-spacing: 0.28em;
+    text-indent: 0.28em;
+  }
+
+  .brand-intro-subtitle {
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+  }
+}

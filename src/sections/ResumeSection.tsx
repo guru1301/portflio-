@@ -61,23 +61,23 @@ export const ResumeSection: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full py-20 md:py-36 px-6 md:px-12 border-t border-b border-current/10">
-      <div className="max-w-6xl mx-auto flex flex-col items-center text-center space-y-10">
-        <span className="font-mono-custom text-xs font-bold text-[#e63946] tracking-widest uppercase border border-[#e63946]/40 px-4 py-1.5 rounded-full">
+    <section className="relative w-full py-16 sm:py-24 md:py-36 px-4 sm:px-6 md:px-12 border-t border-b border-current/10">
+      <div className="max-w-6xl mx-auto flex flex-col items-center text-center space-y-8 sm:space-y-10">
+        <span className="font-mono-custom text-xs font-bold text-[#e63946] tracking-widest uppercase border border-[#e63946]/40 px-3.5 py-1.5 rounded-full">
           [ AVAILABILITY & CAREER TARGET ]
         </span>
 
-        <h2 className="font-display text-4xl sm:text-6xl md:text-8xl font-black tracking-tight uppercase">
+        <h2 className="font-display text-3xl sm:text-5xl md:text-8xl font-black tracking-tight uppercase">
           OPEN TO <br />
           <span className="text-[#e63946]">OPPORTUNITY.</span>
         </h2>
 
         {/* Roles Grid */}
-        <div className="flex flex-wrap justify-center gap-3 max-w-3xl">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl">
           {['SOFTWARE ENGINEERING', 'DATA ANALYTICS', 'FULL-STACK DEVELOPMENT'].map((role) => (
             <span
               key={role}
-              className="px-4 py-2 rounded-full border border-current/20 font-mono-custom text-xs md:text-sm font-semibold tracking-wider"
+              className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-current/20 font-mono-custom text-[11px] sm:text-xs md:text-sm font-semibold tracking-wider"
             >
               {role}
             </span>
@@ -85,13 +85,13 @@ export const ResumeSection: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2 sm:pt-4 w-full sm:w-auto">
           <MagneticButton
             onClick={() => setShowResumeModal(true)}
             cursorLabel="RESUME"
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#e63946] text-black font-mono-custom text-sm font-black uppercase tracking-wider hover:bg-white transition-colors"
+            className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#e63946] text-white font-mono-custom text-xs sm:text-sm font-black uppercase tracking-wider hover:bg-white hover:text-black transition-colors min-h-[48px] flex items-center justify-center"
           >
-            <span className="flex items-center gap-3">
+            <span className="flex items-center justify-center gap-3">
               <FileText className="w-4 h-4" /> DOWNLOAD RESUME
             </span>
           </MagneticButton>
@@ -101,9 +101,10 @@ export const ResumeSection: React.FC = () => {
             target="_blank"
             rel="noreferrer"
             data-cursor-label="LINKEDIN"
+            className="w-full sm:w-auto"
           >
-            <MagneticButton className="w-full sm:w-auto px-8 py-4 rounded-full border border-current/30 bg-transparent text-current font-mono-custom text-sm font-bold uppercase tracking-wider hover:border-[#e63946] hover:text-[#e63946] transition-all">
-              <span className="flex items-center gap-3">
+            <MagneticButton className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full border border-current/30 bg-transparent text-current font-mono-custom text-xs sm:text-sm font-bold uppercase tracking-wider hover:border-[#e63946] hover:text-[#e63946] transition-all min-h-[48px] flex items-center justify-center">
+              <span className="flex items-center justify-center gap-3">
                 VIEW LINKEDIN <ArrowUpRight className="w-4 h-4" />
               </span>
             </MagneticButton>
@@ -119,7 +120,7 @@ export const ResumeSection: React.FC = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-2xl domain-card-bg border border-white/15 rounded-3xl p-6 md:p-8 space-y-6 shadow-2xl text-white"
+              className="relative w-full max-w-2xl domain-card-bg border border-white/15 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 shadow-2xl text-white"
             >
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <div className="flex items-center gap-2">

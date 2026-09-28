@@ -51,7 +51,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork }) => {
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-[90vh] md:min-h-screen w-full flex flex-col justify-between p-6 md:p-12 lg:p-16 overflow-hidden pt-24 md:pt-28 bg-[#0c0c10] text-[#f5f5f7]"
+      className="relative min-h-[90vh] md:min-h-screen w-full flex flex-col justify-between p-4 sm:p-8 md:p-12 lg:p-16 overflow-hidden pt-20 sm:pt-24 md:pt-28 bg-[#0c0c10] text-[#f5f5f7]"
     >
       {/* Background subtle radial lighting dynamically controlled by active theme color */}
       <div

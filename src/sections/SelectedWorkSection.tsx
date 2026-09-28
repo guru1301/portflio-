@@ -125,12 +125,12 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
       </div>
 
       {/* Mobile Vertical Fallback — All Cards Same Uniform Height & Width */}
-      <div className="block md:hidden px-5 py-12 space-y-8">
+      <div className="block md:hidden px-4 sm:px-6 py-10 sm:py-12 space-y-8">
         {PROJECTS_DATA.map((project) => (
           <div
             key={project.id}
             onClick={() => onSelectProject(project)}
-            className="w-full h-[490px] bg-white border border-black/10 rounded-2xl p-5 flex flex-col justify-between shadow-lg active:scale-[0.99] transition-transform group cursor-pointer"
+            className="w-full h-[470px] sm:h-[490px] bg-white border border-black/10 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-lg active:scale-[0.99] transition-transform group cursor-pointer"
           >
             {/* Mobile Header */}
             <div className="h-[74px] shrink-0 flex flex-col justify-between">
@@ -181,7 +181,7 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
                 ))}
               </div>
 
-              <button className="w-full py-2.5 rounded-xl border border-[#e63946] text-[#e63946] font-mono-custom text-xs uppercase tracking-wider font-bold hover:bg-[#e63946] hover:text-white transition-colors">
+              <button className="w-full py-3 min-h-[44px] rounded-xl border border-[#e63946] text-[#e63946] font-mono-custom text-xs uppercase tracking-wider font-bold hover:bg-[#e63946] hover:text-white transition-colors flex items-center justify-center">
                 VIEW CASE STUDY →
               </button>
             </div>
