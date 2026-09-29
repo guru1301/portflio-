@@ -29,7 +29,7 @@ export const ExperienceSection: React.FC = () => {
               key={idx}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
               className="relative pl-8 sm:pl-10 md:pl-24 group"
             >

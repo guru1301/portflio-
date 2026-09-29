@@ -94,8 +94,11 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
       }
     };
 
-    const handleWindowPointerUp = () => {
+    const handleWindowPointerUp = (e: PointerEvent) => {
       if (physics.isDragging) {
+        try {
+          gl.domElement.releasePointerCapture(e.pointerId);
+        } catch {}
         physics.onPointerUp();
         gl.domElement.style.cursor = 'grab';
       }
@@ -110,7 +113,7 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
       window.removeEventListener('pointerup', handleWindowPointerUp);
       window.removeEventListener('pointercancel', handleWindowPointerUp);
     };
-  }, [physics]);
+  }, [physics, gl.domElement]);
 
   // Dynamic Shadow Texture (Soft blurred circular gradient)
   const shadowTexture = useMemo(() => {
@@ -222,7 +225,9 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
       <group
         onPointerDown={(e) => {
           e.stopPropagation();
-          (e.target as HTMLElement)?.setPointerCapture?.(e.pointerId);
+          try {
+            gl.domElement.setPointerCapture(e.pointerId);
+          } catch {}
           physics.onPointerDown(e.clientX, e.clientY);
           gl.domElement.style.cursor = 'grabbing';
         }}

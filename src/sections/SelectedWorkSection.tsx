@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
@@ -12,16 +12,22 @@ interface SelectedWorkSectionProps {
 }
 
 export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSelectProject }) => {
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const mobileCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mobileCardInnerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mobileThumbImgRefs = useRef<(HTMLImageElement | null)[]>([]);
 
   useEffect(() => {
-    // Only apply horizontal pin on desktop screens (md: 768px+)
-    const isDesktop = window.innerWidth >= 768;
-    if (!isDesktop || !sectionRef.current || !scrollContainerRef.current) return;
+    if (!sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
-      const scrollWidth = scrollContainerRef.current!.scrollWidth - window.innerWidth;
+    const mm = gsap.matchMedia();
+
+    // DESKTOP: Horizontal Pin Scrub (Untouched — user said "laptop was great")
+    mm.add('(min-width: 768px)', () => {
+      if (!scrollContainerRef.current) return;
+      const scrollWidth = scrollContainerRef.current.scrollWidth - window.innerWidth;
 
       gsap.to(scrollContainerRef.current, {
         x: -scrollWidth,
@@ -35,15 +41,91 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
           invalidateOnRefresh: true,
         },
       });
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    // MOBILE: Smooth Stacking & Scroll Transitions (< 768px)
+    mm.add('(max-width: 767px)', () => {
+      PROJECTS_DATA.forEach((_, index) => {
+        const cardEl = mobileCardRefs.current[index];
+        const innerEl = mobileCardInnerRefs.current[index];
+        const imgEl = mobileThumbImgRefs.current[index];
+
+        if (!cardEl || !innerEl) return;
+
+        // Active project tracking for HUD & dynamic indicators
+        ScrollTrigger.create({
+          trigger: cardEl,
+          start: 'top 55%',
+          end: 'bottom 45%',
+          onEnter: () => setActiveMobileIndex(index),
+          onEnterBack: () => setActiveMobileIndex(index),
+        });
+
+        // 16:9 Thumbnail parallax motion while scrolling
+        if (imgEl) {
+          gsap.fromTo(
+            imgEl,
+            { yPercent: -8, scale: 1.08 },
+            {
+              yPercent: 8,
+              scale: 1.02,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: cardEl,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 0.3,
+              },
+            }
+          );
+        }
+
+        // Stacking Card Depth Transition:
+        // As the next card ascends and stacks on top of this one,
+        // smooth scale down and dim this card so it recesses into the stack!
+        const nextCardEl = mobileCardRefs.current[index + 1];
+        if (nextCardEl) {
+          gsap.to(innerEl, {
+            scale: 0.94,
+            opacity: 0.72,
+            filter: 'brightness(0.65)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: nextCardEl,
+              start: 'top 85%',
+              end: 'top 15%',
+              scrub: 0.3,
+            },
+          });
+        }
+      });
+    });
+
+    // Refresh ScrollTrigger calculations after initial paint
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+      mm.revert();
+    };
   }, []);
 
+  const scrollToMobileCard = (index: number) => {
+    const cardEl = mobileCardRefs.current[index];
+    if (cardEl) {
+      cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setActiveMobileIndex(index);
+    }
+  };
+
   return (
-    <section id="work" ref={sectionRef} className="relative bg-[#111115] overflow-hidden">
-      {/* Desktop Horizontal Pin Layout — All Cards Identical Dimensions */}
-      <div className="hidden md:block min-h-screen">
+    <section id="work" ref={sectionRef} className="relative bg-[#111115] md:overflow-hidden">
+      {/* ========================================================= */}
+      {/* DESKTOP LAYOUT (Unchanged horizontal pin scrub)           */}
+      {/* ========================================================= */}
+      <div className="hidden md:block min-h-screen overflow-hidden">
         <div
           ref={scrollContainerRef}
           className="flex flex-nowrap items-center h-screen pl-12 lg:pl-24 pr-24 lg:pr-48 gap-12 lg:gap-16"
@@ -58,7 +140,6 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
             >
               {/* Project Card — Uniform box dimensions across all projects */}
               <div className="relative w-full h-full bg-white border border-black/10 rounded-3xl p-6 lg:p-7 flex flex-col justify-between overflow-hidden group-hover:border-[#e63946] transition-colors duration-500 shadow-xl">
-
                 {/* Card Header — Fixed uniform height */}
                 <div className="flex justify-between items-start z-10 h-[84px] shrink-0">
                   <div className="flex-1 pr-4 min-w-0">
@@ -124,69 +205,154 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
         </div>
       </div>
 
-      {/* Mobile Vertical Fallback — All Cards Same Uniform Height & Width */}
-      <div className="block md:hidden px-4 sm:px-6 py-10 sm:py-12 space-y-8">
-        {PROJECTS_DATA.map((project) => (
-          <div
-            key={project.id}
-            onClick={() => onSelectProject(project)}
-            className="w-full h-[470px] sm:h-[490px] bg-white border border-black/10 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-lg active:scale-[0.99] transition-transform group cursor-pointer"
-          >
-            {/* Mobile Header */}
-            <div className="h-[74px] shrink-0 flex flex-col justify-between">
-              <div className="flex justify-between items-center">
-                <span className="font-mono-custom text-xs font-bold text-[#e63946]">
-                  [ PROJECT {project.number} ]
-                </span>
-                <span className="font-mono-custom text-[10px] text-[#888895] uppercase">
-                  {project.category}
-                </span>
-              </div>
-
-              <div>
-                <h3 className="font-display text-2xl font-black text-[#111115] uppercase truncate">
-                  {project.title}
-                </h3>
-                <p className="font-mono-custom text-xs text-[#555560] truncate">
-                  {project.subtitle}
-                </p>
-              </div>
-            </div>
-
-            {/* Thumbnail — Strict YouTube Banner 16:9 Aspect Ratio */}
-            <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-[#0c0c10] border border-black/10 shrink-0 my-auto shadow-inner">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-              <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-lg bg-black/60 backdrop-blur-md border border-white/10">
-                <p className="font-mono-custom text-[11px] text-white/90 truncate">
-                  {project.tagline}
-                </p>
-              </div>
-            </div>
-
-            {/* Mobile Footer */}
-            <div className="space-y-3 shrink-0">
-              <div className="flex items-center gap-1.5 overflow-hidden">
-                {project.technologies.slice(0, 3).map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2.5 py-1 rounded-full border border-black/10 bg-[#f5f4f0] text-[10px] font-mono-custom text-[#555560] whitespace-nowrap shrink-0"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <button className="w-full py-3 min-h-[44px] rounded-xl border border-[#e63946] text-[#e63946] font-mono-custom text-xs uppercase tracking-wider font-bold hover:bg-[#e63946] hover:text-white transition-colors flex items-center justify-center">
-                VIEW CASE STUDY →
-              </button>
+      {/* ========================================================= */}
+      {/* MOBILE EXPERIENCE: Cinematic Stacking Cards & HUD         */}
+      {/* ========================================================= */}
+      
+      {/* Mobile Sticky HUD Bar: Real-time project tracking and quick jump */}
+      <div className="block md:hidden sticky top-0 z-30 bg-[#111115]/95 backdrop-blur-md border-b border-white/10 px-4 py-3 shadow-lg">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#e63946]/20 border border-[#e63946]/40 text-[#e63946] font-mono-custom text-xs font-bold shrink-0">
+              {String(activeMobileIndex + 1).padStart(2, '0')} / {String(PROJECTS_DATA.length).padStart(2, '0')}
+            </span>
+            <div className="flex items-center gap-1.5 truncate">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#e63946] animate-pulse shrink-0" />
+              <span className="font-display font-black text-sm text-white uppercase tracking-wide truncate">
+                {PROJECTS_DATA[activeMobileIndex]?.title}
+              </span>
             </div>
           </div>
-        ))}
+
+          {/* Quick Jump Dots */}
+          <div className="flex items-center gap-1.5 shrink-0 pl-2">
+            {PROJECTS_DATA.map((p, idx) => (
+              <button
+                key={p.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  scrollToMobileCard(idx);
+                }}
+                aria-label={`Jump to project ${p.title}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeMobileIndex === idx
+                    ? 'w-6 bg-[#e63946] shadow-[0_0_8px_rgba(230,57,70,0.8)]'
+                    : 'w-2 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Dynamic Scroll Progress Bar */}
+        <div className="w-full h-[2px] bg-white/10 rounded-full mt-2.5 overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-[#e63946] via-[#ff4d6d] to-[#e63946] transition-all duration-300 ease-out"
+            style={{ width: `${((activeMobileIndex + 1) / PROJECTS_DATA.length) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Mobile Card Deck Flow — Native Sticky Stacking with GSAP Scrub Physics */}
+      <div className="block md:hidden px-4 sm:px-6 pt-5 pb-24 space-y-10">
+        {PROJECTS_DATA.map((project, index) => {
+          const isActive = activeMobileIndex === index;
+          return (
+            <div
+              key={project.id}
+              id={`mobile-card-${index}`}
+              ref={(el) => {
+                mobileCardRefs.current[index] = el;
+              }}
+              style={{
+                position: 'sticky',
+                top: `${72 + index * 8}px`,
+                zIndex: index + 10,
+              }}
+              className="touch-pan-y"
+            >
+              {/* Inner Card with animated scale, dimming, and elevation */}
+              <div
+                ref={(el) => {
+                  mobileCardInnerRefs.current[index] = el;
+                }}
+                onClick={() => onSelectProject(project)}
+                className={`w-full h-[470px] sm:h-[490px] bg-white rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-2xl transition-all duration-300 cursor-pointer ${
+                  isActive
+                    ? 'border-2 border-[#e63946] shadow-[0_16px_40px_rgba(0,0,0,0.4),0_0_24px_rgba(230,57,70,0.2)]'
+                    : 'border border-black/10 shadow-xl'
+                }`}
+              >
+                {/* Mobile Header */}
+                <div className="h-[74px] shrink-0 flex flex-col justify-between">
+                  <div className="flex justify-between items-center">
+                    <span className="font-mono-custom text-xs font-bold text-[#e63946] tracking-wider uppercase">
+                      [ PROJECT {project.number} ]
+                    </span>
+                    <span className="font-mono-custom text-[10px] text-[#888895] uppercase font-semibold tracking-wider">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="font-display text-2xl font-black text-[#111115] uppercase tracking-tight truncate">
+                      {project.title}
+                    </h3>
+                    <p className="font-mono-custom text-xs text-[#555560] truncate font-medium">
+                      {project.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Thumbnail — Strict YouTube Banner 16:9 Aspect Ratio with Parallax */}
+                <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-[#0c0c10] border border-black/10 shrink-0 my-auto shadow-inner group/thumb">
+                  <img
+                    ref={(el) => {
+                      mobileThumbImgRefs.current[index] = el;
+                    }}
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70" />
+
+                  {/* Category Badge on Thumbnail */}
+                  <div className="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
+                    <span className="font-mono-custom text-[9px] text-white/90 tracking-wider uppercase font-semibold">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  {/* Tagline at Bottom */}
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-lg bg-black/65 backdrop-blur-md border border-white/10">
+                    <p className="font-mono-custom text-[11px] text-white/90 truncate">
+                      {project.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Mobile Footer */}
+                <div className="space-y-3 shrink-0">
+                  <div className="flex items-center gap-1.5 overflow-hidden">
+                    {project.technologies.slice(0, 3).map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2.5 py-1 rounded-full border border-black/10 bg-[#f5f4f0] text-[10px] font-mono-custom text-[#555560] whitespace-nowrap shrink-0 font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button className="w-full py-3 min-h-[44px] rounded-xl border border-[#e63946] text-[#e63946] font-mono-custom text-xs uppercase tracking-wider font-bold hover:bg-[#e63946] hover:text-white transition-colors flex items-center justify-center gap-1 active:scale-[0.98]">
+                    VIEW CASE STUDY
+                    <ArrowUpRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

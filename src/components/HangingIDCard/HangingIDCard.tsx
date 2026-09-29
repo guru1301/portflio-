@@ -39,20 +39,39 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Compute responsive anchor X position (placed cleanly without text collision on mobile)
-  const anchorX = useMemo(() => {
-    if (windowWidth < 640) return 0.85; // Upper right on mobile, clear of headline text
-    if (windowWidth < 1024) return 1.8;  // Right of center on tablet
-    if (windowWidth < 1440) return 2.8;  // Right on standard desktop
-    return 3.2;                          // Right on wide desktop
+  const isMobile = windowWidth < 768;
+
+  // Responsive anchor position:
+  // On mobile (< 480px): Anchored at [0.82, 4.3, 0] so it hangs on the right side, clear of left typography
+  // On phablet (< 768px): [1.05, 4.3, 0]
+  // On tablet (< 1024px): [1.8, 4.3, 0]
+  // On desktop (< 1440px): [2.8, 4.3, 0]
+  // On wide desktop (>= 1440px): [3.2, 4.3, 0]
+  const anchor = useMemo<[number, number, number]>(() => {
+    if (windowWidth < 480) return [0.82, 4.3, 0];
+    if (windowWidth < 768) return [1.05, 4.3, 0];
+    if (windowWidth < 1024) return [1.8, 4.3, 0];  // Tablet
+    if (windowWidth < 1440) return [2.8, 4.3, 0];  // Desktop
+    return [3.2, 4.3, 0];                          // Wide desktop
   }, [windowWidth]);
 
-  // Compute responsive scale for clear text visibility and non-intrusive mobile size
+  // Compute responsive restLength for the lanyard rope:
+  // On mobile: 4.7 puts the card at restY = 4.3 - 4.7 = -0.40, vertically centered on the right
+  // On desktop: 4.6 puts the card at restY = 4.3 - 4.6 = -0.30 (unchanged desktop layout)
+  const restLength = useMemo(() => {
+    if (windowWidth < 768) return 4.7;
+    return DEFAULT_CARD_CONFIG.lanyard.restLength;
+  }, [windowWidth]);
+
+  // Compute responsive scale:
+  // On mobile: 0.70 is compact yet sharp and completely avoids any collision with text
+  // On desktop: 0.74 (tablet) / 0.86 (desktop) / 0.94 (wide desktop)
   const responsiveScale = useMemo(() => {
-    if (windowWidth < 640) return 0.52; // Compact, lightweight on mobile
-    if (windowWidth < 1024) return 0.74; // Tablet
-    if (windowWidth < 1440) return 0.86; // Desktop
-    return 0.94;                         // Large desktop
+    if (windowWidth < 480) return 0.70;           // Compact, crisp, avoids any collision
+    if (windowWidth < 768) return 0.73;           // Phablet
+    if (windowWidth < 1024) return 0.74;          // Tablet
+    if (windowWidth < 1440) return 0.86;          // Desktop
+    return 0.94;                                  // Large desktop
   }, [windowWidth]);
 
   // Merge default config with user overrides and responsive positioning
@@ -63,15 +82,15 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
       scale: (userConfig?.scale ?? DEFAULT_CARD_CONFIG.scale) * responsiveScale,
       lanyard: {
         ...DEFAULT_CARD_CONFIG.lanyard,
-        anchor: [anchorX, 4.3, 0] as [number, number, number],
+        anchor,
+        restLength,
         accentColor: accentColor || DEFAULT_CARD_CONFIG.lanyard.accentColor,
         ...userConfig?.lanyard,
       },
     };
-  }, [userConfig, responsiveScale, anchorX, accentColor]);
+  }, [userConfig, responsiveScale, anchor, restLength, accentColor]);
 
-  const defaultClasses =
-    'absolute inset-0 w-full h-full z-20 overflow-hidden';
+  const defaultClasses = 'w-full h-full relative overflow-hidden';
 
   return (
     <div
@@ -80,7 +99,7 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
       aria-label="Interactive 3D Hanging ID Badge"
     >
       <Canvas
-        camera={{ position: [0, 0.2, 7.8], fov: 38 }}
+        camera={{ position: [0, isMobile ? 0 : 0.2, 7.8], fov: 38 }}
         gl={{
           alpha: true,
           antialias: true,
@@ -108,7 +127,16 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
         />
       </Canvas>
 
-      {/* Subtle hint indicator positioned in lower right */}
+      {/* Subtle hint indicator for mobile */}
+      <div className="flex sm:hidden absolute bottom-12 left-1/2 -translate-x-1/2 pointer-events-none opacity-70 items-center gap-1.5 text-[10px] font-mono-custom uppercase tracking-wider text-white/80 bg-black/70 px-3 py-1 rounded-full border border-white/15 backdrop-blur-md shadow-lg z-30">
+        <span
+          className="w-1.5 h-1.5 rounded-full animate-pulse"
+          style={{ backgroundColor: accentColor || '#e63946' }}
+        />
+        <span>Interactive 3D Badge • Drag to swing</span>
+      </div>
+
+      {/* Subtle hint indicator positioned in lower right on desktop */}
       <div className="hidden sm:flex absolute bottom-8 right-8 pointer-events-none opacity-40 hover:opacity-80 transition-opacity items-center gap-1.5 text-[10px] font-mono-custom uppercase tracking-wider text-white/70 bg-black/50 px-3 py-1 rounded-full border border-white/10 backdrop-blur-xs">
         <span
           className="w-1.5 h-1.5 rounded-full animate-pulse"

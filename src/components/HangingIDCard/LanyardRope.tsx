@@ -27,7 +27,14 @@ export const LanyardRope: React.FC<LanyardRopeProps> = ({
   // Dynamic lag control points for fluid inertial bending
   const lagP1 = useRef(anchorPoint.clone().add(new THREE.Vector3(0, -0.8, 0)));
   const lagP2 = useRef(anchorPoint.clone().add(new THREE.Vector3(0, -1.8, 0)));
-  const lagP3 = useRef(anchorPoint.clone().add(new THREE.Vector3(0, -2.6, 0)));
+  const lagP3 = useRef(anchorPoint.clone().add(new THREE.Vector3(0, -2.8, 0)));
+
+  // Re-sync lag points if anchor changes (e.g. mobile <-> desktop resize)
+  useEffect(() => {
+    lagP1.current.copy(anchorPoint).add(new THREE.Vector3(0, -0.8, 0));
+    lagP2.current.copy(anchorPoint).add(new THREE.Vector3(0, -1.8, 0));
+    lagP3.current.copy(anchorPoint).add(new THREE.Vector3(0, -2.8, 0));
+  }, [anchorPoint]);
 
   // Pre-allocated BufferGeometry for stable ribbon strap (NO geometry reallocations)
   const ribbonGeometry = useMemo(() => {
