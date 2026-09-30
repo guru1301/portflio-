@@ -182,9 +182,7 @@ export const AboutSection: React.FC = () => {
                 ref={bio2Ref}
                 className="font-mono-custom text-xs md:text-sm opacity-70 leading-relaxed"
               >
-                Focused on architecting scalable full-stack web applications, processing structured
-                &amp; un-structured data models, and delivering robust backend logic with enterprise
-                standards.
+                Currently open to entry-level software opportunities and selected web development projects.
               </p>
             </div>
 
@@ -197,7 +195,7 @@ export const AboutSection: React.FC = () => {
               <div className="flex items-center gap-2.5 text-[#e63946]">
                 <MapPin className="w-4 h-4 shrink-0 text-[#e63946]" />
                 <span className="font-mono-custom text-xs font-bold uppercase tracking-wider text-[#e63946]">
-                  CURRENT LOCATION
+                  LOCATION &amp; STATUS
                 </span>
               </div>
 
@@ -205,9 +203,10 @@ export const AboutSection: React.FC = () => {
                 Based in {DEVELOPER_INFO.location}
               </p>
 
-              <p className="font-mono-custom text-xs md:text-sm text-white leading-relaxed">
-                {DEVELOPER_INFO.availability} for full-time software engineering and data roles worldwide.
-              </p>
+              <div className="space-y-1 font-mono-custom text-xs md:text-sm text-white/80 leading-relaxed">
+                <span className="text-[#e63946] font-semibold text-[11px] tracking-wider uppercase block">CURRENTLY BUILDING:</span>
+                <p className="text-white/90">Software Systems • Backend APIs • Data Applications • Client Websites</p>
+              </div>
 
               {/* Animated pulse dot badge */}
               <div className="pt-1.5 flex items-center">
@@ -217,7 +216,7 @@ export const AboutSection: React.FC = () => {
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e63946]" />
                   </span>
                   <span className="font-mono-custom text-xs font-bold uppercase tracking-wider text-[#e63946]">
-                    Open to opportunities
+                    BUILDING • LEARNING • SHIPPING
                   </span>
                 </div>
               </div>

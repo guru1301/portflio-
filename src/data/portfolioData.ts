@@ -41,9 +41,11 @@ export interface EducationItem {
 
 export interface SkillItem {
   name: string;
-  category: 'languages' | 'backend' | 'frontend' | 'data' | 'database' | 'tools';
+  category: 'programming' | 'backend' | 'frontend' | 'data' | 'database' | 'tools' | 'concepts';
   description: string;
   size: 'lg' | 'md' | 'sm';
+  focus?: string;
+  appliedIn?: string;
 }
 
 export interface TechNode {
@@ -55,20 +57,20 @@ export interface TechNode {
 
 export const DEVELOPER_INFO = {
   name: 'GURU PRASATH',
-  title: 'COMPUTER SCIENCE & SOFTWARE DEVELOPER',
-  subtitle: 'B.Tech Computer Science & Business Systems',
+  title: 'SOFTWARE • WEB SOLUTIONS • SYSTEMS',
+  subtitle: 'Software Engineer & Web Solutions Provider',
   degree: 'B.Tech CSBS (7.98 CGPA)',
   institution: 'Saranathan College of Engineering',
   timeline: '2022 — 2026',
   location: 'India',
-  availability: 'Available for opportunities',
-  bioStatement: 'I BUILD SOFTWARE AROUND REAL PROBLEMS.',
+  availability: 'Open to Full-Time Roles & Client Projects',
+  bioStatement: 'I BUILD SOFTWARE & WEB SOLUTIONS AROUND REAL PROBLEMS.',
   bioExtended:
-    'Computer Science and Business Systems graduate interested in software engineering, data analytics, and building high-performance, practical digital systems.',
-  email: 'guruprasath.dev@example.com',
-  github: 'https://github.com',
-  linkedin: 'https://linkedin.com',
-  resumeUrl: '#',
+    'Software Engineer & Independent Web Solutions Provider. I build high-performance client websites, backend APIs, databases, and data-driven systems — translating real requirements into production-ready digital solutions while open to full-time engineering roles.',
+  email: 'mguruprasath01@gmail.com',
+  github: 'https://github.com/guru1301',
+  linkedin: 'https://linkedin.com/in/guru-prasath-m130105',
+  resumeUrl: '/assets/resume.pdf',
 };
 
 export const EDUCATION_DATA: EducationItem[] = [
@@ -104,12 +106,13 @@ export const PROJECTS_DATA: Project[] = [
     number: '01',
     title: 'RAILGO',
     subtitle: 'Online Railway Reservation System',
-    category: 'Full-Stack Software Engineering',
-    tagline: 'High-concurrency ticket booking engine inspired by modern IRCTC/airline workflows.',
+    category: 'FULL-STACK SOFTWARE ENGINEERING',
+    tagline:
+      'Full-stack railway reservation platform supporting train search, passenger booking, seat management, fare calculation, authentication, and online payment workflows.',
     description:
-      'A full-stack railway reservation platform featuring real-time train search, seat selection, automated GST/fare calculations, secure Razorpay checkout, and OAuth authentication.',
+      'Full-stack railway reservation platform supporting train search, passenger booking, seat management, fare calculation, authentication, and online payment workflows.',
     image: '/assets/projects/railgo.jpg',
-    technologies: ['Node.js', 'Express', 'Passport JS', 'Google OAuth', 'Spring Boot', 'MongoDB Atlas', 'Razorpay'],
+    technologies: ['Node.js', 'Express', 'Spring Boot', 'MongoDB Atlas', 'Passport.js', 'Google OAuth', 'Razorpay'],
     featured: true,
     architectureNodes: [
       { id: '1', label: 'Client / OAuth', sub: 'React & Google Sign-In' },
@@ -120,20 +123,20 @@ export const PROJECTS_DATA: Project[] = [
     ],
     caseStudy: {
       overview:
-        'RailGo was built to solve latency and transaction locks in traditional passenger reservation systems. Designed with microservice-inspired architecture, it isolates train search schedules from inventory locking during payment processing.',
+        'RailGo was developed as an end-to-end railway reservation platform designed to handle train scheduling, seat allocation, and online checkout with reliable transactional state management.',
       keyFeatures: [
-        'Google OAuth 2.0 & JWT session management via Passport.js',
-        'Interactive carriage seat-map selector with real-time seat locks',
-        'Dynamic fare pricing engine computing base rates, class surcharges, and 18% GST',
-        'Razorpay payment gateway integration with webhooks for atomic order confirmation',
-        'MongoDB Atlas schema optimized for multi-stop train routes and station schedules',
+        'Train search and reservation',
+        'Passenger and seat management',
+        'Fare and GST calculation',
+        'Authentication',
+        'Razorpay payment integration',
+        'MongoDB-backed reservation data',
       ],
       technicalArchitecture:
-        'Client requests hit the Express Auth Layer -> Validated session triggers Spring Boot reservation microservices -> Atomic MongoDB document updates prevent double bookings -> Webhooks complete payment status.',
+        'Client application communicates through an Express authentication and routing gateway to Spring Boot reservation services, recording transactional bookings into MongoDB Atlas.',
       impactOrOutcome:
-        'Successfully handles simulated concurrent booking spikes with sub-200ms API response times and 100% transactional accuracy in seat allocation.',
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://demo.example.com',
+        'Demonstrates a complete, functional full-stack reservation workflow from route selection to ticket generation and payment confirmation.',
+      githubUrl: 'https://github.com/guru1301',
     },
   },
   {
@@ -141,10 +144,11 @@ export const PROJECTS_DATA: Project[] = [
     number: '02',
     title: 'FLOWAI',
     subtitle: 'Digital Twin for Remote Employee Productivity',
-    category: 'Full-Stack & Telemetry Systems',
-    tagline: 'Operational telemetry platform mapping distributed workstreams into actionable telemetry.',
+    category: 'FULL-STACK SYSTEMS & TELEMETRY',
+    tagline:
+      'Full-stack digital twin platform for processing activity data and presenting productivity insights through an interactive dashboard.',
     description:
-      'A digital-twin concept analyzing remote employee work patterns, focus hours, task completion velocity, and operational bottlenecks using animated node graphs and real-time charts.',
+      'Full-stack digital twin platform for processing activity data and presenting productivity insights through an interactive dashboard.',
     image: '/assets/projects/flowai.jpg',
     technologies: ['Spring Boot', 'PostgreSQL', 'MongoDB', 'React', 'Tailwind CSS', 'Recharts', 'Docker'],
     featured: true,
@@ -157,19 +161,20 @@ export const PROJECTS_DATA: Project[] = [
     ],
     caseStudy: {
       overview:
-        'FlowAI models remote engineering teams as an interconnected network node system ("Digital Twin"), measuring activity cadence without invasive keylogging to optimize workflow health.',
+        'FlowAI models distributed engineering workflows as an interconnected data system, aggregating activity metrics to provide clear operational visibility without invasive tracking.',
       keyFeatures: [
-        'Real-time productivity score calculation combining task velocity and focus duration',
-        'Interactive distributed workstream graph visualizing dependencies and blocker nodes',
-        'Dual-database strategy: PostgreSQL for user/team relationships, MongoDB for time-series telemetry',
-        'Custom interactive Recharts analytics with weekly heatmap breakdowns',
-        'Containerized with Docker for rapid cloud deployment',
+        'Activity data processing',
+        'Backend API services',
+        'PostgreSQL and MongoDB integration',
+        'Productivity metric generation',
+        'Interactive dashboard',
+        'Docker-based development environment',
       ],
       technicalArchitecture:
-        'React Frontend -> REST Ingestion API (Spring Boot) -> PostgreSQL (Metadata) + MongoDB (Telemetry) -> Asynchronous Aggregation Pipeline -> Live Recharts Dashboard.',
+        'React Frontend -> Spring Boot REST Ingestion API -> PostgreSQL (Metadata) & MongoDB (Telemetry) -> Aggregation Pipeline -> Recharts Dashboard.',
       impactOrOutcome:
-        'Provides engineering managers with actionable workstream visibility, identifying burnout risk factors and team dependency bottlenecks.',
-      githubUrl: 'https://github.com',
+        'Enables team leads to review operational rhythm and project momentum through structured, high-level workflow telemetry.',
+      githubUrl: 'https://github.com/guru1301',
     },
   },
   {
@@ -177,28 +182,38 @@ export const PROJECTS_DATA: Project[] = [
     number: '03',
     title: 'THE PEOPLE\'S LEDGER',
     subtitle: 'Tamil Nadu Election Analytics',
-    category: 'Data Analytics & Visualization',
-    tagline: 'Deep electoral data analytics across 234 Tamil Nadu legislative constituencies.',
+    category: 'DATA ANALYTICS & VISUALIZATION',
+    tagline:
+      'Interactive election-data analytics platform analyzing constituency-level results and historical electoral trends across Tamil Nadu.',
     description:
-      'A data science and analytics platform performing historical electoral trends analysis, vote share distributions, margin calculations, and interactive constituency mapping.',
+      'Interactive election-data analytics platform analyzing constituency-level results and historical electoral trends across Tamil Nadu.',
     image: '/assets/projects/peoples_ledger.jpg',
-    technologies: ['Python', 'Pandas', 'SQL', 'Power BI', 'DAX', 'Data Cleansing'],
+    technologies: ['Python', 'Pandas', 'SQL', 'Power BI', 'DAX', 'Data Cleaning', 'Data Visualization'],
     featured: true,
+    architectureNodes: [
+      { id: '1', label: 'Raw Election Data', sub: 'Constituency results tables' },
+      { id: '2', label: 'Python / Pandas', sub: 'Cleaning & transformation' },
+      { id: '3', label: 'SQL Storage', sub: 'Normalized electoral schemas' },
+      { id: '4', label: 'DAX Modeling', sub: 'Calculated measures & margins' },
+      { id: '5', label: 'Power BI UI', sub: 'Interactive geospatial maps' },
+    ],
     caseStudy: {
       overview:
-        'The People\'s Ledger transforms multi-decadal election dataset archives into interactive analytics models. It enables political analysts and researchers to inspect turnout rates, party swing votes, and victory margins.',
+        'An analytical data project processing constituency returns across Tamil Nadu legislative elections into an exploratory Power BI report with geographic and statistical breakdowns.',
       keyFeatures: [
-        'Complete data pipeline aggregating election results across all 234 assembly constituencies from 1989 to 2024',
-        'Advanced DAX measures calculating victory margins, swing percentages, and coalition vote pools',
-        'Interactive Power BI geographic and statistical dashboards',
-        'Automated Python ETL scripts for handling messy PDF/CSV electoral returns',
-        'Non-partisan statistical focus on voter turnouts and swing trends',
+        'Constituency-level analysis',
+        'Historical result comparison',
+        'Vote-share analysis',
+        'Margin analysis',
+        'Interactive constituency mapping',
+        'Python-based data preparation',
+        'Power BI and DAX dashboards',
       ],
       technicalArchitecture:
-        'Raw Data Ingestion (Python BeautifulSoup/Pandas) -> Data Cleaning & SQL Warehouse -> DAX Modelling -> Power BI & Web Embed Visualizations.',
+        'Raw Election Dataset Processing (Python/Pandas) -> SQL Data Structuring -> DAX Calculated Measures & Modeling -> Power BI Visual Dashboards.',
       impactOrOutcome:
-        'Processed over 100,000 data rows into sub-second interactive query responses, uncovering critical vote-shift patterns across rural vs urban Tamil Nadu sectors.',
-      githubUrl: 'https://github.com',
+        'Delivers a completely neutral, data-driven analytical reference for examining electoral participation, margins, and historical trends.',
+      githubUrl: 'https://github.com/guru1301',
     },
   },
   {
@@ -206,55 +221,147 @@ export const PROJECTS_DATA: Project[] = [
     number: '04',
     title: 'AGNIWATTS',
     subtitle: 'Predictive Load Management',
-    category: 'Smart Energy Telemetry',
-    tagline: 'Predictive power grid telemetry dashboard anticipating surge demand and grid strain.',
+    category: 'DATA & BACKEND ENGINEERING',
+    tagline:
+      'Predictive power-grid analysis system combining data processing, API services, and interactive visualization for load-management analysis.',
     description:
-      'An intelligent load forecasting dashboard analyzing electrical consumption anomalies, regional power grid strain, and peak demand hours with ML time-series projections.',
+      'Predictive power-grid analysis system combining data processing, API services, and interactive visualization for load-management analysis.',
     image: '/assets/projects/agniwatts.jpg',
-    technologies: ['Python', 'FastAPI', 'React', 'Tailwind CSS', 'Recharts', 'Pandas'],
+    technologies: ['Python', 'FastAPI', 'React', 'Pandas', 'Tailwind CSS', 'Recharts'],
     featured: true,
     caseStudy: {
       overview:
-        'AgniWatts addresses municipal grid overload during peak thermal seasons. By combining telemetry ingestion with regression modeling, it highlights high-risk grid zones before brownouts occur.',
+        'AgniWatts combines power consumption telemetry ingestion with predictive modeling and visualization to assist in electrical grid load management.',
       keyFeatures: [
-        'Telemetry stream simulation for regional substations (Zone A, B, C)',
-        'ML Anomaly detection alerts flagging voltage instability and unseasonal spikes',
-        'Peak demand curve forecasting with 24-hour horizon projection',
-        'Interactive grid health gauge and active load distribution analytics',
+        'Power consumption telemetry ingestion and regional substation monitoring',
+        'Time-series load forecasting using Python and Pandas',
+        'Anomaly detection indicators for voltage instability and sudden demand surges',
+        'Interactive load monitoring dashboard built with FastAPI and React Recharts',
       ],
       technicalArchitecture:
-        'FastAPI Telemetry Stream -> Pandas Anomaly Engine -> React Recharts UI with live alert dispatch.',
+        'FastAPI Telemetry Stream -> Pandas Data Processing Pipeline -> React & Recharts Dashboard UI.',
       impactOrOutcome:
-        'Demonstrates predictive load shedding algorithms that reduce peak grid stress by an estimated 14%.',
-      githubUrl: 'https://github.com',
+        'Provides an operational reference for understanding demand spikes and planning proactive load distribution.',
+      githubUrl: 'https://github.com/guru1301',
     },
   },
   {
     id: 'museum-booking',
     number: '05',
     title: 'MUSEUM BOOKING',
-    subtitle: 'Museum Ticketing Platform',
-    category: 'Full-Stack Web App',
-    tagline: 'Minimalist ticketing platform for cultural institutions with dynamic QR pass generation.',
+    subtitle: 'Digital Ticketing Platform',
+    category: 'FULL-STACK APPLICATION',
+    tagline:
+      'Full-stack museum ticketing platform supporting online reservations, database-backed booking workflows, and QR-based ticket generation.',
     description:
-      'An architectural gallery booking application featuring timed entry slot management, instant digital ticket pass generation with QR verification, and visitor analytics.',
+      'Full-stack museum ticketing platform supporting online reservations, database-backed booking workflows, and QR-based ticket generation.',
     image: '/assets/projects/museum.jpg',
-    technologies: ['Java', 'Spring Boot', 'React', 'Tailwind CSS', 'PostgreSQL', 'QR Engine'],
+    technologies: ['Java', 'Spring Boot', 'React', 'Tailwind CSS', 'PostgreSQL', 'QR Code'],
     featured: true,
     caseStudy: {
       overview:
-        'Designed for high-traffic art museums to streamline entry flows and eliminate physical ticket counter bottlenecks through instant mobile pass issuing.',
+        'An architectural web platform for cultural exhibition ticketing, managing visitor flow through timed slots and instant digital verification passes.',
       keyFeatures: [
-        'Timed-slot entry calendar with real-time visitor capacity capping',
-        'Instant digital QR code ticket generation upon booking confirmation',
-        'Admin dashboard for gallery curators to set ticket quotas and exhibition dates',
-        'Responsive mobile ticket pass view optimized for quick scanning',
+        'Online reservations and exhibition slot selection',
+        'Database-backed booking workflows',
+        'Timed capacity and visitor scheduling',
+        'QR-based digital ticket generation',
       ],
       technicalArchitecture:
-        'React Ticket Flow -> Spring Boot Service -> PostgreSQL -> QR Generator Library.',
+        'React Interface -> Spring Boot API Service -> PostgreSQL Database -> Dynamic QR Code Generation.',
       impactOrOutcome:
-        'Provides an effortless 3-step checkout experience for exhibition goers.',
-      githubUrl: 'https://github.com',
+        'Delivers an intuitive, friction-free booking flow for exhibition attendees and event curators.',
+      githubUrl: 'https://github.com/guru1301',
+    },
+  },
+  {
+    id: 'ott-analytics',
+    number: '06',
+    title: 'OTT ANALYTICS',
+    subtitle: 'Streaming Platform Performance Dashboard',
+    category: 'DATA ANALYTICS & BUSINESS INTELLIGENCE',
+    tagline:
+      'Interactive analytics dashboard for monitoring subscriber growth, revenue, content consumption, and key performance indicators.',
+    description:
+      'Interactive analytics dashboard for monitoring subscriber growth, revenue, content consumption, and key performance indicators.',
+    image: '/assets/projects/ott.jpg',
+    technologies: ['Power BI', 'DAX', 'Power Query', 'Excel', 'Data Modeling'],
+    featured: true,
+    caseStudy: {
+      overview:
+        'Designed a business intelligence dashboard for a digital entertainment platform to monitor core subscription health, content catalog traction, and user retention.',
+      keyFeatures: [
+        'Subscriber growth and churn rate monitoring across monthly billing cycles',
+        'Revenue, ARPU, and plan distribution tracking across user cohorts',
+        'Content consumption and genre traction analytics',
+        'Dimensional star-schema data modeling in Power BI',
+      ],
+      technicalArchitecture:
+        'Excel/CSV Ingestion -> Power Query ETL & Cleansing -> Dimensional Star-Schema Modeling -> DAX Measures -> Power BI Interactive Reports.',
+      impactOrOutcome:
+        'Translates complex streaming performance records into executive-level visual insights for content acquisition and retention analysis.',
+      githubUrl: 'https://github.com/guru1301',
+    },
+  },
+];
+
+export const CLIENT_PROJECTS_DATA: Project[] = [
+  {
+    id: 'client-website-01',
+    number: '01',
+    title: 'CLIENT WEBSITE 01',
+    subtitle: 'Client Website • Web Development',
+    category: 'CLIENT WORK • WEB DEVELOPMENT',
+    tagline:
+      'Website developed for a client, translating their requirements into a responsive and professional digital presence.',
+    description:
+      'Website developed for a client, translating their requirements into a responsive and professional digital presence.',
+    image: '/assets/projects/client1.jpg',
+    technologies: ['React', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'],
+    featured: true,
+    caseStudy: {
+      overview:
+        'Website developed for a client, translating their business requirements into a responsive, modern, and professional digital presence.',
+      keyFeatures: [
+        'Client requirements translation into interactive component hierarchy',
+        'Responsive cross-device layouts optimized for mobile and desktop',
+        'Modern typography, accessible navigation, and optimized assets',
+        'Production-ready build, deployment preparation, and client handoff',
+      ],
+      technicalArchitecture:
+        'Client Specification -> Responsive React Component Tree -> Tailwind CSS System -> Production Delivery.',
+      impactOrOutcome:
+        'Established an engaging, high-performance web presence tailored directly to client goals and brand identity.',
+      githubUrl: 'https://github.com/guru1301',
+    },
+  },
+  {
+    id: 'client-website-02',
+    number: '02',
+    title: 'CLIENT WEBSITE 02',
+    subtitle: 'Client Website • Web Development',
+    category: 'CLIENT WORK • WEB DEVELOPMENT',
+    tagline:
+      'Client-focused website developed from requirements through implementation, responsive presentation, and final delivery.',
+    description:
+      'Client-focused website developed from requirements through implementation, responsive presentation, and final delivery.',
+    image: '/assets/projects/client2.jpg',
+    technologies: ['React', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'],
+    featured: true,
+    caseStudy: {
+      overview:
+        'Client-focused website developed from initial requirements through interactive design, performance optimization, and final deployment.',
+      keyFeatures: [
+        'End-to-end client website delivery from concept to implementation',
+        'Structured sections highlighting business services and contact workflows',
+        'Clean UI architecture built with React and Tailwind CSS',
+        'Performance optimization and cross-browser verification',
+      ],
+      technicalArchitecture:
+        'Requirements Architecture -> Modular React Layouts -> Tailwind CSS Design System -> Production Deployment.',
+      impactOrOutcome:
+        'Delivered an intuitive, accessible digital solution enabling direct client communication and brand engagement.',
+      githubUrl: 'https://github.com/guru1301',
     },
   },
 ];
@@ -263,43 +370,48 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     year: '2026',
     company: 'ICT ACADEMY / INFOSYS FOUNDATION',
-    role: 'Data Analytics & Azure AI Trainee',
-    type: 'Certification & Specialized Program',
+    role: 'Data Analytics & Technology Training',
+    type: 'Industry Training Program',
     period: '2025 — 2026',
     description:
-      'Intensive training covering enterprise data modeling, Power BI dashboard architecture, DAX formulas, SQL data warehousing, and Azure AI services.',
+      'Completed structured training in Data Analytics, Power BI, DAX, SQL, data modeling, and Azure AI fundamentals through an industry-oriented technology program.',
     highlights: [
-      'Built multi-table dimensional models and published Power BI reports',
-      'Engineered complex DAX measures for business KPIs',
-      'Applied cloud AI fundamentals for data ingestion',
+      'Power BI',
+      'DAX',
+      'SQL',
+      'Data Modeling',
+      'Azure AI Fundamentals',
+      'Data Analytics',
     ],
   },
   {
     year: '2024',
     company: 'DOVYO TECHNOLOGIES',
-    role: 'CRM Developer Intern',
-    type: 'Software Development Internship',
+    role: 'Business Intelligence / CRM Intern',
+    type: 'Internship',
     period: '2024',
     description:
-      'Worked on custom CRM workflows, database integration, API endpoints, and client relationship management software modules.',
+      'Worked on CRM workflows involving lead capture, sales tracking, support processes, and business data used for operational decision-making.',
     highlights: [
-      'Customized business pipeline fields and automated lead assignment rules',
-      'Integrated backend REST APIs for automated data synchronization',
-      'Collaborated with senior engineers on database query optimization',
+      'CRM Workflows',
+      'Sales Tracking',
+      'Data Pipelines',
+      'Process Automation',
     ],
   },
   {
     year: '2024',
     company: 'CIPHERBYTE',
     role: 'Software Development Intern',
-    type: 'Development Internship',
+    type: 'Internship',
     period: '2024',
     description:
-      'Developed web features, resolved backend bugs, and engineered responsive user interface components using modern JavaScript/Java frameworks.',
+      'Assisted in developing web application features, resolving interface bugs, and implementing full-stack components using modern frameworks.',
     highlights: [
-      'Implemented full-stack CRUD components using Spring Boot and React',
-      'Participated in code reviews and Git pull request workflows',
-      'Optimized page load performance and UI responsiveness',
+      'Web Feature Development',
+      'Full-Stack Components',
+      'Bug Resolution',
+      'Git Workflows',
     ],
   },
 ];
@@ -307,103 +419,168 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
 export const SKILLS_DATA: SkillItem[] = [
   {
     name: 'PYTHON',
-    category: 'languages',
-    description: 'Used for data analysis, automation, backend APIs, and algorithmic problem solving.',
+    category: 'programming',
+    description: 'Core backend development, API services, automation scripting, and data manipulation.',
     size: 'lg',
+    focus: 'Core Scripting & Backend',
+    appliedIn: 'FastAPI Services & Data Analysis',
+  },
+  {
+    name: 'JAVA',
+    category: 'programming',
+    description: 'Object-oriented application building, core backend systems, and enterprise design patterns.',
+    size: 'lg',
+    focus: 'Enterprise Systems & OOP',
+    appliedIn: 'Spring Boot Services & APIs',
   },
   {
     name: 'SQL',
     category: 'database',
-    description: 'Relational data query design, indexing, joins, and database analytics.',
+    description: 'Relational data query design, indexing, joins, aggregations, and schema normalization.',
     size: 'lg',
-  },
-  {
-    name: 'JAVA',
-    category: 'languages',
-    description: 'Object-oriented application building, core backend systems, and enterprise design patterns.',
-    size: 'lg',
-  },
-  {
-    name: 'SPRING BOOT',
-    category: 'backend',
-    description: 'Enterprise Java RESTful APIs, Dependency Injection, security, and microservices.',
-    size: 'lg',
-  },
-  {
-    name: 'REACT',
-    category: 'frontend',
-    description: 'Declarative component architecture, custom hooks, dynamic UI states, and web performance.',
-    size: 'lg',
-  },
-  {
-    name: 'POWER BI',
-    category: 'data',
-    description: 'Interactive dashboard creation, ETL data transformations, and executive reports.',
-    size: 'lg',
-  },
-  {
-    name: 'DAX',
-    category: 'data',
-    description: 'Calculated columns, complex measures, and time-intelligence data analysis functions.',
-    size: 'md',
-  },
-  {
-    name: 'POSTGRESQL',
-    category: 'database',
-    description: 'Robust ACID-compliant relational database management and schema design.',
-    size: 'md',
-  },
-  {
-    name: 'MONGODB',
-    category: 'database',
-    description: 'NoSQL document storage, flexible JSON schemas, and Atlas cloud deployment.',
-    size: 'md',
+    focus: 'Query Optimization & Schema',
+    appliedIn: 'PostgreSQL & MySQL Systems',
   },
   {
     name: 'FASTAPI',
     category: 'backend',
-    description: 'Asynchronous Python microservices, rapid OpenAPI specification, and high execution speed.',
-    size: 'md',
+    description: 'Asynchronous Python REST microservices, Pydantic validation, and OpenAPI documentation.',
+    size: 'lg',
+    focus: 'Async Python Microservices',
+    appliedIn: 'AgniWatts Telemetry Stream',
   },
   {
-    name: 'PYTHON / PANDAS',
+    name: 'SPRING BOOT',
+    category: 'backend',
+    description: 'Enterprise Java RESTful APIs, dependency injection, service layers, and microservices.',
+    size: 'lg',
+    focus: 'Enterprise Java Architecture',
+    appliedIn: 'FlowAI & RailGo Systems',
+  },
+  {
+    name: 'FLASK',
+    category: 'backend',
+    description: 'Lightweight Python web applications, routing endpoints, and modular API services.',
+    size: 'md',
+    focus: 'Microservices & Routing',
+    appliedIn: 'Modular API Endpoints',
+  },
+  {
+    name: 'REACT',
+    category: 'frontend',
+    description: 'Declarative component architecture, custom hooks, dynamic UI states, and responsive web design.',
+    size: 'lg',
+    focus: 'Component UI & Dynamic State',
+    appliedIn: 'FlowAI Dashboard & Portals',
+  },
+  {
+    name: 'POWER BI',
     category: 'data',
-    description: 'Dataframes, data cleaning, aggregation, exploratory analysis, and numerical processing.',
-    size: 'md',
+    description: 'Interactive dashboard creation, dimensional star-schema modeling, and executive reports.',
+    size: 'lg',
+    focus: 'Star Schema & Executive BI',
+    appliedIn: 'The People’s Ledger & OTT',
   },
   {
-    name: 'GIT',
+    name: 'DAX',
+    category: 'data',
+    description: 'Calculated measures, columns, and time-intelligence data analysis expressions.',
+    size: 'md',
+    focus: 'Time-Intelligence & Measures',
+    appliedIn: 'Election Metrics & KPI Models',
+  },
+  {
+    name: 'POSTGRESQL',
+    category: 'database',
+    description: 'ACID-compliant relational database management, table constraints, and query tuning.',
+    size: 'md',
+    focus: 'Relational Integrity & ACID',
+    appliedIn: 'FlowAI & Museum Platforms',
+  },
+  {
+    name: 'MYSQL',
+    category: 'database',
+    description: 'Relational database schema implementation, transactional queries, and data indexing.',
+    size: 'md',
+    focus: 'Normalized Schema & Indices',
+    appliedIn: 'Transactional Data Layers',
+  },
+  {
+    name: 'MONGODB',
+    category: 'database',
+    description: 'Document-oriented NoSQL storage, flexible JSON schemas, and Atlas cloud deployment.',
+    size: 'md',
+    focus: 'NoSQL Document Store',
+    appliedIn: 'RailGo & Telemetry Logs',
+  },
+  {
+    name: 'PANDAS',
+    category: 'data',
+    description: 'DataFrames, tabular data cleaning, transformation, aggregation, and exploratory analysis.',
+    size: 'md',
+    focus: 'Tabular Data Transformation',
+    appliedIn: 'Election & Load Processing',
+  },
+  {
+    name: 'DOCKER',
     category: 'tools',
-    description: 'Version control, branch management, pull requests, and collaborative codebases.',
+    description: 'Application containerization, reproducible development environments, and Dockerfiles.',
     size: 'sm',
+    focus: 'Containerized Environments',
+    appliedIn: 'Reproducible Dev & Deploy',
+  },
+  {
+    name: 'GIT & GITHUB',
+    category: 'tools',
+    description: 'Version control, branch management, pull requests, and collaborative code reviews.',
+    size: 'sm',
+    focus: 'Version Control & Workflows',
+    appliedIn: 'Collaborative Engineering',
   },
   {
     name: 'POSTMAN',
     category: 'tools',
-    description: 'API testing, request collection building, payload validation, and documentation.',
+    description: 'REST API testing, request collections, endpoint validation, and environment variables.',
     size: 'sm',
+    focus: 'API Verification & Collections',
+    appliedIn: 'Endpoint Test Suites',
   },
 ];
 
 export const TECH_STACK_NODES: TechNode[] = [
   { id: 'guru', label: 'GURU PRASATH', category: 'center', connections: ['frontend', 'backend', 'data', 'database', 'tools'] },
-  { id: 'frontend', label: 'FRONTEND', category: 'frontend', connections: ['react', 'tailwind'] },
-  { id: 'backend', label: 'BACKEND', category: 'backend', connections: ['springboot', 'fastapi', 'java'] },
-  { id: 'data', label: 'DATA', category: 'data', connections: ['powerbi', 'pandas', 'dax'] },
-  { id: 'database', label: 'DATABASE', category: 'database', connections: ['postgresql', 'mongodb', 'sql'] },
-  { id: 'tools', label: 'TOOLS', category: 'tools', connections: ['git', 'postman'] },
+  { id: 'frontend', label: 'FRONTEND', category: 'frontend', connections: ['react', 'html', 'css', 'javascript', 'tailwind'] },
+  { id: 'backend', label: 'BACKEND', category: 'backend', connections: ['python', 'fastapi', 'flask', 'springboot', 'nodejs', 'express'] },
+  { id: 'database', label: 'DATABASE', category: 'database', connections: ['postgresql', 'mysql', 'mongodb', 'sqlite'] },
+  { id: 'data', label: 'DATA', category: 'data', connections: ['powerbi', 'dax', 'pandas', 'powerquery', 'sql'] },
+  { id: 'tools', label: 'TOOLS', category: 'tools', connections: ['git', 'github', 'docker', 'postman'] },
 
-  { id: 'react', label: 'React.js', category: 'frontend', connections: [] },
+  { id: 'react', label: 'React', category: 'frontend', connections: [] },
+  { id: 'html', label: 'HTML', category: 'frontend', connections: [] },
+  { id: 'css', label: 'CSS', category: 'frontend', connections: [] },
+  { id: 'javascript', label: 'JavaScript', category: 'frontend', connections: [] },
   { id: 'tailwind', label: 'Tailwind CSS', category: 'frontend', connections: [] },
-  { id: 'springboot', label: 'Spring Boot', category: 'backend', connections: [] },
+
+  { id: 'python', label: 'Python', category: 'backend', connections: [] },
   { id: 'fastapi', label: 'FastAPI', category: 'backend', connections: [] },
-  { id: 'java', label: 'Java', category: 'backend', connections: [] },
-  { id: 'powerbi', label: 'Power BI', category: 'data', connections: [] },
-  { id: 'pandas', label: 'Pandas', category: 'data', connections: [] },
-  { id: 'dax', label: 'DAX', category: 'data', connections: [] },
+  { id: 'flask', label: 'Flask', category: 'backend', connections: [] },
+  { id: 'springboot', label: 'Spring Boot', category: 'backend', connections: [] },
+  { id: 'nodejs', label: 'Node.js', category: 'backend', connections: [] },
+  { id: 'express', label: 'Express', category: 'backend', connections: [] },
+
   { id: 'postgresql', label: 'PostgreSQL', category: 'database', connections: [] },
+  { id: 'mysql', label: 'MySQL', category: 'database', connections: [] },
   { id: 'mongodb', label: 'MongoDB', category: 'database', connections: [] },
-  { id: 'sql', label: 'SQL', category: 'database', connections: [] },
-  { id: 'git', label: 'Git / GitHub', category: 'tools', connections: [] },
+  { id: 'sqlite', label: 'SQLite', category: 'database', connections: [] },
+
+  { id: 'powerbi', label: 'Power BI', category: 'data', connections: [] },
+  { id: 'dax', label: 'DAX', category: 'data', connections: [] },
+  { id: 'pandas', label: 'Pandas', category: 'data', connections: [] },
+  { id: 'powerquery', label: 'Power Query', category: 'data', connections: [] },
+  { id: 'sql', label: 'SQL', category: 'data', connections: [] },
+
+  { id: 'git', label: 'Git', category: 'tools', connections: [] },
+  { id: 'github', label: 'GitHub', category: 'tools', connections: [] },
+  { id: 'docker', label: 'Docker', category: 'tools', connections: [] },
   { id: 'postman', label: 'Postman', category: 'tools', connections: [] },
 ];

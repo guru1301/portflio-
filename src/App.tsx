@@ -9,6 +9,7 @@ import { ProjectModal } from './components/ProjectModal';
 import { HeroSection } from './sections/HeroSection';
 import { HeroToWorkTransition } from './sections/HeroToWorkTransition';
 import { SelectedWorkSection } from './sections/SelectedWorkSection';
+import { ClientWorkSection } from './sections/ClientWorkSection';
 import { AboutSection } from './sections/AboutSection';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { SkillsSection } from './sections/SkillsSection';
@@ -40,12 +41,14 @@ export function App() {
     }
   };
 
-  // Section Observer for active section tracking
+  // Optimized Section Observer with requestAnimationFrame guard to eliminate layout thrashing
   useEffect(() => {
     if (isLoading) return;
 
     const sections = ['home', 'work', 'about', 'experience', 'skills', 'contact'];
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateActiveSection = () => {
       const scrollPos = window.scrollY + window.innerHeight / 3;
       for (const id of sections) {
         const el = document.getElementById(id);
@@ -53,10 +56,18 @@ export function App() {
           const top = el.offsetTop;
           const height = el.offsetHeight;
           if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(id);
+            setActiveSection((prev) => (prev !== id ? id : prev));
             break;
           }
         }
+      }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActiveSection);
+        ticking = true;
       }
     };
 
@@ -90,7 +101,10 @@ export function App() {
             {/* Main Content Flow */}
             <main>
               {/* 01 - Hero Section */}
-              <HeroSection onScrollToWork={() => scrollToSection('work')} />
+              <HeroSection
+                onScrollToWork={() => scrollToSection('work')}
+                onScrollToContact={() => scrollToSection('contact')}
+              />
 
               {/* Transition Title Banner */}
               <HeroToWorkTransition />
@@ -98,6 +112,12 @@ export function App() {
               {/* 02 - Selected Work (Horizontal Pinned / Mobile Vertical) */}
               <SelectedWorkSection onSelectProject={(proj) => setSelectedProject(proj)} />
 
+              {/* Client Work (Independent Web Solutions) - Directly below Engineering Projects */}
+              <ClientWorkSection
+                onSelectProject={(proj) => setSelectedProject(proj)}
+                onScrollToContact={() => scrollToSection('contact')}
+                onScrollToWork={() => scrollToSection('work')}
+              />
 
               {/* 03 - About & Education */}
               <AboutSection />

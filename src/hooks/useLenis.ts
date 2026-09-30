@@ -9,18 +9,16 @@ export function useLenis() {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Instantiate Lenis smooth scroll with mobile touch support
+    // Instantiate Lenis smooth scroll: silky wheel on laptop, pure native 120Hz/60Hz touch on mobile
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
-      syncTouch: true,
-      syncTouchLerp: 0.08,
-      touchInertiaExponent: 1.75,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 0,
+      syncTouch: false,
       autoResize: true,
     });
 
@@ -40,8 +38,8 @@ export function useLenis() {
 
     gsap.ticker.add(updateGSAP);
 
-    // Disable GSAP lag smoothing to keep scrolling synchronized
-    gsap.ticker.lagSmoothing(0);
+    // Smooth frame pacing without freezing
+    gsap.ticker.lagSmoothing(500, 33);
 
     // Force ScrollTrigger to refresh after Lenis initialization and on resize
     const handleResize = () => {

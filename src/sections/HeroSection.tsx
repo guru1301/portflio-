@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Download } from 'lucide-react';
 import { DEVELOPER_INFO } from '../data/portfolioData';
 import { HangingIDCard } from '../components/HangingIDCard';
 import { useThemeColor } from '../context/ThemeColorContext';
 
 interface HeroSectionProps {
   onScrollToWork: () => void;
+  onScrollToContact?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork, onScrollToContact }) => {
   const { accentColor } = useThemeColor();
   const containerRef = useRef<HTMLDivElement>(null);
   const title1Ref = useRef<HTMLHeadingElement>(null);
@@ -51,7 +52,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork }) => {
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-[100dvh] md:min-h-screen w-full flex flex-col justify-between p-4 sm:p-8 md:p-12 lg:p-16 overflow-hidden pt-12 sm:pt-16 md:pt-28 bg-[#0c0c10] text-[#f5f5f7]"
+      className="relative min-h-[100dvh] md:min-h-screen w-full flex flex-col justify-between p-4 sm:p-8 md:p-12 lg:px-16 lg:py-10 overflow-hidden pt-12 sm:pt-16 md:pt-24 bg-[#0c0c10] text-[#f5f5f7]"
     >
       {/* Background subtle radial lighting dynamically controlled by active theme color */}
       <div
@@ -75,8 +76,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork }) => {
             className="w-2 h-2 rounded-full animate-pulse shrink-0"
             style={{ backgroundColor: accentColor }}
           />
-          <span className="text-white/80 truncate text-[11px] sm:text-xs max-w-[48vw] sm:max-w-none">
-            {DEVELOPER_INFO.subtitle}
+          <span className="text-white/80 truncate text-[11px] sm:text-xs max-w-[55vw] sm:max-w-none">
+            INDEPENDENT WEB SOLUTIONS &amp; SOFTWARE ENGINEERING
           </span>
         </motion.div>
 
@@ -86,13 +87,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork }) => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="hidden sm:block text-white/50"
         >
-          [ {DEVELOPER_INFO.location} ]
+          [ {DEVELOPER_INFO.location} • FREELANCE &amp; FULL-TIME ]
         </motion.div>
       </div>
 
       {/* Editorial Typography Layout - Moved upwards and placed cleanly on the left */}
-      <div className="z-20 relative max-w-6xl mx-auto w-full pt-1 sm:pt-3 md:py-12 md:my-auto pointer-events-none">
-        <div className="max-w-[55%] sm:max-w-[58%] md:max-w-xl">
+      <div className="z-20 relative max-w-6xl mx-auto w-full pt-1 sm:pt-3 md:py-8 md:my-auto pointer-events-none">
+        <div className="max-w-[58%] sm:max-w-[60%] md:max-w-xl">
           <div className="flex flex-col">
             {/* GURU Title Line */}
             <motion.h1
@@ -121,14 +122,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork }) => {
           </div>
 
           {/* Sub-headline breakdown - Left aligned below title */}
-          <div className="mt-2.5 sm:mt-4 md:mt-12 border-t border-white/10 pt-2 sm:pt-3 md:pt-6 space-y-1 sm:space-y-1.5 md:space-y-3">
+          <div className="mt-2.5 sm:mt-4 md:mt-8 border-t border-white/10 pt-2 sm:pt-3 md:pt-4 space-y-1 sm:space-y-1.5 md:space-y-2.5">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.35 }}
             >
               <p className="font-display text-xs sm:text-base md:text-2xl font-extrabold tracking-tight leading-snug uppercase text-white/95">
-                COMPUTER SCIENCE &amp; SOFTWARE DEVELOPMENT
+                SOFTWARE • WEB SOLUTIONS • SYSTEMS
               </p>
             </motion.div>
 
@@ -138,11 +139,42 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork }) => {
               transition={{ duration: 0.8, delay: 0.45 }}
               className="text-left font-mono-custom text-[10px] sm:text-xs md:text-sm text-white/70 space-y-0.5 sm:space-y-1"
             >
-              <p className="font-semibold text-white/90">{DEVELOPER_INFO.institution}</p>
+              <p className="font-semibold text-white/90">
+                Software Engineer &amp; Independent Web Solutions Provider
+              </p>
               <p>
-                Based in {DEVELOPER_INFO.location} —{' '}
+                Building modern client websites, backend systems, APIs, and data solutions —{' '}
                 <span className="text-[#e63946] font-medium">{DEVELOPER_INFO.availability}</span>
               </p>
+            </motion.div>
+
+            {/* Action CTA Buttons: Build a Project + Download Resume */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.55 }}
+              className="pt-2 sm:pt-3.5 flex flex-wrap items-center gap-2.5 sm:gap-3 pointer-events-auto"
+            >
+              {/* Primary: Build A Project With Me */}
+              <button
+                onClick={onScrollToContact}
+                className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#e63946] text-white font-mono-custom text-[11px] sm:text-xs font-bold uppercase tracking-wider hover:bg-[#ff4d6d] transition-all flex items-center gap-2 shadow-lg shadow-[#e63946]/30 active:scale-95 cursor-pointer focus:outline-none"
+                data-cursor-label="PROJECT"
+              >
+                <span>BUILD A PROJECT WITH ME</span>
+                <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              </button>
+
+              {/* Secondary: Download Resume */}
+              <a
+                href={DEVELOPER_INFO.resumeUrl}
+                download="Guru_Prasath_Resume.pdf"
+                className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full border border-white/20 bg-white/5 text-white/90 font-mono-custom text-[11px] sm:text-xs font-bold uppercase tracking-wider hover:border-white hover:text-white hover:bg-white/10 transition-all flex items-center gap-2 active:scale-95 cursor-pointer focus:outline-none"
+                data-cursor-label="RESUME"
+              >
+                <Download className="w-3.5 h-3.5 text-[#e63946]" />
+                <span>DOWNLOAD RESUME</span>
+              </a>
             </motion.div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { IDCardScene } from './IDCardScene';
 import { DEFAULT_CARD_CONFIG } from './config';
@@ -8,19 +8,34 @@ import type { HangingIDCardProps } from './types';
 export const HangingIDCard: React.FC<HangingIDCardProps> = ({
   photo = '/assets/profile.jpg',
   name = 'GURU PRASATH',
-  role = 'SOFTWARE & SYSTEMS DEVELOPER',
-  institution = 'Saranathan College of Eng.',
-  degree = 'B.Tech CSBS (2022 — 2026)',
+  role = 'SOFTWARE & WEB SOLUTIONS',
+  institution = 'Saranathan College of Engineering',
+  degree = '2022 — 2026',
   location = 'India',
-  code = 'GP-2026-CSBS',
+  code = 'GP-2026',
   className = '',
   config: userConfig,
 }) => {
   const { accentColor } = useThemeColor();
   const [isReducedMotion, setIsReducedMotion] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1200
   );
+
+  // Pause 3D physics and rendering when hero is scrolled out of viewport
+  useEffect(() => {
+    if (!wrapperRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.02 }
+    );
+    observer.observe(wrapperRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Check reduced motion preference
   useEffect(() => {
@@ -67,11 +82,11 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
   // On mobile: 0.70 is compact yet sharp and completely avoids any collision with text
   // On desktop: 0.74 (tablet) / 0.86 (desktop) / 0.94 (wide desktop)
   const responsiveScale = useMemo(() => {
-    if (windowWidth < 480) return 0.70;           // Compact, crisp, avoids any collision
-    if (windowWidth < 768) return 0.73;           // Phablet
-    if (windowWidth < 1024) return 0.74;          // Tablet
-    if (windowWidth < 1440) return 0.86;          // Desktop
-    return 0.94;                                  // Large desktop
+    if (windowWidth < 480) return 0.75;           // Compact, crisp, avoids any collision
+    if (windowWidth < 768) return 0.78;           // Phablet
+    if (windowWidth < 1024) return 0.82;          // Tablet
+    if (windowWidth < 1440) return 0.95;          // Desktop
+    return 1.04;                                  // Large desktop
   }, [windowWidth]);
 
   // Merge default config with user overrides and responsive positioning
@@ -94,11 +109,13 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
 
   return (
     <div
+      ref={wrapperRef}
       className={`select-none touch-pan-y pointer-events-none ${className || defaultClasses}`}
       style={{ touchAction: 'pan-y' }}
       aria-label="Interactive 3D Hanging ID Badge"
     >
       <Canvas
+        frameloop={isVisible ? 'always' : 'never'}
         camera={{ position: [0, isMobile ? 0 : 0.2, 7.8], fov: 38 }}
         gl={{
           alpha: true,

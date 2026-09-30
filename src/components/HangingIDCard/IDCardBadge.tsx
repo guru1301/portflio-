@@ -122,8 +122,8 @@ export const IDCardBadge = forwardRef<THREE.Group, IDCardBadgeProps>(
         >
           <meshStandardMaterial
             map={frontTexture}
-            roughness={0.28}
-            metalness={0.06}
+            roughness={0.22}
+            metalness={0.0}
             polygonOffset
             polygonOffsetFactor={-1}
             polygonOffsetUnits={-1}

@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 import { PROJECTS_DATA } from '../data/portfolioData';
+import { TechIcon } from '../components/TechIcon';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,15 +17,13 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const mobileCardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const mobileCardInnerRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const mobileThumbImgRefs = useRef<(HTMLImageElement | null)[]>([]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const mm = gsap.matchMedia();
 
-    // DESKTOP: Horizontal Pin Scrub (Untouched — user said "laptop was great")
+    // DESKTOP: Snappy, instantaneous horizontal scrub (no lag, 1:1 scroll feel)
     mm.add('(min-width: 768px)', () => {
       if (!scrollContainerRef.current) return;
       const scrollWidth = scrollContainerRef.current.scrollWidth - window.innerWidth;
@@ -35,73 +34,37 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
-          scrub: 1,
+          scrub: 0.25, // Snappy 0.25s response — eliminates sluggish trackpad drag
           start: 'top top',
-          end: () => `+=${scrollWidth * 1.2}`,
+          end: () => `+=${scrollWidth}`, // Proportional 1:1 scroll distance
           invalidateOnRefresh: true,
         },
       });
     });
 
-    // MOBILE: Smooth Stacking & Scroll Transitions (< 768px)
+    // MOBILE: Pure native 120Hz/60Hz hardware scrolling with zero-cost IntersectionObserver
     mm.add('(max-width: 767px)', () => {
-      PROJECTS_DATA.forEach((_, index) => {
-        const cardEl = mobileCardRefs.current[index];
-        const innerEl = mobileCardInnerRefs.current[index];
-        const imgEl = mobileThumbImgRefs.current[index];
-
-        if (!cardEl || !innerEl) return;
-
-        // Active project tracking for HUD & dynamic indicators
-        ScrollTrigger.create({
-          trigger: cardEl,
-          start: 'top 55%',
-          end: 'bottom 45%',
-          onEnter: () => setActiveMobileIndex(index),
-          onEnterBack: () => setActiveMobileIndex(index),
-        });
-
-        // 16:9 Thumbnail parallax motion while scrolling
-        if (imgEl) {
-          gsap.fromTo(
-            imgEl,
-            { yPercent: -8, scale: 1.08 },
-            {
-              yPercent: 8,
-              scale: 1.02,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: cardEl,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 0.3,
-              },
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const idx = Number(entry.target.getAttribute('data-project-index'));
+              if (!isNaN(idx)) {
+                setActiveMobileIndex(idx);
+              }
             }
-          );
-        }
-
-        // Stacking Card Depth Transition:
-        // As the next card ascends and stacks on top of this one,
-        // smooth scale down and dim this card so it recesses into the stack!
-        const nextCardEl = mobileCardRefs.current[index + 1];
-        if (nextCardEl) {
-          gsap.to(innerEl, {
-            scale: 0.94,
-            opacity: 0.72,
-            filter: 'brightness(0.65)',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: nextCardEl,
-              start: 'top 85%',
-              end: 'top 15%',
-              scrub: 0.3,
-            },
           });
-        }
+        },
+        { rootMargin: '-25% 0px -45% 0px', threshold: 0.1 }
+      );
+
+      mobileCardRefs.current.forEach((el) => {
+        if (el) observer.observe(el);
       });
+
+      return () => observer.disconnect();
     });
 
-    // Refresh ScrollTrigger calculations after initial paint
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 150);
@@ -128,6 +91,7 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
       <div className="hidden md:block min-h-screen overflow-hidden">
         <div
           ref={scrollContainerRef}
+          style={{ willChange: 'transform', transform: 'translate3d(0, 0, 0)' }}
           className="flex flex-nowrap items-center h-screen pl-12 lg:pl-24 pr-24 lg:pr-48 gap-12 lg:gap-16"
         >
           {PROJECTS_DATA.map((project) => (
@@ -144,7 +108,7 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
                 <div className="flex justify-between items-start z-10 h-[84px] shrink-0">
                   <div className="flex-1 pr-4 min-w-0">
                     <span className="font-mono-custom text-xs font-bold text-[#e63946] tracking-widest uppercase block">
-                      [ PROJECT {project.number} ]
+                      [ ENGINEERING PROJECT {project.number} ]
                     </span>
                     <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#111115] tracking-tight uppercase mt-1 truncate group-hover:text-[#e63946] transition-colors duration-300">
                       {project.title}
@@ -169,14 +133,14 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-70 group-hover:opacity-60 transition-opacity" />
 
                   {/* Category Pill Tag at Top Right */}
-                  <div className="absolute top-3.5 right-3.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
+                  <div className="absolute top-3.5 right-3.5 px-3 py-1 rounded-full bg-[#0c0c10]/90 border border-white/15">
                     <span className="font-mono-custom text-[10px] text-white/90 tracking-wider uppercase font-semibold">
                       {project.category}
                     </span>
                   </div>
 
                   {/* Tagline at Bottom */}
-                  <div className="absolute bottom-3.5 left-3.5 right-3.5 p-3 rounded-xl bg-black/65 backdrop-blur-md border border-white/10">
+                  <div className="absolute bottom-3.5 left-3.5 right-3.5 p-3 rounded-xl bg-[#0c0c10]/90 border border-white/10">
                     <p className="font-mono-custom text-xs text-white/90 truncate">
                       {project.tagline}
                     </p>
@@ -189,8 +153,9 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
                     {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-1 rounded-full border border-black/10 bg-[#f5f4f0] font-mono-custom text-[11px] text-[#555560] whitespace-nowrap shrink-0"
+                        className="px-2.5 py-1 rounded-full border border-black/10 bg-[#f5f4f0] font-mono-custom text-[11px] text-[#555560] whitespace-nowrap shrink-0 inline-flex items-center gap-1.5"
                       >
+                        <TechIcon name={tech} className="w-3 h-3 shrink-0 opacity-70" />
                         {tech}
                       </span>
                     ))}
@@ -253,41 +218,34 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
         </div>
       </div>
 
-      {/* Mobile Card Deck Flow — Native Sticky Stacking with GSAP Scrub Physics */}
-      <div className="block md:hidden px-4 sm:px-6 pt-5 pb-24 space-y-10">
+      {/* Mobile Card Flow — Silky Smooth Native Momentum Scrolling */}
+      <div className="block md:hidden px-4 sm:px-6 pt-4 pb-16 space-y-6">
         {PROJECTS_DATA.map((project, index) => {
           const isActive = activeMobileIndex === index;
           return (
             <div
               key={project.id}
               id={`mobile-card-${index}`}
+              data-project-index={index}
               ref={(el) => {
                 mobileCardRefs.current[index] = el;
               }}
-              style={{
-                position: 'sticky',
-                top: `${72 + index * 8}px`,
-                zIndex: index + 10,
-              }}
               className="touch-pan-y"
             >
-              {/* Inner Card with animated scale, dimming, and elevation */}
+              {/* Mobile Card */}
               <div
-                ref={(el) => {
-                  mobileCardInnerRefs.current[index] = el;
-                }}
                 onClick={() => onSelectProject(project)}
-                className={`w-full h-[470px] sm:h-[490px] bg-white rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-2xl transition-all duration-300 cursor-pointer ${
+                className={`w-full bg-white rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-lg transition-all duration-200 cursor-pointer active:scale-[0.99] ${
                   isActive
-                    ? 'border-2 border-[#e63946] shadow-[0_16px_40px_rgba(0,0,0,0.4),0_0_24px_rgba(230,57,70,0.2)]'
-                    : 'border border-black/10 shadow-xl'
+                    ? 'border-2 border-[#e63946] shadow-[0_8px_24px_rgba(230,57,70,0.15)]'
+                    : 'border border-black/10'
                 }`}
               >
                 {/* Mobile Header */}
                 <div className="h-[74px] shrink-0 flex flex-col justify-between">
                   <div className="flex justify-between items-center">
                     <span className="font-mono-custom text-xs font-bold text-[#e63946] tracking-wider uppercase">
-                      [ PROJECT {project.number} ]
+                      [ ENGINEERING PROJECT {project.number} ]
                     </span>
                     <span className="font-mono-custom text-[10px] text-[#888895] uppercase font-semibold tracking-wider">
                       {project.category}
@@ -304,27 +262,25 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
                   </div>
                 </div>
 
-                {/* Thumbnail — Strict YouTube Banner 16:9 Aspect Ratio with Parallax */}
-                <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-[#0c0c10] border border-black/10 shrink-0 my-auto shadow-inner group/thumb">
+                {/* Thumbnail — Strict YouTube Banner 16:9 Aspect Ratio */}
+                <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-[#0c0c10] border border-black/10 shrink-0 my-3 shadow-inner">
                   <img
-                    ref={(el) => {
-                      mobileThumbImgRefs.current[index] = el;
-                    }}
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out"
+                    loading="lazy"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70" />
 
                   {/* Category Badge on Thumbnail */}
-                  <div className="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
+                  <div className="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-[#0c0c10]/90 border border-white/15">
                     <span className="font-mono-custom text-[9px] text-white/90 tracking-wider uppercase font-semibold">
                       {project.category}
                     </span>
                   </div>
 
                   {/* Tagline at Bottom */}
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-lg bg-black/65 backdrop-blur-md border border-white/10">
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-lg bg-[#0c0c10]/90 border border-white/10">
                     <p className="font-mono-custom text-[11px] text-white/90 truncate">
                       {project.tagline}
                     </p>
@@ -332,13 +288,14 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
                 </div>
 
                 {/* Mobile Footer */}
-                <div className="space-y-3 shrink-0">
+                <div className="space-y-3 shrink-0 pt-1">
                   <div className="flex items-center gap-1.5 overflow-hidden">
                     {project.technologies.slice(0, 3).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-1 rounded-full border border-black/10 bg-[#f5f4f0] text-[10px] font-mono-custom text-[#555560] whitespace-nowrap shrink-0 font-medium"
+                        className="px-2.5 py-1 rounded-full border border-black/10 bg-[#f5f4f0] text-[10px] font-mono-custom text-[#555560] whitespace-nowrap shrink-0 font-medium inline-flex items-center gap-1.5"
                       >
+                        <TechIcon name={tech} className="w-3 h-3 shrink-0 opacity-70" />
                         {tech}
                       </span>
                     ))}

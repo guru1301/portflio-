@@ -49,91 +49,31 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
     }));
 
     // ========================================================================
-    // GEOMETRIC ARCHITECTURE — 400x400 VIEWPORT (CENTER AT 200, 200)
-    // Uniform 48px structural beams with calibrated 45° precision chamfers
+    // SCULPTURAL CURVILINEAR GEOMETRY — 400x400 VIEWPORT (CENTER AT 200, 200)
+    // Continuous flowing organic curves, silky rounded caps & balanced crossbar
     // ========================================================================
 
-    // Solid closed monolithic G polygon contour
+    // Solid closed continuous Curvy G monogram contour
     const solidGPolygon = `
-      M 310,80
-      L 136,80
-      L 80,136
-      L 80,264
-      L 136,320
-      L 264,320
-      L 320,264
-      L 320,176
-      L 192,176
-      L 192,224
-      L 272,224
-      L 272,244
-      L 244,272
-      L 156,272
-      L 128,244
-      L 128,156
-      L 156,128
-      L 310,128
+      M 304.2,112.6
+      A 136,136 0 1,0 336,200
+      L 336,175
+      L 205,175
+      A 25,25 0 0 0 205,225
+      L 282.3,225
+      A 86,86 0 1,1 265.9,144.7
+      A 25,25 0 0 1 304.2,112.6
       Z
-    `;
+    `.replace(/\s+/g, ' ').trim();
 
-    // Centerline optical rail trajectory for the laser trace
+    // Centerline fluid trajectory for the luminous trace
     const centerlineD = `
-      M 310,104
-      L 146,104
-      L 104,146
-      L 104,254
-      L 146,296
-      L 254,296
-      L 296,254
-      L 296,200
-      L 192,200
-    `;
-
-    // Outer Key Light Chamfer Highlight Rim (Top & Left light exposure)
-    const keyLightHighlightD = `
-      M 310,80
-      L 136,80
-      L 80,136
-      L 80,264
-      L 136,320
-    `;
-
-    // Crossbar Cantilever Bevel Highlight Rim
-    const crossbarHighlightD = `
-      M 320,176
-      L 192,176
-      L 192,224
-    `;
-
-    // Inner Top & Left Key Light Catch
-    const innerHighlightD = `
-      M 156,128
-      L 310,128
-    `;
-
-    // Ambient Occlusion Shadow Rim (Bottom & Right)
-    const shadowRimD = `
-      M 136,320
-      L 264,320
-      L 320,264
-      L 320,176
-    `;
-
-    // Crossbar Lower Edge Shadow
-    const crossbarShadowD = `
-      M 192,224
-      L 272,224
-      L 272,244
-    `;
-
-    // Inner Cavity Shadow
-    const innerShadowD = `
-      M 272,244
-      L 244,272
-      L 156,272
-      L 128,244
-    `;
-
+      M 285.0,128.7
+      A 111,111 0 1,0 311,200
+      L 311,185
+      A 15,15 0 0 0 296,200
+      L 195,200
+    `.replace(/\s+/g, ' ').trim();
     return (
       <div
         ref={containerRef}
@@ -149,25 +89,25 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
           <defs>
             {/* Ambient Volumetric Radial Aura */}
             <radialGradient id="g-ambient-glow" cx="50%" cy="50%" r="55%">
-              <stop offset="0%" stopColor="#e63946" stopOpacity="0.22" />
-              <stop offset="35%" stopColor="#e63946" stopOpacity="0.06" />
+              <stop offset="0%" stopColor="#e63946" stopOpacity="0.28" />
+              <stop offset="35%" stopColor="#e63946" stopOpacity="0.08" />
               <stop offset="70%" stopColor="#14141c" stopOpacity="0.02" />
               <stop offset="100%" stopColor="#08080c" stopOpacity="0" />
             </radialGradient>
 
             {/* Milled Brushed Titanium Metallic Surface */}
             <linearGradient id="g-titanium-face" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#2c2d3a" />
-              <stop offset="28%" stopColor="#1f202c" />
-              <stop offset="60%" stopColor="#15151e" />
-              <stop offset="85%" stopColor="#0f0f15" />
-              <stop offset="100%" stopColor="#09090d" />
+              <stop offset="0%" stopColor="#303140" />
+              <stop offset="28%" stopColor="#222330" />
+              <stop offset="60%" stopColor="#161720" />
+              <stop offset="85%" stopColor="#101016" />
+              <stop offset="100%" stopColor="#0a0a0e" />
             </linearGradient>
 
             {/* 3D Extruded Chassis Shadow Rim Gradient */}
             <linearGradient id="g-chassis-bevel" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#1a1a24" />
-              <stop offset="50%" stopColor="#0f0f16" />
+              <stop offset="0%" stopColor="#1c1c28" />
+              <stop offset="50%" stopColor="#101018" />
               <stop offset="100%" stopColor="#040406" />
             </linearGradient>
 
@@ -220,10 +160,10 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
 
             {/* 3D Extrusion Elevation Drop Shadow */}
             <filter id="g-extrusion-shadow" x="-20%" y="-20%" width="150%" height="150%">
-              <feDropShadow dx="4" dy="8" stdDeviation="8" floodColor="#000000" floodOpacity="0.85" />
+              <feDropShadow dx="4" dy="8" stdDeviation="10" floodColor="#000000" floodOpacity="0.85" />
             </filter>
 
-            {/* Monolithic G Silhouette Clip Mask */}
+            {/* Curvy G Silhouette Clip Mask */}
             <clipPath id="g-silhouette-clip">
               <path d={solidGPolygon} />
             </clipPath>
@@ -241,102 +181,32 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
           />
 
           {/* ================================================================
-              LAYER 01: HOLOGRAPHIC BLUEPRINT & ARCHITECTURAL CAD RETICLE
+              LAYER 01: MINIMAL CELESTIAL ORBITS (Clean & elegant, zero hacker text)
               ================================================================ */}
           <g
             ref={blueprintGroupRef}
             className="pointer-events-none opacity-0"
-            stroke="rgba(255, 255, 255, 0.1)"
-            strokeWidth="0.6"
+            stroke="rgba(255, 255, 255, 0.08)"
+            strokeWidth="0.8"
           >
-            {/* Center Compass Axes */}
-            <line x1="25" y1="200" x2="375" y2="200" strokeDasharray="3,6" />
-            <line x1="200" y1="25" x2="200" y2="375" strokeDasharray="3,6" />
-
-            {/* Outer Architectural Bounding Reticle */}
-            <rect
-              x="50"
-              y="50"
-              width="300"
-              height="300"
+            {/* Subtle Ethereal Concentric Orbits */}
+            <circle
+              cx="200"
+              cy="200"
+              r="170"
+              fill="none"
+              strokeDasharray="2,8"
+              opacity="0.6"
+            />
+            <circle
+              cx="200"
+              cy="200"
+              r="144"
               fill="none"
               stroke="#e63946"
-              strokeOpacity="0.18"
-              strokeDasharray="2,8"
-            />
-
-            {/* Concentric Precision Degree Dials */}
-            <circle
-              cx="200"
-              cy="200"
-              r="172"
-              fill="none"
-              stroke="rgba(255, 255, 255, 0.08)"
-              strokeDasharray="2,8"
-            />
-            <circle
-              cx="200"
-              cy="200"
-              r="146"
-              fill="none"
-              stroke="rgba(230, 57, 70, 0.12)"
+              strokeOpacity="0.15"
               strokeDasharray="3,12"
             />
-
-            {/* Corner Alignment CAD Calipers */}
-            <path d="M 40,64 L 40,40 L 64,40" fill="none" stroke="#e63946" strokeOpacity="0.5" strokeWidth="1.2" />
-            <path d="M 336,40 L 360,40 L 360,64" fill="none" stroke="#e63946" strokeOpacity="0.5" strokeWidth="1.2" />
-            <path d="M 40,336 L 40,360 L 64,360" fill="none" stroke="#e63946" strokeOpacity="0.5" strokeWidth="1.2" />
-            <path d="M 336,360 L 360,360 L 360,336" fill="none" stroke="#e63946" strokeOpacity="0.5" strokeWidth="1.2" />
-
-            {/* Precision Chamfer Alignment Guides */}
-            <line x1="136" y1="80" x2="80" y2="136" stroke="#e63946" strokeOpacity="0.3" strokeDasharray="2,4" />
-            <line x1="80" y1="264" x2="136" y2="320" stroke="#e63946" strokeOpacity="0.3" strokeDasharray="2,4" />
-            <line x1="264" y1="320" x2="320" y2="264" stroke="#e63946" strokeOpacity="0.3" strokeDasharray="2,4" />
-
-            {/* Micro Coordinates HUD Readout */}
-            <text
-              x="44"
-              y="34"
-              fill="#e63946"
-              opacity="0.8"
-              fontSize="7"
-              fontFamily="Space Grotesk, monospace"
-              letterSpacing="0.16em"
-            >
-              CAD // GP-G01 ARCHITECTURAL CORE
-            </text>
-            <text
-              x="265"
-              y="34"
-              fill="rgba(255,255,255,0.45)"
-              fontSize="6.5"
-              fontFamily="Space Grotesk, monospace"
-              letterSpacing="0.12em"
-            >
-              TOLERANCE: ±0.001mm
-            </text>
-            <text
-              x="44"
-              y="376"
-              fill="rgba(255,255,255,0.35)"
-              fontSize="6.5"
-              fontFamily="Space Grotesk, monospace"
-              letterSpacing="0.12em"
-            >
-              COORD: 200.00, 200.00 // 45° CHMR
-            </text>
-            <text
-              x="280"
-              y="376"
-              fill="#e63946"
-              opacity="0.85"
-              fontSize="6.5"
-              fontFamily="Space Grotesk, monospace"
-              letterSpacing="0.14em"
-            >
-              STATUS: SOLID
-            </text>
           </g>
 
           {/* ================================================================
@@ -361,7 +231,7 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
           </g>
 
           {/* ================================================================
-              LAYER 03: SOLID MONOLITHIC TITANIUM SURFACE & SPECULAR SHEEN
+              LAYER 03: SOLID MONOLITHIC CURVY TITANIUM SURFACE & SPECULAR SHEEN
               ================================================================ */}
           <g ref={solidGroupRef} clipPath="url(#g-silhouette-clip)" className="opacity-0">
             {/* Primary Milled Brushed Titanium Face */}
@@ -373,8 +243,8 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               fill="none"
               stroke="#08080d"
               strokeWidth="10"
-              strokeLinecap="square"
-              strokeLinejoin="miter"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d={centerlineD}
@@ -382,45 +252,30 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               stroke="#181824"
               strokeWidth="11"
               strokeOpacity="0.7"
-              strokeLinecap="square"
-              strokeLinejoin="miter"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
-
-            {/* Micro Aerospace Hairline Seams (Panel Joint Lines) */}
-            <g stroke="rgba(255, 255, 255, 0.14)" strokeWidth="0.6" strokeDasharray="1,1">
-              <line x1="136" y1="80" x2="156" y2="128" />
-              <line x1="80" y1="136" x2="128" y2="156" />
-              <line x1="80" y1="264" x2="128" y2="244" />
-              <line x1="136" y1="320" x2="156" y2="272" />
-              <line x1="264" y1="320" x2="244" y2="272" />
-              <line x1="320" y1="264" x2="272" y2="244" />
-              <line x1="272" y1="176" x2="272" y2="224" />
-            </g>
 
             {/* Cantilever Crossbar Anodized Inlay & Ruby Core Track */}
             <rect
-              x="192"
+              x="195"
               y="178"
-              width="80"
+              width="85"
               height="44"
+              rx="22"
               fill="#0b0b10"
               opacity="0.85"
             />
             <line
-              x1="192"
+              x1="195"
               y1="200"
-              x2="272"
+              x2="280"
               y2="200"
               stroke="url(#g-core-filament-grad)"
-              strokeWidth="2.2"
+              strokeWidth="2.5"
+              strokeLinecap="round"
               filter="url(#g-bloom)"
             />
-
-            {/* Micro Engineering Grid Pattern inside Cavity */}
-            <g opacity="0.15" stroke="#ffffff" strokeWidth="0.5">
-              <line x1="140" y1="140" x2="140" y2="260" strokeDasharray="2,4" />
-              <line x1="160" y1="140" x2="160" y2="260" strokeDasharray="2,4" />
-            </g>
 
             {/* Dual-Band Specular Highlight Sweep Beam */}
             <rect
@@ -436,7 +291,7 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
           </g>
 
           {/* ================================================================
-              LAYER 04: BEVELED CHAMFER EDGES & KNIFE-EDGE RIM HIGHLIGHTS
+              LAYER 04: BEVELED CURVED EDGES & KNIFE-EDGE RIM HIGHLIGHTS
               ================================================================ */}
           <g>
             {/* Full Monolithic Edge Stroke */}
@@ -448,69 +303,13 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               strokeWidth="1.4"
               className="opacity-0"
             />
-
-            {/* Top-Left Key Light Platinum Catch */}
-            <path
-              d={keyLightHighlightD}
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="1.6"
-              strokeOpacity="0.9"
-              className="opacity-0 key-rim-highlight"
-            />
-
-            {/* Crossbar Top Edge Highlight */}
-            <path
-              d={crossbarHighlightD}
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="1.4"
-              strokeOpacity="0.85"
-              className="opacity-0 key-rim-highlight"
-            />
-
-            {/* Inner Top Edge Highlight */}
-            <path
-              d={innerHighlightD}
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="1.2"
-              strokeOpacity="0.75"
-              className="opacity-0 key-rim-highlight"
-            />
-
-            {/* Bottom-Right Ambient Shadow Rims */}
-            <path
-              d={shadowRimD}
-              fill="none"
-              stroke="#040406"
-              strokeWidth="1.8"
-              strokeOpacity="0.9"
-              className="opacity-0 key-rim-highlight"
-            />
-            <path
-              d={crossbarShadowD}
-              fill="none"
-              stroke="#040406"
-              strokeWidth="1.5"
-              strokeOpacity="0.8"
-              className="opacity-0 key-rim-highlight"
-            />
-            <path
-              d={innerShadowD}
-              fill="none"
-              stroke="#040406"
-              strokeWidth="1.5"
-              strokeOpacity="0.8"
-              className="opacity-0 key-rim-highlight"
-            />
           </g>
 
           {/* ================================================================
-              LAYER 05: PROGRESSIVE WIREFRAME & LASER TRACE TRACK
+              LAYER 05: PROGRESSIVE WIREFRAME & CURVED LASER TRACE TRACK
               ================================================================ */}
           <g ref={wireframeGroupRef} className="opacity-0">
-            {/* Glowing Photonic Aura along Centerline */}
+            {/* Glowing Photonic Aura along Curved Centerline */}
             <path
               ref={centerlineGlowPathRef}
               d={centerlineD}
@@ -519,7 +318,7 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               strokeWidth="12"
               strokeOpacity="0.45"
               strokeLinecap="round"
-              strokeLinejoin="miter"
+              strokeLinejoin="round"
               filter="url(#g-bloom)"
             />
 
@@ -529,19 +328,19 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               d={centerlineD}
               fill="none"
               stroke="#ffffff"
-              strokeWidth="2.5"
+              strokeWidth="2.8"
               strokeLinecap="round"
-              strokeLinejoin="miter"
+              strokeLinejoin="round"
               filter="url(#g-bloom)"
             />
           </g>
 
           {/* ================================================================
-              LAYER 06: INITIAL SIGNAL PLASMA SPARK & IGNITION PULSE (310, 104)
+              LAYER 06: INITIAL SIGNAL PLASMA SPARK & IGNITION PULSE (285, 128.7)
               ================================================================ */}
           <g
             ref={sparkGroupRef}
-            transform="translate(310, 104)"
+            transform="translate(285, 128.7)"
             className="opacity-0"
             filter="url(#g-spark-core)"
           >
@@ -576,7 +375,7 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               ================================================================ */}
           <g
             ref={laserHeadRef}
-            transform="translate(310, 104)"
+            transform="translate(285, 128.7)"
             className="opacity-0 pointer-events-none"
             filter="url(#g-spark-core)"
           >
@@ -591,11 +390,11 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
           </g>
 
           {/* ================================================================
-              LAYER 08: CANTILEVER CORE NEXUS REACTOR (TERMINATION AT 192, 200)
+              LAYER 08: CANTILEVER CORE NEXUS REACTOR (TERMINATION AT 195, 200)
               ================================================================ */}
           <g
             ref={coreLockGroupRef}
-            transform="translate(192, 200)"
+            transform="translate(195, 200)"
             className="opacity-0"
             filter="url(#g-bloom)"
           >
@@ -605,7 +404,7 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               fill="#ffffff"
               filter="url(#g-bloom)"
             />
-            <circle cx="0" cy="0" r="2" fill="#e63946" />
+            <circle cx="0" cy="0" r="2.5" fill="#e63946" />
 
             {/* Concentric Precision Reticle Rings */}
             <circle

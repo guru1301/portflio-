@@ -17,12 +17,50 @@ export const ContactSection: React.FC = () => {
         </div>
 
         {/* Large Statement */}
-        <div>
+        <div className="space-y-4">
           <h2 className="font-display text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.88] uppercase text-white">
             LET'S <br />
             <span className="text-[#e63946]">BUILD</span> <br />
             SOMETHING.
           </h2>
+          <p className="font-mono-custom text-xs sm:text-sm text-white/80 leading-relaxed max-w-2xl border-l-2 border-[#e63946] pl-4 py-1">
+            Open to entry-level software opportunities and selected client web projects.
+          </p>
+        </div>
+
+        {/* Dual Capability Track: Job Opportunities & Client Projects */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
+          {/* Track 1: Job Opportunities */}
+          <div className="p-5 sm:p-6 rounded-2xl domain-card-bg border border-white/10 space-y-2.5">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#e63946]" />
+              <span className="font-mono-custom text-xs font-bold text-[#e63946] uppercase tracking-wider">
+                JOB OPPORTUNITIES
+              </span>
+            </div>
+            <p className="font-display text-base sm:text-lg font-bold text-white uppercase tracking-tight">
+              Software Engineering &amp; Data Systems
+            </p>
+            <p className="font-mono-custom text-xs text-white/60 leading-relaxed">
+              Software Engineering • Backend Development • Full-Stack Systems • Data Analytics &amp; Pipelines
+            </p>
+          </div>
+
+          {/* Track 2: Client Projects */}
+          <div className="p-5 sm:p-6 rounded-2xl domain-card-bg border border-white/10 space-y-2.5">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#e63946]" />
+              <span className="font-mono-custom text-xs font-bold text-[#e63946] uppercase tracking-wider">
+                CLIENT PROJECTS
+              </span>
+            </div>
+            <p className="font-display text-base sm:text-lg font-bold text-white uppercase tracking-tight">
+              Independent Web Solutions
+            </p>
+            <p className="font-mono-custom text-xs text-white/60 leading-relaxed">
+              Business Websites • Landing Pages • Portfolio Websites • Custom Web Applications • Dashboards
+            </p>
+          </div>
         </div>
 
         {/* Contact Grid */}

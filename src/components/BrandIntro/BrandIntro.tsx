@@ -32,8 +32,8 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
       gsap.to(containerRef.current, {
         opacity: 0,
         scale: 1.04,
-        filter: 'blur(6px)',
-        duration: 0.4,
+        filter: 'blur(8px)',
+        duration: 0.45,
         ease: 'power2.inOut',
         onComplete: () => {
           if (onComplete) onComplete();
@@ -57,8 +57,8 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
       const yNorm = (e.clientY - innerHeight / 2) / (innerHeight / 2);
 
       gsap.to(gSymbolRef.current.container, {
-        rotateY: xNorm * 11,
-        rotateX: -yNorm * 11,
+        rotateY: xNorm * 10,
+        rotateX: -yNorm * 10,
         duration: 0.65,
         ease: 'power2.out',
         overwrite: 'auto',
@@ -87,8 +87,8 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
       if (atmosphereRef.current) gsap.set(atmosphereRef.current, { opacity: 0 });
       if (brandTextRef.current) gsap.set(brandTextRef.current, { opacity: 0, y: 22, filter: 'blur(10px)' });
 
-      // Calculate path length for laser trace
-      const pathLength = g.centerlinePath ? g.centerlinePath.getTotalLength() : 716;
+      // Calculate path length for fluid curvy laser trace
+      const pathLength = g.centerlinePath ? g.centerlinePath.getTotalLength() : 750;
 
       if (g.centerlinePath) {
         gsap.set(g.centerlinePath, {
@@ -107,9 +107,9 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
       // Initial sculptural 3D orientation
       if (g.container) {
         gsap.set(g.container, {
-          rotateX: -6.5,
-          rotateY: 8.5,
-          scale: 0.94,
+          rotateX: -5.5,
+          rotateY: 7.5,
+          scale: 0.95,
         });
       }
 
@@ -121,12 +121,11 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
       if (g.chassisGroup) gsap.set(g.chassisGroup, { opacity: 0, y: 8 });
       if (g.solidGroup) gsap.set(g.solidGroup, { opacity: 0 });
       if (g.bevelStroke) gsap.set(g.bevelStroke, { opacity: 0 });
-      gsap.set('.key-rim-highlight', { opacity: 0 });
       if (g.coreLockGroup) gsap.set(g.coreLockGroup, { opacity: 0, scale: 0 });
       if (g.specularRect) gsap.set(g.specularRect, { opacity: 0 });
 
       // ====================================================================
-      // PHASE 01 — DEEP SPACE & BLUEPRINT CADENCE (0.0s - 0.7s)
+      // PHASE 01 — DEEP SPACE & SUBTLE ORBIT RING (0.0s - 0.7s)
       // ====================================================================
       if (atmosphereRef.current) {
         tl.to(atmosphereRef.current, {
@@ -138,15 +137,15 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
 
       if (g.blueprintGroup) {
         tl.to(g.blueprintGroup, {
-          opacity: 0.6,
+          opacity: 0.5,
           duration: 0.7,
           ease: 'power2.out',
         }, 0.15);
       }
 
       // ====================================================================
-      // PHASE 02 — INITIAL SIGNAL PLASMA SPARK (0.45s - 0.95s)
-      // Origin ignition at the top-right entry node (310, 104)
+      // PHASE 02 — FLUID PLASMA SPARK IGNITION (0.4s - 0.9s)
+      // Spark at the top-right entry node of the curvy G (285, 128.7)
       // ====================================================================
       if (g.sparkGroup) {
         tl.to(g.sparkGroup, {
@@ -154,35 +153,35 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           scale: 1,
           duration: 0.35,
           ease: 'back.out(2)',
-        }, 0.45);
+        }, 0.4);
 
         tl.fromTo('.spark-ring-1',
           { scale: 0.2, opacity: 1 },
           { scale: 3.2, opacity: 0, duration: 0.7, ease: 'power2.out' },
-          0.5
+          0.45
         );
         tl.fromTo('.spark-ring-2',
           { scale: 0.2, opacity: 0.8 },
           { scale: 4.5, opacity: 0, duration: 0.85, ease: 'power2.out' },
-          0.6
+          0.52
         );
       }
 
       // ====================================================================
-      // PHASE 03 — PRECISION LASER MILLING & DYNAMIC TRACE (0.9s - 2.55s)
-      // Laser head physically glides along the 8 segments of the G
+      // PHASE 03 — FLUID CURVY LASER MILLING & DYNAMIC TRACE (0.85s - 2.5s)
+      // Travelling luminous pearl glides along the continuous curves of the G
       // ====================================================================
       if (g.wireframeGroup && g.centerlinePath) {
         tl.to(g.wireframeGroup, {
           opacity: 1,
           duration: 0.15,
-        }, 0.9);
+        }, 0.85);
 
         if (g.laserHead) {
           tl.to(g.laserHead, {
             opacity: 1,
             duration: 0.2,
-          }, 0.92);
+          }, 0.88);
         }
 
         // Smoothly fade origin spark as the travelling head takes off
@@ -190,14 +189,14 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           tl.to(g.sparkGroup, {
             opacity: 0,
             duration: 0.25,
-          }, 1.05);
+          }, 1.0);
         }
 
-        // Animate the laser drawing and track the head position in real time
+        // Animate the laser drawing and track the head position in real time along the curve
         const traceObj = { progress: 0 };
         tl.to(traceObj, {
           progress: 1,
-          duration: 1.65,
+          duration: 1.6,
           ease: 'power2.inOut',
           onUpdate: () => {
             if (!g.centerlinePath) return;
@@ -215,12 +214,12 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
               g.laserHead.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
             }
           },
-        }, 0.95);
+        }, 0.9);
       }
 
       // ====================================================================
-      // PHASE 04 — CANTILEVER CORE REACTOR LOCK (2.55s - 3.1s)
-      // Laser arrives at (192, 200); core nexus diamond ignites with shockwaves
+      // PHASE 04 — CORE NEXUS ARRIVAL LOCK (2.45s - 3.0s)
+      // Laser arrives smoothly at the crossbar terminus (195, 200)
       // ====================================================================
       if (g.coreLockGroup) {
         tl.to(g.coreLockGroup, {
@@ -228,18 +227,25 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           scale: 1,
           duration: 0.25,
           ease: 'back.out(2.5)',
-        }, 2.55);
+        }, 2.45);
 
         tl.fromTo('.lock-ring-1',
           { scale: 0.2, opacity: 1 },
           { scale: 3.5, opacity: 0, duration: 0.65, ease: 'power2.out' },
-          2.57
+          2.47
         );
         tl.fromTo('.lock-ring-2',
           { scale: 0.2, opacity: 0.8 },
           { scale: 4.8, opacity: 0, duration: 0.8, ease: 'power2.out' },
-          2.63
+          2.53
         );
+
+        // Dissolve arrival burst cleanly so no circular reticle lines linger on the G
+        tl.to(g.coreLockGroup, {
+          opacity: 0,
+          duration: 0.35,
+          ease: 'power2.out',
+        }, 2.7);
       }
 
       // Laser head dissolves into the core reactor
@@ -247,19 +253,19 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
         tl.to(g.laserHead, {
           opacity: 0,
           duration: 0.2,
-        }, 2.6);
+        }, 2.5);
       }
 
       // ====================================================================
-      // PHASE 05 — 3D SOLIDIFICATION & CHASSIS ELEVATION (2.65s - 3.3s)
-      // Titanium surface solidifies, extruded chassis elevates, bevels gleam
+      // PHASE 05 — 3D SOLIDIFICATION & CHASSIS ELEVATION (2.55s - 3.2s)
+      // Curvy titanium surface solidifies, extruded chassis elevates, bevels gleam
       // ====================================================================
       if (g.solidGroup) {
         tl.to(g.solidGroup, {
           opacity: 1,
           duration: 0.6,
           ease: 'power2.out',
-        }, 2.65);
+        }, 2.55);
       }
 
       if (g.chassisGroup) {
@@ -268,7 +274,7 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           y: 0,
           duration: 0.65,
           ease: 'power2.out',
-        }, 2.65);
+        }, 2.55);
       }
 
       if (g.bevelStroke) {
@@ -276,32 +282,20 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           opacity: 1,
           duration: 0.5,
           ease: 'power2.out',
-        }, 2.7);
+        }, 2.6);
       }
 
-      tl.to('.key-rim-highlight', {
-        opacity: 1,
-        duration: 0.5,
-        ease: 'power2.out',
-      }, 2.72);
-
-      // Soften wireframe and blueprint into background ambient
+      // Fade out laser wireframe completely so zero white trace lines remain across the G
       if (g.wireframeGroup) {
         tl.to(g.wireframeGroup, {
-          opacity: 0.35,
-          duration: 0.5,
-        }, 2.75);
-      }
-
-      if (g.blueprintGroup) {
-        tl.to(g.blueprintGroup, {
-          opacity: 0.22,
-          duration: 0.5,
-        }, 2.75);
+          opacity: 0,
+          duration: 0.45,
+          ease: 'power2.out',
+        }, 2.62);
       }
 
       // ====================================================================
-      // PHASE 06 — SCULPTURAL 3D PERSPECTIVE LIFT (2.7s - 3.8s)
+      // PHASE 06 — SCULPTURAL 3D PERSPECTIVE LIFT (2.6s - 3.6s)
       // Monogram transitions smoothly to neutral balanced perspective
       // ====================================================================
       if (g.container) {
@@ -309,35 +303,14 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           rotateX: 0,
           rotateY: 0,
           scale: 1.0,
-          duration: 1.15,
+          duration: 1.1,
           ease: 'power3.out',
-        }, 2.7);
+        }, 2.6);
       }
 
       // ====================================================================
-      // PHASE 07 — DUAL-BAND SPECULAR CHROME LIGHT SWEEP (3.15s - 4.1s)
-      // Prismatic reflection glides across the titanium face catching edges
-      // ====================================================================
-      if (g.specularRect) {
-        tl.fromTo(g.specularRect,
-          { x: -320, y: -200, opacity: 0 },
-          {
-            x: 360,
-            y: 280,
-            opacity: 1,
-            duration: 0.95,
-            ease: 'power2.inOut',
-            onComplete: () => {
-              if (g.specularRect) gsap.set(g.specularRect, { opacity: 0 });
-            },
-          },
-          3.15
-        );
-      }
-
-      // ====================================================================
-      // PHASE 08 — BRAND TYPOGRAPHIC LOCKUP REVEAL (3.6s - 4.45s)
-      // Typographic signature smoothly unblurs beneath the G monogram
+      // PHASE 08 — BRAND TYPOGRAPHIC LOCKUP REVEAL (3.3s - 4.2s)
+      // Typographic signature smoothly unblurs beneath the curvy G monogram
       // ====================================================================
       if (brandTextRef.current) {
         tl.to(brandTextRef.current, {
@@ -346,20 +319,20 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           filter: 'blur(0px)',
           duration: 0.85,
           ease: 'power3.out',
-        }, 3.6);
+        }, 3.3);
       }
 
       // ====================================================================
-      // PHASE 09 — CINEMATIC RELEASE (4.65s - 5.2s)
+      // PHASE 09 — CINEMATIC RELEASE (4.4s - 4.95s)
       // Seamlessly scales forward and dissolves into the main portfolio
       // ====================================================================
       tl.to(containerRef.current, {
         opacity: 0,
         scale: 1.04,
-        filter: 'blur(4px)',
+        filter: 'blur(6px)',
         duration: 0.55,
         ease: 'power2.inOut',
-      }, 4.65);
+      }, 4.4);
     });
 
     // Keyboard listener for Escape or Space skip
@@ -391,21 +364,9 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
       {/* Background Volumetric Atmosphere */}
       <div ref={atmosphereRef} className="brand-intro-atmosphere" />
 
-      {/* Top Telemetry Header */}
-      <div className="brand-intro-telemetry">
-        <span className="brand-intro-telemetry-dot" />
-        <span>CORE ARCHITECTURE // 2026</span>
-      </div>
-
-      {/* Architectural Corner Alignment Viewfinder Brackets */}
-      <div className="brand-intro-corner brand-intro-corner-tl" />
-      <div className="brand-intro-corner brand-intro-corner-tr" />
-      <div className="brand-intro-corner brand-intro-corner-bl" />
-      <div className="brand-intro-corner brand-intro-corner-br" />
-
       {/* Center Brand Identity Construction */}
       <div className="relative z-10 flex flex-col items-center justify-center space-y-6 sm:space-y-8">
-        {/* Sculptural Geometric G Construction with Dynamic GSAP Control */}
+        {/* Sculptural Curvy G Monogram Construction */}
         <GSymbol ref={gSymbolRef} />
 
         {/* Brand Typographic Identity Lockup */}
@@ -418,14 +379,14 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           </h1>
           <div className="brand-intro-badge">
             <span className="w-1.5 h-1.5 rounded-full bg-[#e63946] animate-pulse shadow-[0_0_8px_#e63946]" />
-            <span className="font-mono-custom text-[10px] sm:text-xs text-white/70 uppercase tracking-[0.3em] brand-intro-subtitle">
+            <span className="font-mono-custom text-[10px] sm:text-xs text-white/80 uppercase tracking-[0.28em] brand-intro-subtitle">
               SOFTWARE &bull; DATA &bull; ARCHITECTURE
             </span>
           </div>
         </div>
       </div>
 
-      {/* Non-Intrusive Skip Affordance */}
+      {/* Luxury Non-Intrusive Skip Affordance */}
       {allowSkip && (
         <button
           onClick={(e) => {
@@ -435,7 +396,7 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
           className="brand-intro-skip hover:opacity-100 opacity-60 focus:outline-none"
           aria-label="Skip brand intro"
         >
-          [ ESC &bull; SKIP ]
+          SKIP <span className="opacity-50 ml-1 font-mono text-[9px]">[ESC]</span>
         </button>
       )}
     </div>

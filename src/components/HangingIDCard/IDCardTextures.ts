@@ -25,7 +25,7 @@ export function createFrontCardTexture(options: CardTextureOptions): {
   const ctx = canvas.getContext('2d')!;
 
   const name = options.name || 'GURU PRASATH';
-  const role = options.role || 'SOFTWARE & SYSTEMS DEVELOPER';
+  const role = options.role || 'SOFTWARE & WEB SOLUTIONS';
   const institution = options.institution || 'Saranathan College of Eng.';
   const degree = options.degree || 'B.Tech CSBS (2022 — 2026)';
   const code = options.code || 'GP-2026-CSBS';
@@ -109,12 +109,12 @@ export function createFrontCardTexture(options: CardTextureOptions): {
     ctx.fillStyle = '#ffffff';
     ctx.font = '600 24px "Space Grotesk", monospace, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('SECURITY CLEARANCE // 01', 105, 183);
+    ctx.fillText('PORTFOLIO IDENTITY // 2026', 105, 183);
 
     ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
     ctx.font = '500 20px "Space Grotesk", monospace, sans-serif';
     ctx.textAlign = 'right';
-    ctx.fillText(`ID: ${code}`, W - 80, 183);
+    ctx.fillText(`PORTFOLIO ID • ${code}`, W - 80, 183);
 
     // Holographic Foil Strip
     const holoGrad = ctx.createLinearGradient(60, 205, W - 60, 205);
@@ -139,24 +139,23 @@ export function createFrontCardTexture(options: CardTextureOptions): {
     ctx.clip();
 
     if (profileImg && profileImg.complete && profileImg.naturalWidth > 0) {
-      // Draw loaded photo with cover aspect ratio
-      const imgAspect = profileImg.naturalWidth / profileImg.naturalHeight;
-      let sx = 0, sy = 0, sw = profileImg.naturalWidth, sh = profileImg.naturalHeight;
-      if (imgAspect > 1) {
-        sw = profileImg.naturalHeight;
-        sx = (profileImg.naturalWidth - sw) / 2;
-      } else {
-        sh = profileImg.naturalWidth;
-        sy = (profileImg.naturalHeight - sh) * 0.2; // slight bias towards face
-      }
-      ctx.drawImage(profileImg, sx, sy, sw, sh, photoX, photoY, photoSize, photoSize);
+      // Zoom in on portrait to focus closely on face and upper torso
+      const zoom = 1.35;
+      const nw = profileImg.naturalWidth;
+      const nh = profileImg.naturalHeight;
+      const baseSize = Math.min(nw, nh);
+      const cropSize = baseSize / zoom;
 
-      // Subtle high-contrast photo gradient overlay
-      const imgGrad = ctx.createLinearGradient(0, photoY + photoSize * 0.6, 0, photoY + photoSize);
-      imgGrad.addColorStop(0, 'rgba(10, 10, 14, 0)');
-      imgGrad.addColorStop(1, 'rgba(10, 10, 14, 0.6)');
-      ctx.fillStyle = imgGrad;
-      ctx.fillRect(photoX, photoY, photoSize, photoSize);
+      // Center horizontally on subject
+      let sx = Math.max(0, (nw - cropSize) / 2);
+      // Bias vertically towards the face (upper-middle region)
+      let sy = Math.max(0, (nh - cropSize) * 0.32);
+
+      if (sx + cropSize > nw) sx = nw - cropSize;
+      if (sy + cropSize > nh) sy = nh - cropSize;
+
+      // Clean photo rendering with natural clarity & zoomed framing
+      ctx.drawImage(profileImg, sx, sy, cropSize, cropSize, photoX, photoY, photoSize, photoSize);
     } else {
       // Elegant fallback monogram avatar
       const darkGrad = ctx.createLinearGradient(photoX, photoY, photoX, photoY + photoSize);
@@ -179,24 +178,6 @@ export function createFrontCardTexture(options: CardTextureOptions): {
     ctx.roundRect(photoX, photoY, photoSize, photoSize, photoRadius);
     ctx.stroke();
 
-    // Status pill over photo corner
-    ctx.fillStyle = 'rgba(12, 12, 16, 0.88)';
-    ctx.beginPath();
-    ctx.roundRect(photoX + 24, photoY + photoSize - 62, 230, 42, 21);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.fillStyle = '#22c55e'; // Green active dot
-    ctx.beginPath();
-    ctx.arc(photoX + 46, photoY + photoSize - 41, 6, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '700 18px "Space Grotesk", monospace, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('ACTIVE // CERTIFIED', photoX + 62, photoY + photoSize - 35);
 
     // 6. Name & Role Block
     const textCenter = W / 2;
@@ -247,12 +228,12 @@ export function createFrontCardTexture(options: CardTextureOptions): {
     ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
     ctx.font = '700 22px "Space Grotesk", monospace, sans-serif';
     ctx.fillText('ACADEMIC BATCH', col1X, 1185);
-    ctx.fillText('CLEARANCE ROLE', col2X, 1185);
+    ctx.fillText('PRIMARY FOCUS', col2X, 1185);
 
     ctx.fillStyle = '#ffffff';
     ctx.font = '700 28px "Inter", sans-serif';
     ctx.fillText(degree, col1X, 1220);
-    ctx.fillText('CORE DEVELOPER [LVL 01]', col2X, 1220);
+    ctx.fillText('WEB & SYSTEMS', col2X, 1220);
 
     // 8. Bottom Security Barcode & Digital Hash
     const barcodeY = 1310;
@@ -280,7 +261,7 @@ export function createFrontCardTexture(options: CardTextureOptions): {
     ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
     ctx.font = '700 22px "Space Grotesk", monospace, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('AUTH HASH: 0984-7721-2026-GP-CSBS // OFFICIAL CREATIVE PASS', W / 2, 1425);
+    ctx.fillText(`PORTFOLIO IDENTITY // 2026 • ${code}`, W / 2, 1425);
 
     // Microchip contact pad aesthetic on bottom right
     const chipX = W - 190;
@@ -309,7 +290,7 @@ export function createFrontCardTexture(options: CardTextureOptions): {
     ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
     ctx.font = '500 18px "Space Grotesk", monospace, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('DEV PORTFOLIO ID // HIGH SPECIFICATION', 100, 1500);
+    ctx.fillText('PORTFOLIO ID • GP-2026 // HIGH SPECIFICATION', 100, 1500);
 
     texture.needsUpdate = true;
     if (options.onUpdate) options.onUpdate();
@@ -407,10 +388,10 @@ export function createBackCardTexture(accentColor?: string): THREE.CanvasTexture
   ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
   ctx.fillRect(40, stripeY + 20, W - 80, 8);
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
   ctx.font = '600 18px "Space Grotesk", monospace, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('AUTHORIZED ACCESS ONLY // PROPERTY OF GURU PRASATH', W / 2, stripeY + 80);
+  ctx.fillText('PORTFOLIO OF GURU PRASATH // 2026', W / 2, stripeY + 80);
 
   // 4. NFC / Contactless Icon
   const nfcX = W / 2;
@@ -430,16 +411,16 @@ export function createBackCardTexture(accentColor?: string): THREE.CanvasTexture
   ctx.fillText('“I BUILD SOFTWARE', W / 2, 490);
   ctx.fillText('AROUND REAL PROBLEMS.”', W / 2, 555);
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
   ctx.font = '700 24px "Space Grotesk", monospace, sans-serif';
-  ctx.fillText('FULL-STACK // DATA SYSTEMS // DISTRIBUTED ARCHITECTURE', W / 2, 620);
+  ctx.fillText('SOFTWARE • WEB SOLUTIONS • DATA', W / 2, 620);
 
   // Crimson separator
   ctx.fillStyle = accent;
   ctx.fillRect(W / 2 - 80, 650, 160, 4);
 
   // 6. Technology Competency Badges
-  const badges = ['SPRING BOOT', 'REACT', 'POSTGRESQL', 'FASTAPI', 'PYTHON', 'MONGODB', 'DOCKER'];
+  const badges = ['WEB SOLUTIONS', 'PYTHON', 'REACT', 'SPRING BOOT', 'APIS', 'SQL', 'FASTAPI'];
   let curBadgeX = 80;
   let curBadgeY = 700;
   ctx.font = '700 22px "Space Grotesk", monospace, sans-serif';
@@ -509,18 +490,18 @@ export function createBackCardTexture(accentColor?: string): THREE.CanvasTexture
   ctx.fillStyle = '#ffffff';
   ctx.font = '700 26px "Space Grotesk", monospace, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('SCAN TO CONNECT WITH GURU', W / 2, qrY + qrSize + 48);
+  ctx.fillText('CONNECT WITH GURU PRASATH', W / 2, qrY + qrSize + 48);
 
   ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
   ctx.font = '600 22px "Space Grotesk", monospace, sans-serif';
   ctx.fillText('PORTFOLIO // GITHUB // LINKEDIN', W / 2, qrY + qrSize + 84);
 
   // 8. Bottom Authentic Signature & Security Note
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
   ctx.font = '500 16px "Space Grotesk", monospace, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('OFFICIAL CREATIVE IDENTITY BADGE // BATCH 2026', W / 2, 1470);
-  ctx.fillText('SARANATHAN COLLEGE OF ENGINEERING — TAMIL NADU, INDIA', W / 2, 1500);
+  ctx.fillText('PORTFOLIO IDENTITY // BATCH 2026', W / 2, 1470);
+  ctx.fillText('SARANATHAN COLLEGE OF ENGINEERING — INDIA', W / 2, 1500);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;

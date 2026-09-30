@@ -58,10 +58,15 @@ export const HeroToWorkTransition: React.FC = () => {
       className="relative w-full py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 overflow-hidden flex flex-col items-center justify-center bg-[#0c0c10] text-[#f5f5f7] border-b border-white/10"
     >
       <div className="w-full max-w-6xl flex flex-col items-start">
-        <LoopingLabel
-          text="[ 02 — FEATURED CASE STUDIES ]"
-          className="font-mono-custom text-xs md:text-sm text-[#e63946] tracking-widest uppercase mb-2 font-bold"
-        />
+        <div className="flex items-center gap-3">
+          <LoopingLabel
+            text="[ 02 — SELECTED WORK ]"
+            className="font-mono-custom text-xs md:text-sm text-[#e63946] tracking-widest uppercase mb-2 font-bold"
+          />
+          <span className="font-mono-custom text-xs text-white/40 uppercase tracking-widest mb-2 hidden sm:inline">
+            // ENGINEERING &amp; CLIENT WORK
+          </span>
+        </div>
 
         <h2
           ref={textRef}
@@ -70,8 +75,8 @@ export const HeroToWorkTransition: React.FC = () => {
           SELECTED WORK
         </h2>
 
-        <p className="font-mono-custom text-xs md:text-sm text-white/70 mt-3 max-w-xl leading-relaxed">
-          A curated collection of software systems, full-stack applications, data analytics, and telemetry engines.
+        <p className="font-mono-custom text-xs md:text-sm text-white/70 mt-3 max-w-2xl leading-relaxed">
+          A collection of software systems, full-stack applications, data solutions, and websites built through academic projects, independent work, and client engagements.
         </p>
 
         {/* Traveling Thin Line */}

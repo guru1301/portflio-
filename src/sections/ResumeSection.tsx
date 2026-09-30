@@ -7,59 +7,6 @@ import { MagneticButton } from '../components/MagneticButton';
 export const ResumeSection: React.FC = () => {
   const [showResumeModal, setShowResumeModal] = useState(false);
 
-  const handleDownload = () => {
-    const resumeText = `
-===================================================================
-                       GURU PRASATH
-   B.Tech Computer Science & Business Systems (2022 - 2026)
-   Software / Data / Full-Stack Developer | Location: India
-   Email: ${DEVELOPER_INFO.email}
-===================================================================
-
-[ EDUCATION ]
-1. B.Tech Computer Science & Business Systems (2022 - 2026)
-   Institution: Saranathan College of Engineering
-   Score: 7.98 CGPA
-
-2. Higher Secondary / Class XII (2021 - 2022)
-   Institution: AKKV Aarunadu Matriculation Higher Secondary School
-   Score: 86%
-
-3. SSLC / Class X (2019 - 2020)
-   Institution: AKKV Aarunadu Matriculation Higher Secondary School
-   Score: 94%
-
-[ TECHNICAL SKILLS ]
-- Programming: Python, Java, SQL, JavaScript/TypeScript
-- Frameworks: Spring Boot, React, Express, FastAPI, Tailwind CSS
-- Data & Analytics: Power BI, DAX, Pandas, Data Cleansing
-- Databases: PostgreSQL, MongoDB, SQL Server
-- Tools: Git, GitHub, Postman, Docker, Razorpay Integration
-
-[ PROJECTS ]
-1. RailGo - Online Railway Reservation System (Spring Boot, Node.js, MongoDB, Razorpay)
-2. FlowAI - Digital Twin for Remote Work (Spring Boot, PostgreSQL, React, Recharts)
-3. The People's Ledger - Tamil Nadu Election Analytics (Power BI, DAX, Python, SQL)
-4. AgniWatts - Predictive Load Management (FastAPI, React, Telemetry ML)
-5. Museum Booking Platform - (Java, Spring Boot, React, QR Engine)
-
-[ EXPERIENCE ]
-- 2026: ICT Academy / Infosys Foundation - Data Analytics & Azure AI Trainee
-- 2024: Dovyo Technologies - CRM Developer Intern
-- 2024: CipherByte - Software Development Intern
-===================================================================
-    `;
-    const blob = new Blob([resumeText], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Guru_Prasath_Resume.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
   return (
     <section className="relative w-full py-16 sm:py-24 md:py-36 px-4 sm:px-6 md:px-12 border-t border-b border-current/10">
       <div className="max-w-6xl mx-auto flex flex-col items-center text-center space-y-8 sm:space-y-10">
@@ -144,26 +91,34 @@ export const ResumeSection: React.FC = () => {
                 <p>• 2019 - 2020: Class X — AKKV Aarunadu Matric Higher Secondary School [ 94% ]</p>
 
                 <p className="text-white font-semibold pt-2">CORE COMPETENCIES:</p>
-                <p>Python, SQL, Java, Spring Boot, React, Power BI, DAX, PostgreSQL, MongoDB, FastAPI, Git, Postman</p>
+                <p>Python, Java, SQL, JavaScript, FastAPI, Flask, Spring Boot, React, Power BI, DAX, PostgreSQL, MongoDB, Git, Postman, Docker</p>
 
                 <p className="text-white font-semibold pt-2">KEY PROJECTS:</p>
-                <p>• RailGo (Railway Booking Engine)</p>
-                <p>• FlowAI (Digital Twin Remote Telemetry)</p>
-                <p>• The People's Ledger (TN Election Analytics)</p>
+                <p>• RailGo (Full-Stack Railway Reservation Platform)</p>
+                <p>• FlowAI (Digital Twin Remote Telemetry Dashboard)</p>
+                <p>• The People's Ledger (Tamil Nadu Election Analytics)</p>
+                <p>• AgniWatts (Predictive Power Load Management)</p>
+                <p>• Museum Booking (Digital Ticketing Platform)</p>
+                <p>• OTT Analytics (Streaming Platform BI Dashboard)</p>
 
-                <p className="text-white font-semibold pt-2">EXPERIENCE:</p>
-                <p>• 2026: ICT Academy / Infosys Foundation Trainee</p>
-                <p>• 2024: Dovyo Technologies Intern</p>
-                <p>• 2024: CipherByte Intern</p>
+                <p className="text-white font-semibold pt-2">CLIENT WEB SOLUTIONS:</p>
+                <p>• Client Website 01 (Client Digital Presence & Web Development)</p>
+                <p>• Client Website 02 (Client Web Application & Presentation)</p>
+
+                <p className="text-white font-semibold pt-2">EXPERIENCE & TRAINING:</p>
+                <p>• 2025 - 2026: ICT Academy / Infosys Foundation — Data Analytics & Technology Training</p>
+                <p>• 2024: Dovyo Technologies — Business Intelligence / CRM Intern</p>
+                <p>• 2024: CipherByte — Software Development Intern</p>
               </div>
 
               <div className="flex justify-end gap-4 pt-2">
-                <button
-                  onClick={handleDownload}
-                  className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#e63946] text-black font-mono-custom text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors cursor-pointer"
+                <a
+                  href={DEVELOPER_INFO.resumeUrl}
+                  download="Guru_Prasath_Resume.pdf"
+                  className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#e63946] text-white font-mono-custom text-xs font-bold uppercase tracking-wider hover:bg-[#ff4d6d] transition-colors cursor-pointer"
                 >
-                  <Download className="w-4 h-4" /> Save Copy
-                </button>
+                  <Download className="w-4 h-4" /> Download PDF
+                </a>
               </div>
             </motion.div>
           </div>

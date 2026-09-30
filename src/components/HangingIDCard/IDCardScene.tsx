@@ -176,13 +176,16 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
   return (
     <>
       {/* 3D Lighting Setup */}
-      {/* Soft Ambient Fill */}
-      <ambientLight intensity={0.85} color="#d5d8e2" />
+      {/* High-Clarity Ambient Fill - ensures true colors and maximum visibility */}
+      <ambientLight intensity={1.5} color="#ffffff" />
 
-      {/* Key Directional Light */}
+      {/* Frontal Camera Key Light - directly illuminates the ID card face and portrait */}
+      <directionalLight position={[0, 0.5, 5]} intensity={1.8} color="#ffffff" />
+
+      {/* Top-Right Dimensional Light */}
       <directionalLight
         position={[4, 6, 6]}
-        intensity={2.4}
+        intensity={1.8}
         color="#ffffff"
         castShadow
         shadow-mapSize={[1024, 1024]}
@@ -194,14 +197,14 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
         shadow-camera-bottom={-4}
       />
 
-      {/* Soft Cool Fill Light */}
-      <directionalLight position={[-4, -1, 4]} intensity={1.1} color="#b0b8d0" />
+      {/* Soft Fill Light */}
+      <directionalLight position={[-4, -1, 4]} intensity={0.9} color="#ffffff" />
 
       {/* Rim Accent Light matching active portfolio theme color */}
-      <pointLight position={[0, 2.5, -2.5]} intensity={2.8} color={config.lanyard.accentColor} distance={8} />
+      <pointLight position={[0, 2.5, -2.5]} intensity={2.2} color={config.lanyard.accentColor} distance={8} />
 
       {/* Dynamic Specular Point Light */}
-      <pointLight ref={specularLightRef} position={[1.5, 2, 3]} intensity={1.4} color="#ffffff" distance={6} />
+      <pointLight ref={specularLightRef} position={[1.5, 2, 3]} intensity={1.2} color="#ffffff" distance={6} />
 
       {/* Dynamic Soft Contact Shadow Plane */}
       <mesh ref={shadowMeshRef} position={[0, -0.2, -0.6]}>
