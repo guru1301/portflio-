@@ -57,16 +57,16 @@ export interface TechNode {
 
 export const DEVELOPER_INFO = {
   name: 'GURU PRASATH',
-  title: 'SOFTWARE • WEB SOLUTIONS • SYSTEMS',
-  subtitle: 'Software Engineer & Web Solutions Provider',
-  degree: 'B.Tech CSBS (7.98 CGPA)',
+  title: 'SOFTWARE • BACKEND DEVELOPMENT • DATA ANALYTICS',
+  subtitle: 'Software Engineer | Backend Development & Data Analytics',
+  degree: 'B.Tech Computer Science & Business Systems Graduate',
   institution: 'Saranathan College of Engineering',
   timeline: '2022 — 2026',
   location: 'Tiruchirappalli, India',
-  availability: 'Open to Full-Time Roles & Client Projects',
-  bioStatement: 'I BUILD SOFTWARE & WEB SOLUTIONS AROUND REAL PROBLEMS.',
+  availability: 'Open to entry-level engineering roles & freelance projects',
+  bioStatement: 'BUILDING WEB APPLICATIONS, BACKEND APIS, AND DATA-DRIVEN SOLUTIONS.',
   bioExtended:
-    'Software Engineer & Independent Web Solutions Provider. I build high-performance client websites, backend APIs, databases, and data-driven systems — translating real requirements into production-ready digital solutions while open to full-time engineering roles.',
+    'Software Engineer specializing in Backend Development & Data Analytics. B.Tech Computer Science & Business Systems Graduate building web applications, backend APIs, and data-driven solutions — open to entry-level engineering roles and freelance projects.',
   email: 'mguruprasath01@gmail.com',
   github: 'https://github.com/guru1301',
   linkedin: 'https://linkedin.com/in/guru-prasath-m130105',

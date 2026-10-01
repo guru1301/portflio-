@@ -82,7 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             style={{ backgroundColor: accentColor }}
           />
           <span className="text-white/80 truncate text-[11px] sm:text-xs max-w-[55vw] sm:max-w-none">
-            INDEPENDENT WEB SOLUTIONS &amp; SOFTWARE ENGINEERING
+            BACKEND DEVELOPMENT • DATA ANALYTICS • SOFTWARE ENGINEERING
           </span>
         </motion.div>
 
@@ -92,7 +92,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           transition={{ duration: 0.8, delay: 0.3 }}
           className="hidden sm:block text-white/50"
         >
-          [ {DEVELOPER_INFO.location} • FREELANCE &amp; FULL-TIME ]
+          [ {DEVELOPER_INFO.location} • ENTRY-LEVEL &amp; FREELANCE ]
         </motion.div>
       </div>
 
@@ -155,7 +155,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               transition={{ duration: 0.8, delay: 0.35 }}
             >
               <p className="font-display text-xs sm:text-base md:text-2xl font-extrabold tracking-tight leading-snug uppercase text-white/95">
-                SOFTWARE • WEB SOLUTIONS • SYSTEMS
+                SOFTWARE • BACKEND DEVELOPMENT • DATA ANALYTICS
               </p>
             </motion.div>
 
@@ -163,14 +163,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.45 }}
-              className="text-left font-mono-custom text-[10px] sm:text-xs md:text-sm text-white/70 space-y-0.5 sm:space-y-1"
+              className="text-left font-mono-custom text-[10px] sm:text-xs md:text-sm text-white/70 space-y-1 sm:space-y-1.5"
             >
-              <p className="font-semibold text-white/90">
-                Software Engineer &amp; Independent Web Solutions Provider
+              <p className="font-bold text-white text-xs sm:text-sm md:text-base tracking-tight">
+                Software Engineer | Backend Development &amp; Data Analytics
               </p>
-              <p>
-                Building modern client websites, backend systems, APIs, and data solutions —{' '}
-                <span className="text-[#e63946] font-medium">{DEVELOPER_INFO.availability}</span>
+              <p className="text-white/85 font-medium text-[11px] sm:text-xs md:text-sm">
+                B.Tech Computer Science &amp; Business Systems Graduate
+              </p>
+              <p className="text-white/70 text-[10px] sm:text-xs md:text-sm leading-relaxed">
+                Building web applications, backend APIs, and data-driven solutions.{' '}
+                <span className="text-[#e63946] font-medium">Open to entry-level engineering roles and freelance projects.</span>
               </p>
             </motion.div>
 

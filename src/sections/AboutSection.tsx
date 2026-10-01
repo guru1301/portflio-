@@ -182,7 +182,7 @@ export const AboutSection: React.FC = () => {
                 ref={bio2Ref}
                 className="font-mono-custom text-xs md:text-sm opacity-70 leading-relaxed"
               >
-                Currently open to entry-level software opportunities and selected web development projects.
+                Building web applications, backend APIs, and data-driven solutions. Open to entry-level engineering roles and freelance projects.
               </p>
             </div>
 
