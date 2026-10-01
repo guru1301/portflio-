@@ -11,6 +11,8 @@ export interface GSymbolRef {
   chassisGroup: SVGGElement | null;
   solidGroup: SVGGElement | null;
   bevelStroke: SVGPathElement | null;
+  redOutlineGroup: SVGGElement | null;
+  formationBurst: SVGGElement | null;
   specularRect: SVGRectElement | null;
   coreLockGroup: SVGGElement | null;
   blueprintGroup: SVGGElement | null;
@@ -28,6 +30,8 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
     const chassisGroupRef = React.useRef<SVGGElement>(null);
     const solidGroupRef = React.useRef<SVGGElement>(null);
     const bevelStrokeRef = React.useRef<SVGPathElement>(null);
+    const redOutlineGroupRef = React.useRef<SVGGElement>(null);
+    const formationBurstRef = React.useRef<SVGGElement>(null);
     const specularRectRef = React.useRef<SVGRectElement>(null);
     const coreLockGroupRef = React.useRef<SVGGElement>(null);
     const blueprintGroupRef = React.useRef<SVGGElement>(null);
@@ -43,6 +47,8 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
       chassisGroup: chassisGroupRef.current,
       solidGroup: solidGroupRef.current,
       bevelStroke: bevelStrokeRef.current,
+      redOutlineGroup: redOutlineGroupRef.current,
+      formationBurst: formationBurstRef.current,
       specularRect: specularRectRef.current,
       coreLockGroup: coreLockGroupRef.current,
       blueprintGroup: blueprintGroupRef.current,
@@ -95,29 +101,45 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               <stop offset="100%" stopColor="#08080c" stopOpacity="0" />
             </radialGradient>
 
-            {/* Milled Brushed Titanium Metallic Surface */}
-            <linearGradient id="g-titanium-face" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#303140" />
-              <stop offset="28%" stopColor="#222330" />
-              <stop offset="60%" stopColor="#161720" />
-              <stop offset="85%" stopColor="#101016" />
-              <stop offset="100%" stopColor="#0a0a0e" />
+            {/* Milled Brushed Titanium Sleek Grey Face */}
+            <linearGradient id="g-titanium-face" x1="15%" y1="10%" x2="85%" y2="90%">
+              <stop offset="0%" stopColor="#484a5c" />
+              <stop offset="22%" stopColor="#373948" />
+              <stop offset="50%" stopColor="#2b2d39" />
+              <stop offset="78%" stopColor="#20212b" />
+              <stop offset="100%" stopColor="#2c2d3a" />
+            </linearGradient>
+
+            {/* Electric Crimson Red Contour Gradient */}
+            <linearGradient id="g-red-contour" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ff4d5e" />
+              <stop offset="30%" stopColor="#e63946" />
+              <stop offset="70%" stopColor="#ff2a3f" />
+              <stop offset="100%" stopColor="#d62839" />
+            </linearGradient>
+
+            {/* Inset Perimeter Ambient Rim Light */}
+            <linearGradient id="g-inner-rim" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.45" />
+              <stop offset="25%" stopColor="#7a7c8e" stopOpacity="0.2" />
+              <stop offset="70%" stopColor="#14141d" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.3" />
             </linearGradient>
 
             {/* 3D Extruded Chassis Shadow Rim Gradient */}
             <linearGradient id="g-chassis-bevel" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#1c1c28" />
-              <stop offset="50%" stopColor="#101018" />
-              <stop offset="100%" stopColor="#040406" />
+              <stop offset="0%" stopColor="#22232f" />
+              <stop offset="50%" stopColor="#12131a" />
+              <stop offset="100%" stopColor="#050508" />
             </linearGradient>
 
             {/* Razor-Sharp Knife-Edge Chamfer Platinum Highlight */}
             <linearGradient id="g-knife-highlight" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-              <stop offset="25%" stopColor="#ffffff" stopOpacity="0.85" />
-              <stop offset="55%" stopColor="#e63946" stopOpacity="0.75" />
-              <stop offset="80%" stopColor="#7a7a90" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.9" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+              <stop offset="25%" stopColor="#ff8591" stopOpacity="0.75" />
+              <stop offset="55%" stopColor="#e63946" stopOpacity="0.9" />
+              <stop offset="80%" stopColor="#8a8c9e" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.85" />
             </linearGradient>
 
             {/* Core Cantilever Ruby Laser Filament */}
@@ -181,42 +203,24 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
           />
 
           {/* ================================================================
-              LAYER 01: MINIMAL CELESTIAL ORBITS (Clean & elegant, zero hacker text)
+              LAYER 01: MINIMAL CELESTIAL ORBITS (Clean & empty)
               ================================================================ */}
           <g
             ref={blueprintGroupRef}
             className="pointer-events-none opacity-0"
-            stroke="rgba(255, 255, 255, 0.08)"
-            strokeWidth="0.8"
-          >
-            {/* Subtle Ethereal Concentric Orbits */}
-            <circle
-              cx="200"
-              cy="200"
-              r="170"
-              fill="none"
-              strokeDasharray="2,8"
-              opacity="0.6"
-            />
-            <circle
-              cx="200"
-              cy="200"
-              r="144"
-              fill="none"
-              stroke="#e63946"
-              strokeOpacity="0.15"
-              strokeDasharray="3,12"
-            />
-          </g>
+          />
 
           {/* ================================================================
               LAYER 02: 3D EXTRUDED CHASSIS BACKPLATE & ELEVATION SHADOW
               ================================================================ */}
           <g ref={chassisGroupRef} className="opacity-0">
-            {/* 3D Extrusion Depth Layer (translated +5px X, +7px Y) */}
+            {/* 3D Extrusion Depth Layer (translated +5px X, +7px Y) with subtle ruby rim */}
             <path
               d={solidGPolygon}
               fill="url(#g-chassis-bevel)"
+              stroke="#e63946"
+              strokeWidth="0.8"
+              strokeOpacity="0.4"
               transform="translate(5, 7)"
               filter="url(#g-extrusion-shadow)"
             />
@@ -224,8 +228,8 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
             <path
               d={solidGPolygon}
               fill="none"
-              stroke="#07070b"
-              strokeWidth="2"
+              stroke="#0a0a10"
+              strokeWidth="2.5"
               transform="translate(3, 4)"
             />
           </g>
@@ -234,14 +238,23 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               LAYER 03: SOLID MONOLITHIC CURVY TITANIUM SURFACE & SPECULAR SHEEN
               ================================================================ */}
           <g ref={solidGroupRef} clipPath="url(#g-silhouette-clip)" className="opacity-0">
-            {/* Primary Milled Brushed Titanium Face */}
+            {/* Primary Milled Brushed Titanium Sleek Grey Face */}
             <path d={solidGPolygon} fill="url(#g-titanium-face)" />
+
+            {/* Micro-chamfer Inset Edge Soft Light for 3D Relief */}
+            <path
+              d={solidGPolygon}
+              fill="none"
+              stroke="url(#g-inner-rim)"
+              strokeWidth="3.2"
+              strokeOpacity="0.6"
+            />
 
             {/* Recessed Center Conduit Trench Groove */}
             <path
               d={centerlineD}
               fill="none"
-              stroke="#08080d"
+              stroke="#0c0d13"
               strokeWidth="10"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -249,11 +262,22 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
             <path
               d={centerlineD}
               fill="none"
-              stroke="#181824"
+              stroke="#1b1c26"
               strokeWidth="11"
-              strokeOpacity="0.7"
+              strokeOpacity="0.6"
               strokeLinecap="round"
               strokeLinejoin="round"
+            />
+            {/* Glowing Ruby Core Circuit Hairline in Trench */}
+            <path
+              d={centerlineD}
+              fill="none"
+              stroke="#e63946"
+              strokeWidth="1.5"
+              strokeOpacity="0.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              filter="url(#g-bloom)"
             />
 
             {/* Cantilever Crossbar Anodized Inlay & Ruby Core Track */}
@@ -263,8 +287,11 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               width="85"
               height="44"
               rx="22"
-              fill="#0b0b10"
-              opacity="0.85"
+              fill="#101118"
+              stroke="#e63946"
+              strokeWidth="1.2"
+              strokeOpacity="0.6"
+              opacity="0.95"
             />
             <line
               x1="195"
@@ -286,24 +313,61 @@ export const GSymbol = forwardRef<GSymbolRef, { className?: string }>(
               height="110"
               fill="url(#g-specular-sweep)"
               transform="rotate(38, 200, 200)"
-              className="opacity-0"
+              className="opacity-0 pointer-events-none"
             />
           </g>
 
           {/* ================================================================
-              LAYER 04: BEVELED CURVED EDGES & KNIFE-EDGE RIM HIGHLIGHTS
+              LAYER 04: VIBRANT RED OUTLINE & KNIFE-EDGE RIM HIGHLIGHTS
               ================================================================ */}
-          <g>
-            {/* Full Monolithic Edge Stroke */}
+          <g ref={redOutlineGroupRef} className="opacity-0">
+            {/* Outer Volumetric Crimson Halo Glow */}
+            <path
+              d={solidGPolygon}
+              fill="none"
+              stroke="#e63946"
+              strokeWidth="7"
+              strokeOpacity="0.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              filter="url(#g-bloom)"
+            />
+
+            {/* Middle Electric Ruby Edge Aura */}
+            <path
+              d={solidGPolygon}
+              fill="none"
+              stroke="#ff3b4e"
+              strokeWidth="3.6"
+              strokeOpacity="0.85"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+
+            {/* Razor-Sharp Crisp Red Contour Line */}
+            <path
+              d={solidGPolygon}
+              fill="none"
+              stroke="url(#g-red-contour)"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+
+            {/* Precision Platinum-Ruby Chamfer Highlight for High-End Metallic Sheen */}
             <path
               ref={bevelStrokeRef}
               d={solidGPolygon}
               fill="none"
               stroke="url(#g-knife-highlight)"
-              strokeWidth="1.4"
-              className="opacity-0"
+              strokeWidth="1.0"
+              strokeOpacity="0.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </g>
+
+          <g ref={formationBurstRef} className="opacity-0 pointer-events-none" />
 
           {/* ================================================================
               LAYER 05: PROGRESSIVE WIREFRAME & CURVED LASER TRACE TRACK

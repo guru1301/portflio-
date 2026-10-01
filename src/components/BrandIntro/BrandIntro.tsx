@@ -121,8 +121,10 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
       if (g.chassisGroup) gsap.set(g.chassisGroup, { opacity: 0, y: 8 });
       if (g.solidGroup) gsap.set(g.solidGroup, { opacity: 0 });
       if (g.bevelStroke) gsap.set(g.bevelStroke, { opacity: 0 });
+      if (g.redOutlineGroup) gsap.set(g.redOutlineGroup, { opacity: 0 });
+      if (g.formationBurst) gsap.set(g.formationBurst, { opacity: 0, scale: 0.75 });
       if (g.coreLockGroup) gsap.set(g.coreLockGroup, { opacity: 0, scale: 0 });
-      if (g.specularRect) gsap.set(g.specularRect, { opacity: 0 });
+      if (g.specularRect) gsap.set(g.specularRect, { opacity: 0, x: -350 });
 
       // ====================================================================
       // PHASE 01 — DEEP SPACE & SUBTLE ORBIT RING (0.0s - 0.7s)
@@ -135,13 +137,6 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
         }, 0.05);
       }
 
-      if (g.blueprintGroup) {
-        tl.to(g.blueprintGroup, {
-          opacity: 0.5,
-          duration: 0.7,
-          ease: 'power2.out',
-        }, 0.15);
-      }
 
       // ====================================================================
       // PHASE 02 — FLUID PLASMA SPARK IGNITION (0.4s - 0.9s)
@@ -257,41 +252,84 @@ export const BrandIntro: React.FC<BrandIntroProps> = ({
       }
 
       // ====================================================================
-      // PHASE 05 — 3D SOLIDIFICATION & CHASSIS ELEVATION (2.55s - 3.2s)
-      // Curvy titanium surface solidifies, extruded chassis elevates, bevels gleam
+      // PHASE 05 — 3D SOLIDIFICATION, RED OUTLINE SNAP & SPECULAR SHEEN (2.54s - 3.6s)
+      // Titanium surface solidifies with sleek grey core, vibrant red contour snaps in, specular gleams
       // ====================================================================
       if (g.solidGroup) {
-        tl.to(g.solidGroup, {
-          opacity: 1,
-          duration: 0.6,
-          ease: 'power2.out',
-        }, 2.55);
+        tl.to(
+          g.solidGroup,
+          {
+            opacity: 1,
+            duration: 0.55,
+            ease: 'power2.out',
+          },
+          2.54
+        );
+      }
+
+      if (g.redOutlineGroup) {
+        tl.fromTo(
+          g.redOutlineGroup,
+          { opacity: 0, scale: 0.98 },
+          { opacity: 1, scale: 1, duration: 0.55, ease: 'back.out(1.5)' },
+          2.55
+        );
       }
 
       if (g.chassisGroup) {
-        tl.to(g.chassisGroup, {
-          opacity: 1,
-          y: 0,
-          duration: 0.65,
-          ease: 'power2.out',
-        }, 2.55);
+        tl.to(
+          g.chassisGroup,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            ease: 'power2.out',
+          },
+          2.55
+        );
       }
 
       if (g.bevelStroke) {
-        tl.to(g.bevelStroke, {
-          opacity: 1,
-          duration: 0.5,
-          ease: 'power2.out',
-        }, 2.6);
+        tl.to(
+          g.bevelStroke,
+          {
+            opacity: 1,
+            duration: 0.5,
+            ease: 'power2.out',
+          },
+          2.6
+        );
+      }
+
+      // Specular light sweep beam cascades across the sleek grey face
+      if (g.specularRect) {
+        tl.fromTo(
+          g.specularRect,
+          { x: -350, opacity: 0 },
+          { x: 350, opacity: 0.95, duration: 1.05, ease: 'power2.inOut' },
+          2.66
+        ).to(
+          g.specularRect,
+          {
+            opacity: 0,
+            duration: 0.25,
+            ease: 'power2.out',
+          },
+          3.55
+        );
       }
 
       // Fade out laser wireframe completely so zero white trace lines remain across the G
       if (g.wireframeGroup) {
-        tl.to(g.wireframeGroup, {
-          opacity: 0,
-          duration: 0.45,
-          ease: 'power2.out',
-        }, 2.62);
+        tl.to(
+          g.wireframeGroup,
+          {
+            opacity: 0,
+            duration: 0.45,
+            ease: 'power2.out',
+          },
+          2.62
+        );
       }
 
       // ====================================================================

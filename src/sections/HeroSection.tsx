@@ -115,9 +115,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 {['G', 'U', 'R', 'U'].map((char, idx) => (
                   <span
                     key={idx}
-                    className={`hover-flicker-letter inline-block ${
-                      idx === 0 ? 'hero-letter-g' : 'hero-letter-white'
-                    }`}
+                    className="hover-flicker-letter hero-letter-white inline-block"
                   >
                     {char}
                   </span>
