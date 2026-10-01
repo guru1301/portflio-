@@ -56,18 +56,18 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
 
   const isMobile = windowWidth < 768;
 
-  // Responsive anchor position:
-  // On mobile (< 480px): Anchored at [1.20, 4.3, 0] so it hangs compactly on the right side
-  // On phablet (< 768px): [1.40, 4.3, 0]
-  // On tablet (< 1024px): [1.8, 4.3, 0] (laptop/desktop unchanged)
-  // On desktop (< 1440px): [2.8, 4.3, 0] (laptop/desktop unchanged)
-  // On wide desktop (>= 1440px): [3.2, 4.3, 0] (laptop/desktop unchanged)
+  // Responsive anchor position (moved a little left for balanced layout):
+  // On mobile (< 480px): [0.85, 4.3, 0]
+  // On phablet (< 768px): [1.05, 4.3, 0]
+  // On tablet (< 1024px): [1.45, 4.3, 0]
+  // On desktop (< 1440px): [2.15, 4.3, 0]
+  // On wide desktop (>= 1440px): [2.45, 4.3, 0]
   const anchor = useMemo<[number, number, number]>(() => {
-    if (windowWidth < 480) return [1.20, 4.3, 0];
-    if (windowWidth < 768) return [1.40, 4.3, 0];
-    if (windowWidth < 1024) return [1.8, 4.3, 0];  // Tablet
-    if (windowWidth < 1440) return [2.8, 4.3, 0];  // Desktop
-    return [3.2, 4.3, 0];                          // Wide desktop
+    if (windowWidth < 480) return [0.85, 4.3, 0];
+    if (windowWidth < 768) return [1.05, 4.3, 0];
+    if (windowWidth < 1024) return [1.45, 4.3, 0];  // Tablet
+    if (windowWidth < 1440) return [2.15, 4.3, 0];  // Desktop
+    return [2.45, 4.3, 0];                          // Wide desktop
   }, [windowWidth]);
 
   // Compute responsive restLength for the lanyard rope:
