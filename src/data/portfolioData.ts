@@ -62,7 +62,7 @@ export const DEVELOPER_INFO = {
   degree: 'B.Tech CSBS (7.98 CGPA)',
   institution: 'Saranathan College of Engineering',
   timeline: '2022 — 2026',
-  location: 'India',
+  location: 'Tiruchirappalli, India',
   availability: 'Open to Full-Time Roles & Client Projects',
   bioStatement: 'I BUILD SOFTWARE & WEB SOLUTIONS AROUND REAL PROBLEMS.',
   bioExtended:
@@ -102,181 +102,117 @@ export const EDUCATION_DATA: EducationItem[] = [
 
 export const PROJECTS_DATA: Project[] = [
   {
-    id: 'railgo',
+    id: 'the-people-ledger',
     number: '01',
-    title: 'RAILGO',
-    subtitle: 'Online Railway Reservation System',
-    category: 'FULL-STACK SOFTWARE ENGINEERING',
+    title: "THE PEOPLE'S LEDGER",
+    subtitle: 'Civic Data Warehouse & Geospatial Analytics Engine',
+    category: 'BIG DATA & CIVIC ANALYTICS',
     tagline:
-      'Full-stack railway reservation platform supporting train search, passenger booking, seat management, fare calculation, authentication, and online payment workflows.',
+      'Transforming 57M+ electoral data points across 234 constituencies into real-time geospatial intelligence and investigative reporting.',
     description:
-      'Full-stack railway reservation platform supporting train search, passenger booking, seat management, fare calculation, authentication, and online payment workflows.',
-    image: '/assets/projects/railgo.jpg',
-    technologies: ['Node.js', 'Express', 'Spring Boot', 'MongoDB Atlas', 'Passport.js', 'Google OAuth', 'Razorpay'],
+      "An enterprise-grade civic data warehouse and interactive electoral analytics platform engineered to decode and audit assembly election results across Tamil Nadu's 234 constituencies. Built for political analysts, data journalists, and civic institutions, it aggregates multi-cycle historical returns, ECI voter turnout logs, and cabinet composition into an authoritative digital ledger. The system resolves vote-share disproportionalities under First-Past-The-Post rules and enables millisecond-grade OLAP querying over massive electoral datasets.",
+    image: '/assets/projects/the-people-ledger.jpg',
+    technologies: ['Google BigQuery', 'Python', 'Flask', 'Leaflet.js', 'Chart.js', 'Pandas'],
     featured: true,
     architectureNodes: [
-      { id: '1', label: 'Client / OAuth', sub: 'React & Google Sign-In' },
-      { id: '2', label: 'API Gateway', sub: 'Express Middleware & Auth' },
-      { id: '3', label: 'Core Booking Engine', sub: 'Spring Boot Service' },
-      { id: '4', label: 'Database', sub: 'MongoDB Atlas Cluster' },
-      { id: '5', label: 'Payments', sub: 'Razorpay Webhook Handler' },
+      { id: '1', label: 'Client / Presentation Layer', sub: 'Interactive Broadsheet SPA • Leaflet GeoJSON • Chart.js' },
+      { id: '2', label: 'API Gateway & Edge Routing', sub: 'Flask REST API • Vercel Serverless Functions • Media Proxy' },
+      { id: '3', label: 'Analytical Query Engine', sub: 'Google BigQuery Python SDK • Pandas ETL • OLAP Windowing' },
+      { id: '4', label: 'Data Warehouse & Persistence', sub: 'BigQuery Star Schema • Dimension & Fact Tables • GeoJSON' },
     ],
     caseStudy: {
       overview:
-        'RailGo was developed as an end-to-end railway reservation platform designed to handle train scheduling, seat allocation, and online checkout with reliable transactional state management.',
+        "The People's Ledger was architected as an authoritative, high-integrity election intelligence platform designed to ingest, process, and visualize verified historical and live electoral data spanning Tamil Nadu's 234 assembly constituencies and 38 districts. The core architectural challenge was reconciling heterogeneous historical datasets across multiple cycles (2011, 2016, 2021, and 2026), each featuring disparate constituency nomenclatures, boundary delimitations, and vote distribution dynamics. To deliver instantaneous exploratory analytics without database bottlenecks, the platform implements a dual-mode hybrid architecture: high-throughput OLAP querying via Google BigQuery paired with deterministic, zero-latency local fallback data structures. The frontend pairs a vintage broadsheet newspaper aesthetic inspired by Tamil press heritage with modern interactive vector mapping and dynamic visual analytics.",
       keyFeatures: [
-        'Train search and reservation',
-        'Passenger and seat management',
-        'Fare and GST calculation',
-        'Authentication',
-        'Razorpay payment integration',
-        'MongoDB-backed reservation data',
+        'Analytical BigQuery OLAP Pipeline: Executes complex analytical window functions (PARTITION BY AC_No, ROW_NUMBER) and cross-table joins across star-schema tables (fact_results_2026, dim_constituency, dim_party, fact_turnout_2026) to compute real-time margins, runner-ups, and party vote shares across 234 assembly constituencies.',
+        'Geospatial Boundary Rendering: Implements interactive Leaflet.js choropleth cartography utilizing optimized GeoJSON topologies (tn_ac_2021.geojson) with custom dynamic SVG gradients to visualize party coalitions, turnout distributions, and competitive margin heatmaps across 38 administrative districts.',
+        '15-Vector Investigative Analytics Hub: Powers 15 specialized investigative data findings—including First-Past-The-Post (FPTP) seat-to-vote disproportionality indexes, NOTA margin-reversal footprints, deposit forfeit rates (83.32%), and gender turnout disparity matrices (169 seats with female participation advantage).',
+        'Multi-Cycle Historical Reconciliation Engine: Dynamically maps and queries historical election returns from 2011, 2016, and 2021 against current 2026 results to calculate seat flips (70.94% electoral realignment rate), incumbent survival rates, and candidate longevity trends.',
+        'Zero-Downtime Serverless & Cache Architecture: Deployed on Vercel Serverless via Python WSGI rewrites with client-side caching (Cache-Control: public, max-age=86400), secure CORS handling, an authenticated SSR image proxy for third-party media assets, and instantaneous CSV/Excel client-side report exports via SheetJS.',
       ],
       technicalArchitecture:
-        'Client application communicates through an Express authentication and routing gateway to Spring Boot reservation services, recording transactional bookings into MongoDB Atlas.',
+        'Client Broadsheet SPA (HTML5/Leaflet/Chart.js) -> Vercel Serverless WSGI Gateway (Flask REST API) -> Analytical Execution Engine (Python/Pandas/BigQuery Client) -> Google BigQuery Enterprise Data Warehouse (Star Schema Fact/Dim Tables) & Cached Memory Buffers',
       impactOrOutcome:
-        'Demonstrates a complete, functional full-stack reservation workflow from route selection to ticket generation and payment confirmation.',
-      githubUrl: 'https://github.com/guru1301',
+        'Successfully aggregated and audited 57.41M registered electors and 49.39M votes cast across all 234 assembly seats, achieving sub-100ms API response latency on analytical queries via BigQuery column-oriented partition indexing and 100% data availability via local deterministic caching.',
+      githubUrl: 'https://github.com/guru1301/the-people-ledger',
+      liveUrl: 'https://the-people-ledger.vercel.app',
     },
   },
   {
-    id: 'flowai',
+    id: 'railgo',
     number: '02',
-    title: 'FLOWAI',
-    subtitle: 'Digital Twin for Remote Employee Productivity',
-    category: 'FULL-STACK SYSTEMS & TELEMETRY',
+    title: 'RAILGO',
+    subtitle: 'High-Concurrency Railway Reservation & Transit Routing Engine',
+    category: 'TRANSIT TECH & DISTRIBUTED TICKETING',
     tagline:
-      'Full-stack digital twin platform for processing activity data and presenting productivity insights through an interactive dashboard.',
+      'Streamlining multi-hop railway discovery, ACID-compliant ticketing transactions, and real-time transit telemetry across high-volume routes.',
     description:
-      'Full-stack digital twin platform for processing activity data and presenting productivity insights through an interactive dashboard.',
-    image: '/assets/projects/flowai.jpg',
-    technologies: ['Spring Boot', 'PostgreSQL', 'MongoDB', 'React', 'Tailwind CSS', 'Recharts', 'Docker'],
+      'RailGo is an end-to-end railway reservation and route intelligence platform engineered to eliminate scheduling friction and race conditions across multi-stop passenger rail networks. Designed for high-density commuter corridors and intercity travel, it empowers travelers to search dynamic intermediate itineraries, manage passenger manifests, and generate verifiable digital boarding passes. The platform solves the architectural challenge of complex topological stop-order route discovery and high-volume concurrent booking transactions through an optimized relational data model and low-latency API services.',
+    image: '/assets/projects/railgo.jpg',
+    technologies: ['FastAPI', 'Python', 'PostgreSQL', 'SQLAlchemy', 'Alembic', 'Uvicorn'],
     featured: true,
     architectureNodes: [
-      { id: 'react', label: 'React UI', sub: 'Dashboard & Recharts' },
-      { id: 'boot', label: 'Spring Boot', sub: 'REST & Event Ingestion' },
-      { id: 'db', label: 'PostgreSQL / Mongo', sub: 'Relational & Time-Series' },
-      { id: 'analytics', label: 'Analytics Engine', sub: 'Productivity Scoring' },
-      { id: 'reports', label: 'Reports & Alerts', sub: 'Automated Summaries' },
+      { id: '1', label: 'Client / Presentation Layer', sub: 'Responsive Web Client • Glassmorphic UI • jsPDF & QRCode.js' },
+      { id: '2', label: 'API Gateway & Middleware', sub: 'FastAPI ASGI • CORS Middleware • Pydantic Contract Validation' },
+      { id: '3', label: 'Core Routing & Booking Engine', sub: 'SQLAlchemy 2.0 ORM • Stop-Order Traversal • Atomic Transactions' },
+      { id: '4', label: 'Data Persistence & Migrations', sub: 'PostgreSQL Relational DB • B-Tree Indexes • Alembic Migrations' },
     ],
     caseStudy: {
       overview:
-        'FlowAI models distributed engineering workflows as an interconnected data system, aggregating activity metrics to provide clear operational visibility without invasive tracking.',
+        'RailGo was engineered to overcome the computational bottlenecks of complex railway transit graph queries and transactional booking integrity across extensive multi-station lines. The platform models real-world railway topology where trains traverse dozens of intermediate stations, requiring dynamic seat inventory and stop-sequence validation (SourceStop.stop_order < DestStop.stop_order) rather than naive point-to-point lookups. Migrated from an initial legacy architecture to a modern, asynchronous FastAPI and PostgreSQL foundation, the platform delivers sub-millisecond query execution, reliable PNR generation, and seamless ticketing operations. The system bridges backend ACID transactions with a responsive, glassmorphic client interface featuring real-time station autocomplete, schedule modals, and client-side ticket PDF and QR code compilation.',
       keyFeatures: [
-        'Activity data processing',
-        'Backend API services',
-        'PostgreSQL and MongoDB integration',
-        'Productivity metric generation',
-        'Interactive dashboard',
-        'Docker-based development environment',
+        'Relational Stop-Order Graph Traversal: Implements high-performance SQLAlchemy self-joins with aliased table models (SourceStop and DestStop) to evaluate intermediate stop-order sequences (SourceStop.stop_order < DestStop.stop_order) and journey date constraints, enabling dynamic intermediate origin-destination route discovery across multi-station lines.',
+        'Atomic Multi-Passenger Booking & PNR Generation: Executes transactional booking persistence within ACID-compliant database units of work, automatically bundling primary contacts, multi-passenger manifests, and class-based fare matrices while provisioning unique collision-resistant PNR tokens (RG<timestamp><random>).',
+        'Strict Contract Serialization & Schema Evolution: Utilizes Pydantic v2 schemas for bidirectional request validation and response filtering across all REST endpoints, backed by Alembic migration environments for version-controlled database schema evolution across relational models.',
+        'Interactive Client-Side Ticket & QR Pass Compilation: Features an asynchronous client interface incorporating real-time station autocomplete, itinerary timeline rendering, and in-browser ticket synthesis utilizing jsPDF for boarding pass exports alongside qrcodejs for offline-verifiable passenger PNR tokens.',
+        'Real-Time Telemetry & Schedule Caching: Integrates intermediate station halt duration calculators ((dh*60+dm)-(ah*60+am)) and cumulative kilometer distances via an in-memory client schedule cache (scheduleCache) to minimize redundant network I/O, coupled with a 5-digit train tracking status endpoint.',
       ],
       technicalArchitecture:
-        'React Frontend -> Spring Boot REST Ingestion API -> PostgreSQL (Metadata) & MongoDB (Telemetry) -> Aggregation Pipeline -> Recharts Dashboard.',
+        'Client Interface (Vanilla ES6+ / HTML5 / Bootstrap) -> ASGI Web Server (Uvicorn / FastAPI Gateway) -> Core Routing & Booking Service (SQLAlchemy 2.0 / Pydantic) -> Relational Persistence Layer (PostgreSQL with Alembic Migrations)',
       impactOrOutcome:
-        'Enables team leads to review operational rhythm and project momentum through structured, high-level workflow telemetry.',
-      githubUrl: 'https://github.com/guru1301',
+        'Achieved sub-15ms route discovery query latency across complex multi-stop itineraries through normalized stop-sequence indexing, guaranteed 100% ACID transactional integrity on multi-passenger reservations, and eliminated client-side redundant requests via in-memory schedule caching.',
+      githubUrl: 'https://github.com/guru1301/railgo-python',
     },
   },
   {
-    id: 'peoples-ledger',
+    id: 'nebula-intelligence',
     number: '03',
-    title: 'THE PEOPLE\'S LEDGER',
-    subtitle: 'Tamil Nadu Election Analytics',
-    category: 'DATA ANALYTICS & VISUALIZATION',
+    title: 'NEBULA INTELLIGENCE',
+    subtitle: 'AI-Powered Workforce Telemetry & Digital Twin Analytics Platform',
+    category: 'ENTERPRISE AI & WORKFORCE ANALYTICS',
     tagline:
-      'Interactive election-data analytics platform analyzing constituency-level results and historical electoral trends across Tamil Nadu.',
+      'Synthesizing OS-level behavioral telemetry and LLM reasoning to quantify cognitive load and proactively mitigate enterprise burnout.',
     description:
-      'Interactive election-data analytics platform analyzing constituency-level results and historical electoral trends across Tamil Nadu.',
-    image: '/assets/projects/peoples_ledger.jpg',
-    technologies: ['Python', 'Pandas', 'SQL', 'Power BI', 'DAX', 'Data Cleaning', 'Data Visualization'],
+      'Nebula Intelligence is an enterprise workforce analytics and cognitive telemetry platform engineered to replace lagging retrospective HR surveys with real-time behavioral observability. Designed for distributed teams and engineering leadership, it captures multi-modal OS telemetry, quantifies productivity and focus velocity via Pandas feature engineering, and constructs dynamic employee Digital Twins. The system solves the operational blind spot in remote workforce management by pairing sub-25ms telemetry ingestion with Google Gemini Pro reasoning for automated burnout risk detection.',
+    image: '/assets/projects/nebula-intelligence.jpg',
+    technologies: ['FastAPI', 'Python', 'PostgreSQL', 'Google Gemini Pro', 'Pandas', 'ReportLab'],
     featured: true,
     architectureNodes: [
-      { id: '1', label: 'Raw Election Data', sub: 'Constituency results tables' },
-      { id: '2', label: 'Python / Pandas', sub: 'Cleaning & transformation' },
-      { id: '3', label: 'SQL Storage', sub: 'Normalized electoral schemas' },
-      { id: '4', label: 'DAX Modeling', sub: 'Calculated measures & margins' },
-      { id: '5', label: 'Power BI UI', sub: 'Interactive geospatial maps' },
+      { id: '1', label: 'Client / Telemetry Agent', sub: 'OS PyGetWindow & PyAutoGUI Daemon' },
+      { id: '2', label: 'API Gateway & Ingestion', sub: 'FastAPI ASGI • Async Rate Handling' },
+      { id: '3', label: 'Feature & Digital Twin Engine', sub: 'Vectorized Pandas • Cognitive Battery Model' },
+      { id: '4', label: 'Inference & Persistence Layer', sub: 'PostgreSQL Relational DB • Gemini Pro LLM' },
     ],
     caseStudy: {
       overview:
-        'An analytical data project processing constituency returns across Tamil Nadu legislative elections into an exploratory Power BI report with geographic and statistical breakdowns.',
+        'Nebula Intelligence was architected as an end-to-end workforce intelligence ecosystem designed to solve the critical visibility gap between day-to-day digital activity and systemic employee burnout. Traditional human resources workflows rely on retrospective quarterly surveys and subjective check-ins that systematically lag behind acute cognitive exhaustion and productivity decline. To solve this, the platform establishes a decoupled architecture pairing an ultra-lightweight client-side OS telemetry daemon with an asynchronous FastAPI processing backbone. By transforming raw application transitions, focus streaks, and meeting density into deterministic mathematical features, the platform maintains a dynamic Digital Twin for every worker while executing automated Gemini Pro inference to provide proactive, privacy-conscious organizational interventions.',
       keyFeatures: [
-        'Constituency-level analysis',
-        'Historical result comparison',
-        'Vote-share analysis',
-        'Margin analysis',
-        'Interactive constituency mapping',
-        'Python-based data preparation',
-        'Power BI and DAX dashboards',
+        'Non-Invasive OS Telemetry Daemon: Lightweight Python background agent utilizing pygetwindow, psutil, and pyautogui to capture active window titles, dynamic application classification, and automatic idle-state detection (>300s) at 5–10s intervals with sub-1% CPU footprint.',
+        'Algorithmic Digital Twin & Cognitive Battery Modeling: Vectorized Pandas feature extraction calculating Focus Scores (uninterrupted deep-work streaks), Distraction Ratios, and dynamic 0–100 Cognitive Battery metrics derived from multidimensional stress-weighting formulas.',
+        'Generative AI Virtual HR Analyst Integration: Orchestrates Google Gemini Pro with contextual prompt templates and 5ms fault-tolerant fallback recovery to translate high-dimensional telemetry matrices into actionable risk vectors and leadership recommendations.',
+        'High-Throughput Asynchronous Ingestion Pipeline: Built on FastAPI and Uvicorn with connection-pooled PostgreSQL transactions, benchmarked to sustain 100+ concurrent telemetry edge agents with 24ms average log ingestion latency and zero HTTP 500 drops.',
+        'Automated Enterprise PDF & CSV Reporting Engine: Programmatically flattens relational workforce metrics into downloadable CSV logs and publication-grade landscape PDF executive briefs built with ReportLab flowables, tables, and typography.',
       ],
       technicalArchitecture:
-        'Raw Election Dataset Processing (Python/Pandas) -> SQL Data Structuring -> DAX Calculated Measures & Modeling -> Power BI Visual Dashboards.',
+        'Desktop Telemetry Daemon (Python / PyGetWindow) -> Asynchronous REST Gateway (FastAPI / Uvicorn) -> Mathematical Feature & Digital Twin Engine (Pandas) -> Relational Storage (PostgreSQL) & LLM Reasoning (Google Gemini Pro) -> Glassmorphic Management Dashboard & ReportLab PDF',
       impactOrOutcome:
-        'Delivers a completely neutral, data-driven analytical reference for examining electoral participation, margins, and historical trends.',
-      githubUrl: 'https://github.com/guru1301',
-    },
-  },
-  {
-    id: 'agniwatts',
-    number: '04',
-    title: 'AGNIWATTS',
-    subtitle: 'Predictive Load Management',
-    category: 'DATA & BACKEND ENGINEERING',
-    tagline:
-      'Predictive power-grid analysis system combining data processing, API services, and interactive visualization for load-management analysis.',
-    description:
-      'Predictive power-grid analysis system combining data processing, API services, and interactive visualization for load-management analysis.',
-    image: '/assets/projects/agniwatts.jpg',
-    technologies: ['Python', 'FastAPI', 'React', 'Pandas', 'Tailwind CSS', 'Recharts'],
-    featured: true,
-    caseStudy: {
-      overview:
-        'AgniWatts combines power consumption telemetry ingestion with predictive modeling and visualization to assist in electrical grid load management.',
-      keyFeatures: [
-        'Power consumption telemetry ingestion and regional substation monitoring',
-        'Time-series load forecasting using Python and Pandas',
-        'Anomaly detection indicators for voltage instability and sudden demand surges',
-        'Interactive load monitoring dashboard built with FastAPI and React Recharts',
-      ],
-      technicalArchitecture:
-        'FastAPI Telemetry Stream -> Pandas Data Processing Pipeline -> React & Recharts Dashboard UI.',
-      impactOrOutcome:
-        'Provides an operational reference for understanding demand spikes and planning proactive load distribution.',
-      githubUrl: 'https://github.com/guru1301',
-    },
-  },
-  {
-    id: 'museum-booking',
-    number: '05',
-    title: 'MUSEUM BOOKING',
-    subtitle: 'Digital Ticketing Platform',
-    category: 'FULL-STACK APPLICATION',
-    tagline:
-      'Full-stack museum ticketing platform supporting online reservations, database-backed booking workflows, and QR-based ticket generation.',
-    description:
-      'Full-stack museum ticketing platform supporting online reservations, database-backed booking workflows, and QR-based ticket generation.',
-    image: '/assets/projects/museum.jpg',
-    technologies: ['Java', 'Spring Boot', 'React', 'Tailwind CSS', 'PostgreSQL', 'QR Code'],
-    featured: true,
-    caseStudy: {
-      overview:
-        'An architectural web platform for cultural exhibition ticketing, managing visitor flow through timed slots and instant digital verification passes.',
-      keyFeatures: [
-        'Online reservations and exhibition slot selection',
-        'Database-backed booking workflows',
-        'Timed capacity and visitor scheduling',
-        'QR-based digital ticket generation',
-      ],
-      technicalArchitecture:
-        'React Interface -> Spring Boot API Service -> PostgreSQL Database -> Dynamic QR Code Generation.',
-      impactOrOutcome:
-        'Delivers an intuitive, friction-free booking flow for exhibition attendees and event curators.',
-      githubUrl: 'https://github.com/guru1301',
+        'Achieved 24ms average telemetry ingestion latency with sub-1% agent CPU utilization, delivering 97% window classification accuracy and zero timeout failures across 100 concurrent simulated enterprise worker nodes.',
+      githubUrl: 'https://github.com/guru1301/nebula-intelligence',
     },
   },
   {
     id: 'ott-analytics',
-    number: '06',
+    number: '04',
     title: 'OTT ANALYTICS',
     subtitle: 'Streaming Platform Performance Dashboard',
     category: 'DATA ANALYTICS & BUSINESS INTELLIGENCE',
@@ -307,61 +243,67 @@ export const PROJECTS_DATA: Project[] = [
 
 export const CLIENT_PROJECTS_DATA: Project[] = [
   {
-    id: 'client-website-01',
+    id: 'mx-herbals',
     number: '01',
-    title: 'CLIENT WEBSITE 01',
-    subtitle: 'Client Website • Web Development',
-    category: 'CLIENT WORK • WEB DEVELOPMENT',
+    title: 'MX HERBAL',
+    subtitle: 'Handcrafted Ayurvedic Skincare & Wellness Brand',
+    category: 'D2C E-COMMERCE • AYURVEDIC BEAUTY',
     tagline:
-      'Website developed for a client, translating their requirements into a responsive and professional digital presence.',
+      'Ancient Wisdom, Timeless Radiance — Handcrafted botanical beauty & personal care.',
     description:
-      'Website developed for a client, translating their requirements into a responsive and professional digital presence.',
+      'Direct-to-consumer digital storefront for MX Herbal, showcasing handcrafted Ayurvedic beauty powders, herbal hair oils, and skincare formulations with interactive botanical visuals, ingredient provenance, and direct WhatsApp ordering.',
     image: '/assets/projects/client1.jpg',
-    technologies: ['React', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'],
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'HTML5 Canvas', 'WhatsApp API', 'SEO'],
     featured: true,
     caseStudy: {
       overview:
-        'Website developed for a client, translating their business requirements into a responsive, modern, and professional digital presence.',
+        'Designed and engineered the complete direct-to-consumer web presence for MX Herbal (mxherbals.in), an authentic Ayurvedic personal care brand. The digital experience translates centuries-old botanical formulations into a modern, serene editorial shopping interface that emphasizes purity, holistic wellness, and effortless ordering.',
       keyFeatures: [
-        'Client requirements translation into interactive component hierarchy',
-        'Responsive cross-device layouts optimized for mobile and desktop',
-        'Modern typography, accessible navigation, and optimized assets',
-        'Production-ready build, deployment preparation, and client handoff',
+        'Luxury editorial typography combining Cormorant Garamond & DM Sans with custom smooth cursor animations',
+        'Interactive HTML5 Canvas particle engine rendering floating botanical micro-particles in the hero section',
+        'Comprehensive product showcase for Herbal Beauty Powder, Men’s Face Powder, and Handcrafted Herbal Hair Oil',
+        'Authentic Ayurvedic ingredient transparency highlighting Kasturi Manjal, Sandalwood, Bhringraj, and Neem',
+        'Step-by-step Herbal Ritual guide providing personalized morning and evening Ayurvedic skincare regimens',
+        'Frictionless WhatsApp Business API checkout integration enabling rapid direct customer orders without cart abandonment',
+        'Schema.org Organization structured data and mobile theme-color customization for peak search visibility',
       ],
       technicalArchitecture:
-        'Client Specification -> Responsive React Component Tree -> Tailwind CSS System -> Production Delivery.',
+        'Vedic Brand Architecture -> Semantic HTML5 & Canvas Particle Engine -> Editorial CSS3 Design System -> Direct WhatsApp Business Gateway.',
       impactOrOutcome:
-        'Established an engaging, high-performance web presence tailored directly to client goals and brand identity.',
-      githubUrl: 'https://github.com/guru1301',
+        'Delivered an authentic, high-converting digital storefront that established brand credibility and drove direct-to-consumer orders across India.',
+      liveUrl: 'https://www.mxherbals.in/',
     },
   },
   {
-    id: 'client-website-02',
+    id: 'skill-mantra-academy',
     number: '02',
-    title: 'CLIENT WEBSITE 02',
-    subtitle: 'Client Website • Web Development',
-    category: 'CLIENT WORK • WEB DEVELOPMENT',
+    title: 'SKILL MANTRA ACADEMY',
+    subtitle: 'Career-Ready Tech Skills & EdTech Training Platform',
+    category: 'EDTECH PLATFORM • CAREER TRAINING',
     tagline:
-      'Client-focused website developed from requirements through implementation, responsive presentation, and final delivery.',
+      'Master the skills employers actually hire for — Industry-aligned tech education.',
     description:
-      'Client-focused website developed from requirements through implementation, responsive presentation, and final delivery.',
+      'Comprehensive educational platform for Skill Mantra Academy, featuring 6 industry-aligned tech career tracks, interactive tabbed program offerings, real-time cohort updates ticker, and frictionless advisor enrollment funnels.',
     image: '/assets/projects/client2.jpg',
-    technologies: ['React', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'],
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI', 'Figma', 'EdTech UX'],
     featured: true,
     caseStudy: {
       overview:
-        'Client-focused website developed from initial requirements through interactive design, performance optimization, and final deployment.',
+        'Developed the official web platform for Skill Mantra Academy (skillmantraacademy.com), an EdTech career accelerator bridging the gap between collegiate education and high-demand tech roles through mentor-led curricula, practical capstones, and placement support.',
       keyFeatures: [
-        'End-to-end client website delivery from concept to implementation',
-        'Structured sections highlighting business services and contact workflows',
-        'Clean UI architecture built with React and Tailwind CSS',
-        'Performance optimization and cross-browser verification',
+        '6 specialized career tracks: Full-Stack Web Dev (16w), Data Analytics with Python (12w), Cloud & DevOps (10w), UI/UX Design (8w), Cybersecurity (10w), and Digital Marketing (8w)',
+        'Interactive 4-tab Offerings module spanning Career Programs, 1:1 Mentorship Reviews, Corporate Upskilling, and Placement Services',
+        'Continuous animated cohort updates ticker marquee spotlighting upcoming batch dates and scholarship deadlines',
+        'Curated 15+ tool stack matrix showcasing Python, React, AWS, Docker, Figma, SQL, Git, Linux, and Tableau',
+        'Accessible multi-tier navigation featuring dropdown mega-menus, sticky header states, and mobile drawer menu',
+        'Dual-action conversion funnel providing instant "Talk to an Advisor" advisory booking and cohort enrollment pathways',
+        'Dual theme CSS custom properties system supporting adaptive dark/light aesthetic modes',
       ],
       technicalArchitecture:
-        'Requirements Architecture -> Modular React Layouts -> Tailwind CSS Design System -> Production Deployment.',
+        'Curriculum Architecture -> Modular Accessible DOM & Tabbed Panels -> CSS Variable Color System -> Pure Vanilla JS Interactivity.',
       impactOrOutcome:
-        'Delivered an intuitive, accessible digital solution enabling direct client communication and brand engagement.',
-      githubUrl: 'https://github.com/guru1301',
+        'Built a high-credibility learning portal that streamlined course discovery, automated cohort inquiries, and elevated institutional brand authority.',
+      liveUrl: 'https://www.skillmantraacademy.com/',
     },
   },
 ];
@@ -447,7 +389,7 @@ export const SKILLS_DATA: SkillItem[] = [
     description: 'Asynchronous Python REST microservices, Pydantic validation, and OpenAPI documentation.',
     size: 'lg',
     focus: 'Async Python Microservices',
-    appliedIn: 'AgniWatts Telemetry Stream',
+    appliedIn: 'RailGo & Nebula Intelligence',
   },
   {
     name: 'SPRING BOOT',
@@ -455,7 +397,7 @@ export const SKILLS_DATA: SkillItem[] = [
     description: 'Enterprise Java RESTful APIs, dependency injection, service layers, and microservices.',
     size: 'lg',
     focus: 'Enterprise Java Architecture',
-    appliedIn: 'FlowAI & RailGo Systems',
+    appliedIn: 'Enterprise Java Services',
   },
   {
     name: 'FLASK',
@@ -463,7 +405,7 @@ export const SKILLS_DATA: SkillItem[] = [
     description: 'Lightweight Python web applications, routing endpoints, and modular API services.',
     size: 'md',
     focus: 'Microservices & Routing',
-    appliedIn: 'Modular API Endpoints',
+    appliedIn: 'The People’s Ledger Gateway',
   },
   {
     name: 'REACT',
@@ -471,7 +413,7 @@ export const SKILLS_DATA: SkillItem[] = [
     description: 'Declarative component architecture, custom hooks, dynamic UI states, and responsive web design.',
     size: 'lg',
     focus: 'Component UI & Dynamic State',
-    appliedIn: 'FlowAI Dashboard & Portals',
+    appliedIn: 'Responsive Portfolios & SPAs',
   },
   {
     name: 'POWER BI',
@@ -487,7 +429,7 @@ export const SKILLS_DATA: SkillItem[] = [
     description: 'Calculated measures, columns, and time-intelligence data analysis expressions.',
     size: 'md',
     focus: 'Time-Intelligence & Measures',
-    appliedIn: 'Election Metrics & KPI Models',
+    appliedIn: 'OTT Metrics & KPI Models',
   },
   {
     name: 'POSTGRESQL',
@@ -495,7 +437,7 @@ export const SKILLS_DATA: SkillItem[] = [
     description: 'ACID-compliant relational database management, table constraints, and query tuning.',
     size: 'md',
     focus: 'Relational Integrity & ACID',
-    appliedIn: 'FlowAI & Museum Platforms',
+    appliedIn: 'RailGo & Nebula Intelligence',
   },
   {
     name: 'MYSQL',

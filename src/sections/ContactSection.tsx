@@ -1,9 +1,14 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowUpRight, MapPin } from 'lucide-react';
 import { DEVELOPER_INFO } from '../data/portfolioData';
 import { LoopingLabel } from '../components/LoopingLabel';
 
-export const ContactSection: React.FC = () => {
+interface ContactSectionProps {
+  onOpenBuildModal?: () => void;
+}
+
+export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenBuildModal }) => {
   return (
     <section id="contact" className="relative w-full py-16 sm:py-24 md:py-40 px-4 sm:px-6 md:px-12 lg:px-20 bg-[#0c0c10] text-[#f5f5f7] border-t border-white/10">
       <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
@@ -16,16 +21,63 @@ export const ContactSection: React.FC = () => {
           <span className="text-white/40">GET IN TOUCH</span>
         </div>
 
-        {/* Large Statement */}
+        {/* Large Statement with pristine original typography & alignment */}
         <div className="space-y-4">
-          <h2 className="font-display text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.88] uppercase text-white">
-            LET'S <br />
-            <span className="text-[#e63946]">BUILD</span> <br />
-            SOMETHING.
-          </h2>
-          <p className="font-mono-custom text-xs sm:text-sm text-white/80 leading-relaxed max-w-2xl border-l-2 border-[#e63946] pl-4 py-1">
+          <div>
+            <h2 className="font-display text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.88] uppercase text-white select-none">
+              LET'S <br />
+              <span
+                className="text-[#e63946] cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={onOpenBuildModal}
+                data-cursor-label="BUILD"
+                title="Click to build with me"
+              >
+                BUILD
+              </span> <br />
+              SOMETHING.
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-3 pt-1">
+            <button
+              type="button"
+              onClick={onOpenBuildModal}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e63946]/15 hover:bg-[#e63946]/30 border border-[#e63946]/40 text-[#e63946] font-mono-custom text-[10px] sm:text-xs uppercase font-bold tracking-widest cursor-pointer transition-all focus:outline-none"
+              data-cursor-label="BUILD"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#e63946] animate-ping" />
+              <span className="w-1.5 h-1.5 -ml-3.5 rounded-full bg-[#e63946]" />
+              READY TO BUILD
+            </button>
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 'some' }}
+            transition={{ duration: 0.65, delay: 0.25, ease: 'easeOut' }}
+            className="font-mono-custom text-xs sm:text-sm text-white/80 leading-relaxed max-w-2xl border-l-2 border-[#e63946] pl-4 py-1"
+          >
             Open to entry-level software opportunities and selected client web projects.
-          </p>
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="pt-2 flex flex-wrap items-center gap-3"
+          >
+            <button
+              type="button"
+              onClick={onOpenBuildModal}
+              className="px-6 py-3 rounded-full bg-[#e63946] hover:bg-[#ff4d6d] text-white font-mono-custom text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#e63946]/30 active:scale-95 cursor-pointer focus:outline-none"
+              data-cursor-label="BUILD"
+            >
+              <span>BUILD WITH ME — QUICK INQUIRY</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
+          </motion.div>
         </div>
 
         {/* Dual Capability Track: Job Opportunities & Client Projects */}
@@ -47,11 +99,20 @@ export const ContactSection: React.FC = () => {
           </div>
 
           {/* Track 2: Client Projects */}
-          <div className="p-5 sm:p-6 rounded-2xl domain-card-bg border border-white/10 space-y-2.5">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#e63946]" />
-              <span className="font-mono-custom text-xs font-bold text-[#e63946] uppercase tracking-wider">
-                CLIENT PROJECTS
+          <div
+            onClick={onOpenBuildModal}
+            className="p-5 sm:p-6 rounded-2xl domain-card-bg border border-white/10 space-y-2.5 hover:border-[#e63946]/50 transition-all cursor-pointer group"
+            data-cursor-label="BUILD"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#e63946]" />
+                <span className="font-mono-custom text-xs font-bold text-[#e63946] uppercase tracking-wider">
+                  CLIENT PROJECTS
+                </span>
+              </div>
+              <span className="font-mono-custom text-[11px] text-[#e63946] group-hover:underline flex items-center gap-1 font-semibold">
+                BUILD WITH ME <ArrowUpRight className="w-3.5 h-3.5" />
               </span>
             </div>
             <p className="font-display text-base sm:text-lg font-bold text-white uppercase tracking-tight">
@@ -122,7 +183,7 @@ export const ContactSection: React.FC = () => {
             </span>
             <div className="font-mono-custom text-xs md:text-sm space-y-1">
               <p className="flex items-center gap-2 text-white/90">
-                <MapPin className="w-4 h-4 text-[#e63946]" /> India (IST)
+                <MapPin className="w-4 h-4 text-[#e63946]" /> {DEVELOPER_INFO.location} (IST)
               </p>
               <p className="text-[#e63946] text-xs font-semibold">
                 [ {DEVELOPER_INFO.availability} ]

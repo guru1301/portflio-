@@ -7,6 +7,7 @@ import { ThemeColorPicker } from './ThemeColorPicker';
 interface NavigationProps {
   activeSection: string;
   onNavigate: (sectionId: string) => void;
+  onOpenBuildModal?: () => void;
 }
 
 const NAV_ITEMS = [
@@ -21,6 +22,7 @@ const NAV_ITEMS = [
 export const Navigation: React.FC<NavigationProps> = ({
   activeSection,
   onNavigate,
+  onOpenBuildModal,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -57,7 +59,19 @@ export const Navigation: React.FC<NavigationProps> = ({
         </button>
 
         {/* Top Right Action Group: Theme Palette & Menu Button */}
-        <div className="flex items-center gap-3 pointer-events-auto">
+        <div className="flex items-center gap-2 sm:gap-3 pointer-events-auto">
+          {/* Quick Build With Me Pill */}
+          {onOpenBuildModal && (
+            <button
+              onClick={onOpenBuildModal}
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#e63946] hover:bg-[#ff4d6d] text-white font-mono-custom text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-[#e63946]/25 cursor-pointer focus:outline-none active:scale-95"
+              data-cursor-label="BUILD"
+            >
+              <span>BUILD WITH ME</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+          )}
+
           {/* Dynamic Theme Color Customizer */}
           <ThemeColorPicker />
 
@@ -132,6 +146,27 @@ export const Navigation: React.FC<NavigationProps> = ({
                   );
                 })}
               </ul>
+
+              {onOpenBuildModal && (
+                <motion.div
+                  initial={{ y: 25, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="pt-6"
+                >
+                  <button
+                    onClick={() => {
+                      setIsOpen(false);
+                      onOpenBuildModal();
+                    }}
+                    className="px-6 py-3 rounded-full bg-[#e63946] hover:bg-[#ff4d6d] text-white font-mono-custom text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#e63946]/30 active:scale-95 cursor-pointer focus:outline-none"
+                    data-cursor-label="BUILD"
+                  >
+                    <span>BUILD A PROJECT WITH ME</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </button>
+                </motion.div>
+              )}
             </nav>
 
             {/* Bottom Details */}

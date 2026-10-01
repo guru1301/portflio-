@@ -9,15 +9,15 @@ export function useLenis() {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Instantiate Lenis smooth scroll: silky wheel on laptop, pure native 120Hz/60Hz touch on mobile
+    // Instantiate Lenis smooth scroll: silky wheel on laptop, pure native touch support
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 0,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.0,
       syncTouch: false,
       autoResize: true,
     });

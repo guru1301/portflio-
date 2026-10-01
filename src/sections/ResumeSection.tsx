@@ -94,16 +94,14 @@ export const ResumeSection: React.FC = () => {
                 <p>Python, Java, SQL, JavaScript, FastAPI, Flask, Spring Boot, React, Power BI, DAX, PostgreSQL, MongoDB, Git, Postman, Docker</p>
 
                 <p className="text-white font-semibold pt-2">KEY PROJECTS:</p>
-                <p>• RailGo (Full-Stack Railway Reservation Platform)</p>
-                <p>• FlowAI (Digital Twin Remote Telemetry Dashboard)</p>
-                <p>• The People's Ledger (Tamil Nadu Election Analytics)</p>
-                <p>• AgniWatts (Predictive Power Load Management)</p>
-                <p>• Museum Booking (Digital Ticketing Platform)</p>
+                <p>• The People's Ledger (Civic Data Warehouse & Geospatial Analytics Engine)</p>
+                <p>• RailGo (High-Concurrency Railway Reservation & Transit Routing Engine)</p>
+                <p>• Nebula Intelligence (AI-Powered Workforce Telemetry & Digital Twin Analytics Platform)</p>
                 <p>• OTT Analytics (Streaming Platform BI Dashboard)</p>
 
                 <p className="text-white font-semibold pt-2">CLIENT WEB SOLUTIONS:</p>
-                <p>• Client Website 01 (Client Digital Presence & Web Development)</p>
-                <p>• Client Website 02 (Client Web Application & Presentation)</p>
+                <p>• MX Herbal (Handcrafted Ayurvedic Skincare & Wellness Brand)</p>
+                <p>• Skill Mantra Academy (Career-Ready Tech Skills & EdTech Platform)</p>
 
                 <p className="text-white font-semibold pt-2">EXPERIENCE & TRAINING:</p>
                 <p>• 2025 - 2026: ICT Academy / Infosys Foundation — Data Analytics & Technology Training</p>

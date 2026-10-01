@@ -118,7 +118,16 @@ export const SelectedWorkSection: React.FC<SelectedWorkSectionProps> = ({ onSele
                     </p>
                   </div>
 
-                  <div className="w-11 h-11 rounded-full border border-black/20 flex items-center justify-center text-[#111115] group-hover:bg-[#e63946] group-hover:text-white group-hover:border-[#e63946] transition-all duration-300 shrink-0">
+                  <div
+                    onClick={(e) => {
+                      if (project.caseStudy?.liveUrl) {
+                        e.stopPropagation();
+                        window.open(project.caseStudy.liveUrl, '_blank', 'noopener,noreferrer');
+                      }
+                    }}
+                    title={project.caseStudy?.liveUrl ? `Open ${project.title} live app` : 'Open case study'}
+                    className="w-11 h-11 rounded-full border border-black/20 flex items-center justify-center text-[#111115] group-hover:bg-[#e63946] group-hover:text-white group-hover:border-[#e63946] transition-all duration-300 shrink-0 cursor-pointer"
+                  >
                     <ArrowUpRight className="w-5 h-5" />
                   </div>
                 </div>

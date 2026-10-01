@@ -9,12 +9,14 @@ interface ClientWorkSectionProps {
   onSelectProject: (project: Project) => void;
   onScrollToContact?: () => void;
   onScrollToWork?: () => void;
+  onOpenBuildModal?: () => void;
 }
 
 export const ClientWorkSection: React.FC<ClientWorkSectionProps> = ({
   onSelectProject,
   onScrollToContact,
   onScrollToWork,
+  onOpenBuildModal,
 }) => {
   return (
     <section
@@ -71,7 +73,16 @@ export const ClientWorkSection: React.FC<ClientWorkSectionProps> = ({
                     </p>
                   </div>
 
-                  <div className="w-11 h-11 rounded-full border border-black/20 flex items-center justify-center text-[#111115] group-hover:bg-[#e63946] group-hover:text-white group-hover:border-[#e63946] transition-all duration-300 shrink-0">
+                  <div
+                    onClick={(e) => {
+                      if (project.caseStudy?.liveUrl) {
+                        e.stopPropagation();
+                        window.open(project.caseStudy.liveUrl, '_blank', 'noopener,noreferrer');
+                      }
+                    }}
+                    title={project.caseStudy?.liveUrl ? `Open ${project.title} live website` : 'View details'}
+                    className="w-11 h-11 rounded-full border border-black/20 flex items-center justify-center text-[#111115] group-hover:bg-[#e63946] group-hover:text-white group-hover:border-[#e63946] transition-all duration-300 shrink-0 cursor-pointer"
+                  >
                     <ArrowUpRight className="w-5 h-5" />
                   </div>
                 </div>
@@ -115,7 +126,7 @@ export const ClientWorkSection: React.FC<ClientWorkSectionProps> = ({
                   </div>
 
                   <span className="font-mono-custom text-xs text-[#e63946] uppercase tracking-wider font-semibold group-hover:underline whitespace-nowrap shrink-0 flex items-center gap-1">
-                    VIEW WEBSITE →
+                    VIEW DETAILS →
                   </span>
                 </div>
               </div>
@@ -138,18 +149,18 @@ export const ClientWorkSection: React.FC<ClientWorkSectionProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 shrink-0">
-            <a
-              href="#contact"
-              onClick={(e) => {
-                if (onScrollToContact) {
-                  e.preventDefault();
+            <button
+              onClick={() => {
+                if (onOpenBuildModal) {
+                  onOpenBuildModal();
+                } else if (onScrollToContact) {
                   onScrollToContact();
                 }
               }}
-              className="px-5 py-3 rounded-full bg-[#e63946] text-white font-mono-custom text-xs font-bold uppercase tracking-wider hover:bg-[#ff4d6d] transition-colors flex items-center gap-1.5 shadow-lg shadow-[#e63946]/20 active:scale-95"
+              className="px-5 py-3 rounded-full bg-[#e63946] text-white font-mono-custom text-xs font-bold uppercase tracking-wider hover:bg-[#ff4d6d] transition-colors flex items-center gap-1.5 shadow-lg shadow-[#e63946]/20 active:scale-95 cursor-pointer"
             >
               START A PROJECT →
-            </a>
+            </button>
             <a
               href="#work"
               onClick={(e) => {

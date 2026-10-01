@@ -9,9 +9,14 @@ import { useThemeColor } from '../context/ThemeColorContext';
 interface HeroSectionProps {
   onScrollToWork: () => void;
   onScrollToContact?: () => void;
+  onOpenBuildModal?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork, onScrollToContact }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  onScrollToWork,
+  onScrollToContact,
+  onOpenBuildModal,
+}) => {
   const { accentColor } = useThemeColor();
   const containerRef = useRef<HTMLDivElement>(null);
   const title1Ref = useRef<HTMLHeadingElement>(null);
@@ -93,31 +98,49 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork, onScro
 
       {/* Editorial Typography Layout - Moved upwards and placed cleanly on the left */}
       <div className="z-20 relative max-w-6xl mx-auto w-full pt-1 sm:pt-3 md:py-8 md:my-auto pointer-events-none">
-        <div className="max-w-[58%] sm:max-w-[60%] md:max-w-xl">
-          <div className="flex flex-col">
-            {/* GURU Title Line */}
+        <div className="w-full max-w-[65%] md:max-w-2xl lg:max-w-3xl">
+          <div className="flex flex-col pointer-events-auto">
+            {/* GURU Title Line - Clean White with Crisp Electric Light Flicker */}
             <motion.h1
               ref={title1Ref}
               initial={{ y: 25, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.9] uppercase select-none text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
+              className="tubelight-flicker-white font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] 2xl:text-8xl font-black tracking-tight leading-[0.9] uppercase select-none text-white whitespace-nowrap drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
             >
-              GURU
+              <span className="inline-flex whitespace-nowrap">
+                {['G', 'U', 'R', 'U'].map((char, idx) => (
+                  <span
+                    key={idx}
+                    className="hover-flicker-letter inline-block"
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
             </motion.h1>
 
-            {/* PRASATH Title Line - Aligned to left */}
+            {/* PRASATH Title Line - Strictly ONE single line, never broken or separated */}
             <motion.h1
               ref={title2Ref}
               initial={{ y: 25, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.9] uppercase text-left select-none pl-0 sm:pl-2 md:pl-8 lg:pl-12 text-[#e63946]"
+              className="tubelight-flicker-accent font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] 2xl:text-8xl font-black tracking-tight leading-[0.9] uppercase text-left select-none whitespace-nowrap pl-0 sm:pl-2 md:pl-6 lg:pl-10"
               style={{
-                filter: `drop-shadow(0 4px 30px ${accentColor}4d)`,
+                color: accentColor,
               }}
             >
-              PRASATH
+              <span className="inline-flex whitespace-nowrap">
+                {['P', 'R', 'A', 'S', 'A', 'T', 'H'].map((char, idx) => (
+                  <span
+                    key={idx}
+                    className="hover-flicker-letter inline-block"
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
             </motion.h1>
           </div>
 
@@ -157,9 +180,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork, onScro
             >
               {/* Primary: Build A Project With Me */}
               <button
-                onClick={onScrollToContact}
+                onClick={onOpenBuildModal || onScrollToContact}
                 className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#e63946] text-white font-mono-custom text-[11px] sm:text-xs font-bold uppercase tracking-wider hover:bg-[#ff4d6d] transition-all flex items-center gap-2 shadow-lg shadow-[#e63946]/30 active:scale-95 cursor-pointer focus:outline-none"
-                data-cursor-label="PROJECT"
+                data-cursor-label="BUILD"
               >
                 <span>BUILD A PROJECT WITH ME</span>
                 <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -182,7 +205,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWork, onScro
 
       {/* 3D Hanging ID Badge - Full height stage with lanyard entering from ceiling upwards */}
       <div className="absolute inset-0 w-full h-full z-10 pointer-events-none overflow-hidden">
-        <HangingIDCard />
+        <HangingIDCard location={DEVELOPER_INFO.location} />
       </div>
 
       {/* Bottom Metadata & Scroll Prompt */}

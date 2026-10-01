@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from './hooks/useLenis';
+
+gsap.registerPlugin(ScrollTrigger);
 import { CustomCursor } from './components/CustomCursor';
 import { BrandIntro } from './components/BrandIntro';
 import { Navigation } from './components/Navigation';
 import { ScrollProgress } from './components/ScrollProgress';
 import { GrainOverlay } from './components/GrainOverlay';
 import { ProjectModal } from './components/ProjectModal';
+import { BuildWithMeModal } from './components/BuildWithMeModal';
 import { HeroSection } from './sections/HeroSection';
 import { HeroToWorkTransition } from './sections/HeroToWorkTransition';
 import { SelectedWorkSection } from './sections/SelectedWorkSection';
@@ -25,6 +30,7 @@ export function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isBuildModalOpen, setIsBuildModalOpen] = useState(false);
 
   // Initialize Lenis smooth scroll
   const lenisRef = useLenis();
@@ -40,6 +46,45 @@ export function App() {
       }
     }
   };
+
+  // Stop Lenis smooth scroll and freeze background scrolling when ANY modal is open
+  useEffect(() => {
+    const isModalActive = Boolean(selectedProject || isBuildModalOpen);
+    if (isModalActive) {
+      if (lenisRef.current) {
+        lenisRef.current.stop();
+      }
+      document.body.classList.add('modal-open');
+      document.documentElement.classList.add('lenis-stopped');
+    } else {
+      if (lenisRef.current) {
+        lenisRef.current.start();
+      }
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('lenis-stopped');
+    }
+
+    return () => {
+      if (lenisRef.current) {
+        lenisRef.current.start();
+      }
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('lenis-stopped');
+    };
+  }, [selectedProject, isBuildModalOpen, lenisRef]);
+
+  // Refresh ScrollTrigger and Lenis layout once intro finishes and content mounts
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+        if (lenisRef.current) {
+          lenisRef.current.resize();
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
 
   // Optimized Section Observer with requestAnimationFrame guard to eliminate layout thrashing
   useEffect(() => {
@@ -93,6 +138,7 @@ export function App() {
             <Navigation
               activeSection={activeSection}
               onNavigate={(id) => scrollToSection(id)}
+              onOpenBuildModal={() => setIsBuildModalOpen(true)}
             />
 
             {/* Right side Vertical Scroll Progress Indicator */}
@@ -104,6 +150,7 @@ export function App() {
               <HeroSection
                 onScrollToWork={() => scrollToSection('work')}
                 onScrollToContact={() => scrollToSection('contact')}
+                onOpenBuildModal={() => setIsBuildModalOpen(true)}
               />
 
               {/* Transition Title Banner */}
@@ -117,6 +164,7 @@ export function App() {
                 onSelectProject={(proj) => setSelectedProject(proj)}
                 onScrollToContact={() => scrollToSection('contact')}
                 onScrollToWork={() => scrollToSection('work')}
+                onOpenBuildModal={() => setIsBuildModalOpen(true)}
               />
 
               {/* 03 - About & Education */}
@@ -136,7 +184,7 @@ export function App() {
 
 
               {/* 06 - Contact Section */}
-              <ContactSection />
+              <ContactSection onOpenBuildModal={() => setIsBuildModalOpen(true)} />
             </main>
 
             {/* Minimal Footer */}
@@ -146,6 +194,12 @@ export function App() {
             <ProjectModal
               project={selectedProject}
               onClose={() => setSelectedProject(null)}
+            />
+
+            {/* Build With Me Inquiry Form Modal */}
+            <BuildWithMeModal
+              isOpen={isBuildModalOpen}
+              onClose={() => setIsBuildModalOpen(false)}
             />
           </>
         )}

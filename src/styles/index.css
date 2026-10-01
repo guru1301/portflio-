@@ -81,12 +81,16 @@ html.lenis, html.lenis body {
   scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+.lenis.lenis-smooth [data-lenis-prevent],
+[data-lenis-prevent] {
+  overscroll-behavior: contain !important;
 }
 
-.lenis.lenis-stopped {
-  overflow: hidden;
+.lenis.lenis-stopped,
+.lenis.lenis-stopped body,
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
 }
 
 .lenis.lenis-scrolling iframe {
@@ -160,3 +164,224 @@ html.lenis, html.lenis body {
   z-index: 2;
 }
 
+/* Animated Shimmer for "BUILD" in Contact */
+@keyframes buildGradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.build-shimmer-text {
+  color: var(--accent-electric, #e63946);
+  background: linear-gradient(
+    90deg,
+    var(--accent-electric, #e63946) 0%,
+    #ff6b6b 25%,
+    #ffffff 50%,
+    #ff4d6d 75%,
+    var(--accent-electric, #e63946) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: buildGradientFlow 4s linear infinite;
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+.build-shimmer-text:hover {
+  opacity: 0.9;
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .build-shimmer-text {
+    -webkit-text-fill-color: var(--accent-electric, #e63946) !important;
+    color: var(--accent-electric, #e63946) !important;
+  }
+}
+
+/* ========================================================= */
+/* CRISP TUBELIGHT LIGHT FLICKER SYSTEM (NO BLURRY GLOW)    */
+/* ========================================================= */
+
+/* Starter strike: electric fluorescent ignition spark */
+@keyframes tubelightStarterFlicker {
+  0% {
+    opacity: 0.08;
+    filter: brightness(0.2);
+  }
+  3% {
+    opacity: 0.95;
+    filter: brightness(1.4);
+  }
+  7% {
+    opacity: 0.15;
+    filter: brightness(0.3);
+  }
+  11% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  15% {
+    opacity: 0.2;
+    filter: brightness(0.4);
+  }
+  20% {
+    opacity: 0.95;
+    filter: brightness(1.3);
+  }
+  26% {
+    opacity: 0.45;
+    filter: brightness(0.6);
+  }
+  32% {
+    opacity: 1;
+    filter: brightness(1.25);
+  }
+  40% {
+    opacity: 0.75;
+    filter: brightness(0.85);
+  }
+  48% {
+    opacity: 1;
+    filter: brightness(1.15);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+/* Subtle continuous voltage flutter (authentic physical tube hum) */
+@keyframes tubelightLiveFlutter {
+  0%, 93%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  94% {
+    opacity: 0.78;
+    filter: brightness(0.82);
+  }
+  95% {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+  96% {
+    opacity: 0.68;
+    filter: brightness(0.75);
+  }
+  97% {
+    opacity: 0.98;
+    filter: brightness(1.12);
+  }
+  98% {
+    opacity: 0.85;
+    filter: brightness(0.9);
+  }
+}
+
+.tubelight-flicker-white {
+  display: block;
+  animation:
+    tubelightStarterFlicker 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    tubelightLiveFlutter 6s ease-in-out infinite 2s;
+  transition: filter 0.2s ease;
+}
+
+.tubelight-flicker-white:hover {
+  filter: brightness(1.22);
+}
+
+.tubelight-flicker-accent {
+  display: block;
+  animation:
+    tubelightStarterFlicker 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.08s forwards,
+    tubelightLiveFlutter 6.5s ease-in-out infinite 2.3s;
+  transition: filter 0.2s ease;
+}
+
+.tubelight-flicker-accent:hover {
+  filter: brightness(1.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tubelight-flicker-white,
+  .tubelight-flicker-accent,
+  .hover-flicker-letter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ========================================================= */
+/* LETTER-BY-LETTER HOVER FLICKER (INDIVIDUAL VOLTAGE SPARK) */
+/* ========================================================= */
+
+@keyframes letterHoverFlicker {
+  0% {
+    opacity: 1;
+    filter: brightness(1);
+    transform: translateY(0);
+  }
+  12% {
+    opacity: 0.18;
+    filter: brightness(0.3);
+    transform: translateY(-2px);
+  }
+  24% {
+    opacity: 1;
+    filter: brightness(1.75);
+    transform: translateY(-5px);
+  }
+  38% {
+    opacity: 0.3;
+    filter: brightness(0.45);
+    transform: translateY(-3px);
+  }
+  52% {
+    opacity: 1;
+    filter: brightness(1.9);
+    transform: translateY(-6px);
+  }
+  68% {
+    opacity: 0.6;
+    filter: brightness(0.75);
+    transform: translateY(-4px);
+  }
+  84% {
+    opacity: 1;
+    filter: brightness(1.35);
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1.2);
+    transform: translateY(-4px);
+  }
+}
+
+.hover-flicker-letter {
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease, opacity 0.2s ease;
+  will-change: transform, opacity, filter;
+}
+
+.hover-flicker-letter:hover {
+  animation: letterHoverFlicker 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hover-flicker-letter:active {
+  transform: translateY(1px) scale(0.96);
+  filter: brightness(0.5);
+  opacity: 0.4;
+}

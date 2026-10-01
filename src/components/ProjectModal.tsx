@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle2, Cpu, Layers } from 'lucide-react';
+import { X, CheckCircle2, Cpu, Layers, ExternalLink } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 import { TechIcon } from './TechIcon';
 
@@ -15,11 +15,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       if (e.key === 'Escape') onClose();
     };
     if (project) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
+      document.documentElement.classList.add('lenis-stopped');
+      try {
+        (window as unknown as { lenis?: { stop: () => void } }).lenis?.stop();
+      } catch {
+        // ignore
+      }
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('lenis-stopped');
+      try {
+        (window as unknown as { lenis?: { start: () => void } }).lenis?.start();
+      } catch {
+        // ignore
+      }
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [project, onClose]);
@@ -28,7 +40,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-10 overflow-y-auto bg-black/90 backdrop-blur-xl">
+      <div
+        className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 md:p-10 overflow-y-auto bg-black/90 backdrop-blur-xl overscroll-contain"
+        data-lenis-prevent="true"
+        data-lenis-prevent-wheel="true"
+        data-lenis-prevent-touch="true"
+        onWheel={(e) => e.stopPropagation()}
+      >
         {/* Modal Backdrop click */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -44,10 +62,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.98 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-5xl domain-card-bg border border-white/15 rounded-t-3xl sm:rounded-3xl overflow-hidden pointer-events-auto shadow-2xl mt-auto sm:my-auto max-h-[92vh] sm:max-h-[90vh] flex flex-col"
+          className="relative w-full max-w-5xl domain-card-bg border border-white/15 rounded-t-3xl sm:rounded-3xl overflow-hidden pointer-events-auto shadow-2xl mt-auto sm:my-auto max-h-[92vh] sm:max-h-[90vh] flex flex-col overscroll-contain"
+          data-lenis-prevent="true"
+          data-lenis-prevent-wheel="true"
+          data-lenis-prevent-touch="true"
+          onWheel={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
         >
           {/* Header Bar */}
-          <div className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-5 bg-[#18181e]/95 backdrop-blur-md border-b border-white/10">
+          <div className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-5 bg-[#18181e]/95 backdrop-blur-md border-b border-white/10 shrink-0">
             <div className="flex items-center gap-3">
               <span className="font-mono-custom text-xs font-bold text-[#e63946]">
                 [ {project.number} ]
@@ -68,12 +91,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
 
           {/* Scrollable Body */}
-          <div className="overflow-y-auto p-4 sm:p-6 md:p-10 space-y-8 md:space-y-12">
+          <div
+            className="overflow-y-auto p-4 sm:p-6 md:p-10 space-y-8 md:space-y-12 overscroll-contain touch-pan-y"
+            data-lenis-prevent="true"
+            data-lenis-prevent-wheel="true"
+            data-lenis-prevent-touch="true"
+            onWheel={(e) => e.stopPropagation()}
+          >
             {/* Title Section */}
             <div>
-              <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">
-                {project.title}
-              </h2>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">
+                  {project.title}
+                </h2>
+                {project.caseStudy.liveUrl && (
+                  <a
+                    href={project.caseStudy.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#e63946] text-white hover:bg-[#ff4d6d] font-mono-custom text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-[#e63946]/20 cursor-pointer"
+                  >
+                    <span>Live Website</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
+              </div>
               <p className="font-display text-lg md:text-xl text-[#e63946] mt-2 font-semibold">
                 {project.subtitle}
               </p>
@@ -189,7 +231,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 {project.caseStudy.impactOrOutcome}
               </div>
 
-              <div className="flex gap-4 w-full sm:w-auto">
+              <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                {project.caseStudy.liveUrl && (
+                  <a
+                    href={project.caseStudy.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#e63946] hover:bg-[#ff4d6d] text-white font-mono-custom text-xs font-bold tracking-wider uppercase transition-all shadow-lg shadow-[#e63946]/25"
+                  >
+                    <span>Visit Live Website</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                )}
                 {project.caseStudy.githubUrl && (
                   <a
                     href={project.caseStudy.githubUrl}
