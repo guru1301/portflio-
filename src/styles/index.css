@@ -385,3 +385,57 @@ body.modal-open {
   filter: brightness(0.5);
   opacity: 0.4;
 }
+
+/* ========================================================= */
+/* VIBRANT COLORS INSIDE 'G' & PEARLESCENT FILL (NO DULL GREY) */
+/* ========================================================= */
+
+.hero-letter-g {
+  background: linear-gradient(
+    135deg,
+    #ffffff 5%,
+    #ff758f 32%,
+    var(--accent-electric, #e63946) 62%,
+    #ff4d6d 82%,
+    #ffbe0b 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 2px 14px rgba(230, 57, 70, 0.45));
+  transition: filter 0.25s ease;
+}
+
+.hero-letter-g:hover {
+  filter: drop-shadow(0 2px 20px rgba(230, 57, 70, 0.75));
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero-letter-g {
+    -webkit-text-fill-color: var(--accent-electric, #e63946) !important;
+    color: var(--accent-electric, #e63946) !important;
+  }
+}
+
+.hero-letter-white {
+  background: linear-gradient(
+    180deg,
+    #ffffff 20%,
+    #f8fafc 55%,
+    #e2e8f0 85%,
+    #cbd5e1 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero-letter-white {
+    -webkit-text-fill-color: #ffffff !important;
+    color: #ffffff !important;
+  }
+}
+

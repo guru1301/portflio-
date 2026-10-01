@@ -14,6 +14,7 @@ import type { IDCardConfig, HangingIDCardProps } from './types';
 interface IDCardSceneProps extends HangingIDCardProps {
   config: IDCardConfig;
   isReducedMotion?: boolean;
+  isMobile?: boolean;
 }
 
 export const IDCardScene: React.FC<IDCardSceneProps> = ({
@@ -25,6 +26,7 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
   degree,
   code,
   isReducedMotion = false,
+  isMobile = false,
 }) => {
   const cardGroupRef = useRef<THREE.Group>(null);
   const shadowMeshRef = useRef<THREE.Mesh>(null);
@@ -179,8 +181,12 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
       {/* High-Clarity Ambient Fill - ensures true colors and maximum visibility */}
       <ambientLight intensity={1.5} color="#ffffff" />
 
-      {/* Frontal Camera Key Light - directly illuminates the ID card face and portrait */}
-      <directionalLight position={[0, 0.5, 5]} intensity={1.8} color="#ffffff" />
+      {/* Frontal Camera Key Light - directly illuminates on desktop; angled softly on mobile to eliminate harsh white glare */}
+      <directionalLight
+        position={isMobile ? [-1.5, 2.5, 4.5] : [0, 0.5, 5]}
+        intensity={isMobile ? 1.3 : 1.8}
+        color="#ffffff"
+      />
 
       {/* Top-Right Dimensional Light */}
       <directionalLight
@@ -203,8 +209,10 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
       {/* Rim Accent Light matching active portfolio theme color */}
       <pointLight position={[0, 2.5, -2.5]} intensity={2.2} color={config.lanyard.accentColor} distance={8} />
 
-      {/* Dynamic Specular Point Light */}
-      <pointLight ref={specularLightRef} position={[1.5, 2, 3]} intensity={1.2} color="#ffffff" distance={6} />
+      {/* Dynamic Specular Point Light - desktop only, omitted on mobile to prevent blinding white reflection */}
+      {!isMobile && (
+        <pointLight ref={specularLightRef} position={[1.5, 2, 3]} intensity={1.2} color="#ffffff" distance={6} />
+      )}
 
       {/* Dynamic Soft Contact Shadow Plane */}
       <mesh ref={shadowMeshRef} position={[0, -0.2, -0.6]}>
@@ -259,6 +267,7 @@ export const IDCardScene: React.FC<IDCardSceneProps> = ({
           config={config}
           frontTexture={frontTexture}
           backTexture={backTexture}
+          isMobile={isMobile}
         />
       </group>
     </>

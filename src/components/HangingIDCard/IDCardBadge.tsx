@@ -6,10 +6,11 @@ interface IDCardBadgeProps {
   config: IDCardConfig;
   frontTexture: THREE.CanvasTexture;
   backTexture: THREE.CanvasTexture;
+  isMobile?: boolean;
 }
 
 export const IDCardBadge = forwardRef<THREE.Group, IDCardBadgeProps>(
-  ({ config, frontTexture, backTexture }, ref) => {
+  ({ config, frontTexture, backTexture, isMobile = false }, ref) => {
     const { width: w, height: h, thickness: t, cornerRadius: r, slotWidth: sw, slotHeight: sh, slotYOffset: sy } =
       config.dimensions;
 
@@ -122,7 +123,7 @@ export const IDCardBadge = forwardRef<THREE.Group, IDCardBadgeProps>(
         >
           <meshStandardMaterial
             map={frontTexture}
-            roughness={0.22}
+            roughness={isMobile ? 0.68 : 0.22}
             metalness={0.0}
             polygonOffset
             polygonOffsetFactor={-1}

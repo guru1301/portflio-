@@ -57,36 +57,37 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
   const isMobile = windowWidth < 768;
 
   // Responsive anchor position:
-  // On mobile (< 480px): Anchored at [0.82, 4.3, 0] so it hangs on the right side, clear of left typography
-  // On phablet (< 768px): [1.05, 4.3, 0]
-  // On tablet (< 1024px): [1.8, 4.3, 0]
-  // On desktop (< 1440px): [2.8, 4.3, 0]
-  // On wide desktop (>= 1440px): [3.2, 4.3, 0]
+  // On mobile (< 480px): Anchored at [1.20, 4.3, 0] so it hangs compactly on the right side
+  // On phablet (< 768px): [1.40, 4.3, 0]
+  // On tablet (< 1024px): [1.8, 4.3, 0] (laptop/desktop unchanged)
+  // On desktop (< 1440px): [2.8, 4.3, 0] (laptop/desktop unchanged)
+  // On wide desktop (>= 1440px): [3.2, 4.3, 0] (laptop/desktop unchanged)
   const anchor = useMemo<[number, number, number]>(() => {
-    if (windowWidth < 480) return [0.82, 4.3, 0];
-    if (windowWidth < 768) return [1.05, 4.3, 0];
+    if (windowWidth < 480) return [1.20, 4.3, 0];
+    if (windowWidth < 768) return [1.40, 4.3, 0];
     if (windowWidth < 1024) return [1.8, 4.3, 0];  // Tablet
     if (windowWidth < 1440) return [2.8, 4.3, 0];  // Desktop
     return [3.2, 4.3, 0];                          // Wide desktop
   }, [windowWidth]);
 
   // Compute responsive restLength for the lanyard rope:
-  // On mobile: 4.7 puts the card at restY = 4.3 - 4.7 = -0.40, vertically centered on the right
-  // On desktop: 4.6 puts the card at restY = 4.3 - 4.6 = -0.30 (unchanged desktop layout)
+  // On mobile: 4.8 positions the smaller card neatly in the lower-right quadrant
+  // On desktop: 4.6 (laptop/desktop unchanged)
   const restLength = useMemo(() => {
-    if (windowWidth < 768) return 4.7;
+    if (windowWidth < 768) return 4.8;
     return DEFAULT_CARD_CONFIG.lanyard.restLength;
   }, [windowWidth]);
 
   // Compute responsive scale:
-  // On mobile: 0.70 is compact yet sharp and completely avoids any collision with text
-  // On desktop: 0.74 (tablet) / 0.86 (desktop) / 0.94 (wide desktop)
+  // On mobile (< 480): 0.48 is compact, refined, and never dominates or blocks the screen
+  // On phablet (< 768): 0.56
+  // On laptop / desktop: 0.95 / 1.04 (COMPLETELY UNCHANGED for laptops)
   const responsiveScale = useMemo(() => {
-    if (windowWidth < 480) return 0.75;           // Compact, crisp, avoids any collision
-    if (windowWidth < 768) return 0.78;           // Phablet
-    if (windowWidth < 1024) return 0.82;          // Tablet
-    if (windowWidth < 1440) return 0.95;          // Desktop
-    return 1.04;                                  // Large desktop
+    if (windowWidth < 480) return 0.48;           // Compact, sleek on mobile
+    if (windowWidth < 768) return 0.56;           // Phablet
+    if (windowWidth < 1024) return 0.80;          // Tablet
+    if (windowWidth < 1440) return 0.95;          // Laptop / Desktop (unchanged)
+    return 1.04;                                  // Large desktop (unchanged)
   }, [windowWidth]);
 
   // Merge default config with user overrides and responsive positioning
@@ -141,6 +142,7 @@ export const HangingIDCard: React.FC<HangingIDCardProps> = ({
           location={location}
           code={code}
           isReducedMotion={isReducedMotion}
+          isMobile={isMobile}
         />
       </Canvas>
 

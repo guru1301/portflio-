@@ -106,13 +106,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ y: 25, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="tubelight-flicker-white font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] 2xl:text-8xl font-black tracking-tight leading-[0.9] uppercase select-none text-white whitespace-nowrap drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
+              className="tubelight-flicker-white font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] 2xl:text-8xl font-black tracking-tight leading-[0.9] uppercase select-none whitespace-nowrap drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
+              style={{
+                ['--accent-electric' as string]: accentColor,
+              }}
             >
               <span className="inline-flex whitespace-nowrap">
                 {['G', 'U', 'R', 'U'].map((char, idx) => (
                   <span
                     key={idx}
-                    className="hover-flicker-letter inline-block"
+                    className={`hover-flicker-letter inline-block ${
+                      idx === 0 ? 'hero-letter-g' : 'hero-letter-white'
+                    }`}
                   >
                     {char}
                   </span>
